@@ -160,3 +160,13 @@ bin/
 
 # Simulation GUI and other tools window save file
 *-window.json
+
+# Manually added
+.vscode/
+.wpilib/
+build.gradle
+gradle/
+gradlew
+gradlew.bat
+settings.gradle
+vendordeps/WPILibNewCommands.json

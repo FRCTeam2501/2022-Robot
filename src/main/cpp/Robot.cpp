@@ -1,36 +1,46 @@
-#include <frc/Joystick.h>
-#include <frc/TimedRobot.h>
-#include <frc/drive/DifferentialDrive.h>
-#include <frc/motorcontrol/PWMSparkMax.h>
+#include "Robot.h"
 
-/**
- * This is a demo program showing the use of the DifferentialDrive class.
- * Runs the motors with arcade steering.
- */
-class Robot : public frc::TimedRobot {
-    frc::PWMSparkMax m_leftMotor{0};
-    frc::PWMSparkMax m_rightMotor{1};
-    frc::DifferentialDrive m_robotDrive{m_leftMotor, m_rightMotor};
-    frc::Joystick m_stick{0};
+#include <frc2/command/CommandScheduler.h>
 
-public:
-    void RobotInit() override
-    {
-        // We need to invert one side of the drivetrain so that positive voltages
-        // result in both sides moving forward. Depending on how your robot's
-        // gearbox is constructed, you might have to invert the left side instead.
-        m_rightMotor.SetInverted(true);
-    }
 
-    void TeleopPeriodic() override
-    {
-        // Drive with arcade style
-        m_robotDrive.ArcadeDrive(-m_stick.GetY(), m_stick.GetX());
-    }
-};
+void Robot::RobotInit() {
+
+}
+
+void Robot::RobotPeriodic() {
+  	frc2::CommandScheduler::GetInstance().Run();
+}
+
+void Robot::DisabledInit() {
+
+}
+
+void Robot::DisabledPeriodic() {
+
+}
+
+void Robot::AutonomousInit() {
+
+}
+
+void Robot::AutonomousPeriodic() {
+
+}
+
+void Robot::TeleopInit() {
+
+}
+
+void Robot::TeleopPeriodic() {
+
+}
+
+void Robot::TestPeriodic() {
+
+}
 
 #ifndef RUNNING_FRC_TESTS
 int main() {
-    return frc::StartRobot<Robot>();
+	return frc::StartRobot<Robot>();
 }
 #endif

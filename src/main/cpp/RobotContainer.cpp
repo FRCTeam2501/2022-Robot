@@ -1,10 +1,11 @@
 #include "RobotContainer.h"
 #include "frc2/command/RunCommand.h"
+#include "frc2/command/button/JoystickButton.h"
 #include "Constants.h"
 
 
 RobotContainer::RobotContainer() {
-    driveStick = new frc::Joystick(CONSTANTS::CONTROLLERS::USB::DRIVESTICK);
+    driveStick = new frc::Joystick(CONSTANTS::CONTROLLERS::USB::DRIVE_STICK);
 
     ConfigureButtonBindings();
 
@@ -20,5 +21,13 @@ RobotContainer::RobotContainer() {
 }
 
 void RobotContainer::ConfigureButtonBindings() {
-    
+    frc2::JoystickButton *temp = new frc2::JoystickButton(
+        driveStick,
+        CONSTANTS::CONTROLLERS::BUTTONS::DRIVE_STICK_REVERSE_DRIVETRAIN
+    );
+    temp->WhenPressed(
+        [this] {
+            drivetrain->SetInverted(!drivetrain->IsInverted());
+        }
+    );
 }

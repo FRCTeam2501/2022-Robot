@@ -14,7 +14,10 @@ namespace CONSTANTS {
         constexpr int RIGHT_REAR_ID = 4;
     }
     namespace CONTROLLERS::USB {
-        constexpr int DRIVESTICK = 0;
+        constexpr int DRIVE_STICK = 0;
+    }
+    namespace CONTROLLERS::BUTTONS {
+        constexpr int DRIVE_STICK_REVERSE_DRIVETRAIN = 1;
     }
     namespace DRIVETRAIN {
         constexpr units::dimensionless::scalar_t

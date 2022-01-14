@@ -22,4 +22,7 @@ class Drivetrain : public frc2::SubsystemBase {
     ~Drivetrain();
 
     void ArcadeDrive(double xSpeed, double zRotation);
+
+    bool IsInverted();
+    void SetInverted(bool inverted);
 };

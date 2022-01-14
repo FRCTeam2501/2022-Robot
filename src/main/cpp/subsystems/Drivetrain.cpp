@@ -65,3 +65,11 @@ void Drivetrain::ArcadeDrive(double xSpeed, double zRotation) {
         CONSTANTS::DRIVETRAIN::ROTATION_SPEED * zRotation
     );
 }
+
+bool Drivetrain::IsInverted() {
+    return *isInverted;
+}
+
+void Drivetrain::SetInverted(bool inverted) {
+    *isInverted = inverted;
+}

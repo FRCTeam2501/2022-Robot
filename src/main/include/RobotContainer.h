@@ -1,10 +1,13 @@
 #pragma once
-
-#include <frc2/command/Command.h>
+#include "frc/Joystick.h"
+#include "subsystems/Drivetrain.h"
 
 
 class RobotContainer {
   private:
+    Drivetrain drivetrain;
+    frc::Joystick driveStick;
+
     void ConfigureButtonBindings();
 
   public:

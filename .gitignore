@@ -169,4 +169,4 @@ gradle/
 gradlew
 gradlew.bat
 settings.gradle
-vendordeps/WPILibNewCommands.json
+vendordeps/*.json

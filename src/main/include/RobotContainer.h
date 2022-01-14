@@ -5,8 +5,8 @@
 
 class RobotContainer {
   private:
-    Drivetrain drivetrain;
-    frc::Joystick driveStick;
+    Drivetrain *drivetrain;
+    frc::Joystick *driveStick;
 
     void ConfigureButtonBindings();
 

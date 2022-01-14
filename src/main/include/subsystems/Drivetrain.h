@@ -8,15 +8,18 @@
 class Drivetrain : public frc2::SubsystemBase {
   private:
     // Individual speed controllers
-    rev::CANSparkMax leftFront, rightFront, leftRear, rightRear;
+    rev::CANSparkMax *leftFront, *rightFront, *leftRear, *rightRear;
     // Groups of speed controllers
-    frc::MotorControllerGroup left{leftFront, leftRear};
-    frc::MotorControllerGroup right{rightFront, rightRear};
+    frc::MotorControllerGroup *left, *right;
     // Differential drivetrain object
-    frc::DifferentialDrive drive{left, right};
+    frc::DifferentialDrive *drive;
+
+    // State variable to indicate if the drivetrain is inverted
+    bool *isInverted;
 
   public:
 	Drivetrain();
+    ~Drivetrain();
 
     void ArcadeDrive(double xSpeed, double zRotation);
 };

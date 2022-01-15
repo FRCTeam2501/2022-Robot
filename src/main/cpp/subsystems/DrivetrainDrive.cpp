@@ -17,6 +17,7 @@ DrivetrainDrive::DrivetrainDrive()
   rearLeft->Follow(*frontLeft);
   rearRight->Follow(*frontRight);
   drive = new DifferentialDrive(*frontLeft, *frontRight);
+  frontRight->SetInverted(true);
 }
 DrivetrainDrive::~DrivetrainDrive()
 {
@@ -28,7 +29,6 @@ DrivetrainDrive::~DrivetrainDrive()
 }
 void DrivetrainDrive::ArcadeDrive(double x, double z){
     
-        
     drive->ArcadeDrive(x, z);
 }
 void DrivetrainDrive::InitDefaultCommand()

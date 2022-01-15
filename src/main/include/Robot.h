@@ -28,7 +28,7 @@ Robot();
 
 frc2::Command* m_autonomousCommand = nullptr;
 
-  RobotContainer m_container;
+  //RobotContainer m_container;
 
  private:
  RobotContainer *container;

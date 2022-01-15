@@ -4,9 +4,10 @@ import com.revrobotics.CANSparkMax;
 
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
-public class Drivetrain {
+public class Drivetrain extends SubsystemBase {
     private final CANSparkMax leftFront, rightFront, leftRear, rightRear;
     private final MotorControllerGroup left, right;
     private final DifferentialDrive drive;

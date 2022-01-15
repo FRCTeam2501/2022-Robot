@@ -11,4 +11,6 @@ public final class Constants {
 
     public static final int HARD_CURRENT_LIMIT = 100;
     public static final int SOFT_CURRENT_LIMIT = 60;
+
+    public static final int DRIVE_STICK_ID = 0;
 }

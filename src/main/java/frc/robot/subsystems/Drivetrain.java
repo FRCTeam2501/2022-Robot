@@ -18,6 +18,19 @@ public class Drivetrain {
         leftRear = new CANSparkMax(Constants.LEFT_REAR_ID, CANSparkMax.MotorType.kBrushless);
         rightRear = new CANSparkMax(Constants.RIGHT_REAR_ID, CANSparkMax.MotorType.kBrushless);
 
+        leftFront.setSmartCurrentLimit(Constants.HARD_CURRENT_LIMIT);
+        leftFront.setSecondaryCurrentLimit(Constants.SOFT_CURRENT_LIMIT);
+        leftFront.setIdleMode(CANSparkMax.IdleMode.kCoast);
+        rightFront.setSmartCurrentLimit(Constants.HARD_CURRENT_LIMIT);
+        rightFront.setSecondaryCurrentLimit(Constants.SOFT_CURRENT_LIMIT);
+        rightFront.setIdleMode(CANSparkMax.IdleMode.kCoast);
+        leftRear.setSmartCurrentLimit(Constants.HARD_CURRENT_LIMIT);
+        leftRear.setSecondaryCurrentLimit(Constants.SOFT_CURRENT_LIMIT);
+        leftRear.setIdleMode(CANSparkMax.IdleMode.kCoast);
+        rightRear.setSmartCurrentLimit(Constants.HARD_CURRENT_LIMIT);
+        rightRear.setSecondaryCurrentLimit(Constants.SOFT_CURRENT_LIMIT);
+        rightRear.setIdleMode(CANSparkMax.IdleMode.kCoast);
+
         left = new MotorControllerGroup(leftFront, leftRear);
         right = new MotorControllerGroup(rightFront, rightRear);
 

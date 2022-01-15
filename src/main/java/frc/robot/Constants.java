@@ -13,4 +13,6 @@ public final class Constants {
     public static final int SOFT_CURRENT_LIMIT = 60;
 
     public static final int DRIVE_STICK_ID = 0;
+
+    public static final int DRIVE_STICK_REVERSE_DRIVETRAIN = 1;
 }

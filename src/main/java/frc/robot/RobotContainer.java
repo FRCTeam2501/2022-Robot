@@ -2,6 +2,7 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.RunCommand;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.subsystems.Drivetrain;
 
 public class RobotContainer {
@@ -24,6 +25,13 @@ public class RobotContainer {
     }
 
     private void configureButtonBindings() {
-        
+        JoystickButton temp = new JoystickButton(
+            driveStick,
+            Constants.DRIVE_STICK_REVERSE_DRIVETRAIN
+        );
+        temp.whenPressed(
+            () -> drivetrain.setInverted(!drivetrain.isInverted()),
+            drivetrain
+        );
     }
 }

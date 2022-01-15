@@ -170,3 +170,4 @@ gradlew
 gradlew.bat
 settings.gradle
 vendordeps/WPILibNewCommands.json
+vendordeps/REVLib.json

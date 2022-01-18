@@ -14,10 +14,12 @@ DrivetrainDrive::DrivetrainDrive()
   frontRight = new rev::CANSparkMax(Constants::FrontRight, rev::CANSparkMax::MotorType::kBrushless);
   rearLeft = new rev::CANSparkMax(Constants::RearLeft, rev::CANSparkMax::MotorType::kBrushless);
   rearRight = new rev::CANSparkMax(Constants::RearRight, rev::CANSparkMax::MotorType::kBrushless);
-  rearLeft->Follow(*frontLeft);
-  rearRight->Follow(*frontRight);
-  drive = new DifferentialDrive(*frontLeft, *frontRight);
-  frontRight->SetInverted(true);
+ 
+  LeftSide = new frc::MotorControllerGroup(*frontLeft, *rearLeft);
+  RightSide = new frc::MotorControllerGroup(*frontRight, *rearRight);
+  
+  drive = new DifferentialDrive(*LeftSide, *RightSide);
+  RightSide->SetInverted(true);
 }
 DrivetrainDrive::~DrivetrainDrive()
 {
@@ -26,6 +28,8 @@ DrivetrainDrive::~DrivetrainDrive()
   delete rearLeft;
   delete rearRight;
   delete drive;
+  delete LeftSide;
+  delete RightSide;
 }
 void DrivetrainDrive::ArcadeDrive(double x, double z){
     

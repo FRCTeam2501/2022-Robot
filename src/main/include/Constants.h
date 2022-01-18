@@ -11,10 +11,10 @@ namespace Constants {
 
 
 
-constexpr int FrontRight = 3;
+constexpr int FrontRight = 2;
 constexpr int FrontLeft = 1;
-constexpr int RearRight = 2;
-constexpr int RearLeft = 4;
+constexpr int RearRight = 3;
+constexpr int RearLeft = 5;
 
 namespace DRIVETRAIN {
     /*

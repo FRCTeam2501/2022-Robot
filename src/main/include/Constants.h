@@ -12,6 +12,9 @@ namespace CONSTANTS {
         constexpr int RIGHT_FRONT_ID = 2;
         constexpr int LEFT_REAR_ID = 3;
         constexpr int RIGHT_REAR_ID = 4;
+        constexpr int CLIMBER_ROTATION_ID = 5;
+        constexpr int CLIMBER_LEFT_WINCH_ID = 6;
+        constexpr int CLIMBER_RIGHT_WINCH_ID = 7;
     }
     namespace CONTROLLERS::USB {
         constexpr int DRIVE_STICK = 0;
@@ -32,7 +35,19 @@ namespace CONSTANTS {
                 TRACK_WIDTH = 22_in,
                 WHEEL_CIR = (WHEEL_DIAMETER * units::constants::pi);
         constexpr auto
-					TURN_TO_METER = WHEEL_CIR * GEAR_RATIO
-                                    / units::angle::turn_t(1);
+                TURN_TO_METER = WHEEL_CIR * GEAR_RATIO
+                                / units::angle::turn_t(1);
+    }
+    namespace CLIMBER {
+        constexpr units::current::ampere_t
+                HARD_CURRENT_LIMIT = 100_A,
+                SOFT_CURRENT_LIMIT = 60_A;
+        constexpr auto
+                TURN_TO_DEGREES = 360.0 / units::angle::turn_t(1);
+        namespace CONTROL {
+            constexpr double P = 0.1, I = 0.0, D = 0.0;
+            constexpr double F = 0.0, I_ZONE = 0.0;
+            constexpr double MAX = 1.0, MIN = -1.0;
+        }
     }
 }

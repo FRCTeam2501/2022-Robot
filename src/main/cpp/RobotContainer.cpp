@@ -5,7 +5,10 @@
 
 
 RobotContainer::RobotContainer() {
-    driveStick = new frc::Joystick(CONSTANTS::CONTROLLERS::USB::DRIVE_STICK);
+    driveStick = new frc::Joystick(
+        CONSTANTS::CONTROLLERS::USB::DRIVE_STICK);
+    controlStick = new frc::Joystick(
+        CONSTANTS::CONTROLLERS::USB::CONTROL_STICK);
 
     ConfigureButtonBindings();
 
@@ -21,13 +24,25 @@ RobotContainer::RobotContainer() {
 }
 
 void RobotContainer::ConfigureButtonBindings() {
-    frc2::JoystickButton *temp = new frc2::JoystickButton(
+    frc2::JoystickButton *temp;
+    
+    temp = new frc2::JoystickButton(
         driveStick,
-        CONSTANTS::CONTROLLERS::BUTTONS::DRIVE_STICK_REVERSE_DRIVETRAIN
+        CONSTANTS::CONTROLLERS::BUTTONS::DRIVE_STICK::REVERSE_DRIVETRAIN
     );
     temp->WhenPressed(
         [this] {
             drivetrain->SetInverted(!drivetrain->IsInverted());
+        }
+    );
+
+    temp = new frc2::JoystickButton(
+        controlStick,
+        CONSTANTS::CONTROLLERS::BUTTONS::CONTROL_STICK::INCREMENT_CLIMBER
+    );
+    temp->WhenPressed(
+        [this] {
+            climber->IncrementState();
         }
     );
 }

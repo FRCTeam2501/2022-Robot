@@ -22,32 +22,37 @@ Climber::Climber() {
 
     // Setup current limits, idle modes, and encoder factors
     leftWinch->SetSmartCurrentLimit(
-        CONSTANTS::CLIMBER::HARD_CURRENT_LIMIT.to<int>());
+            CONSTANTS::CLIMBER::WINCH::HARD_CURRENT_LIMIT.to<int>());
     leftWinch->SetSecondaryCurrentLimit(
-        CONSTANTS::CLIMBER::SOFT_CURRENT_LIMIT.to<double>());
+            CONSTANTS::CLIMBER::WINCH::SOFT_CURRENT_LIMIT.to<double>());
 
     rightWinch->SetSmartCurrentLimit(
-        CONSTANTS::CLIMBER::HARD_CURRENT_LIMIT.to<int>());
+            CONSTANTS::CLIMBER::WINCH::HARD_CURRENT_LIMIT.to<int>());
     rightWinch->SetSecondaryCurrentLimit(
-        CONSTANTS::CLIMBER::SOFT_CURRENT_LIMIT.to<double>());
+            CONSTANTS::CLIMBER::WINCH::SOFT_CURRENT_LIMIT.to<double>());
 
     rotation->SetSmartCurrentLimit(
-        CONSTANTS::CLIMBER::HARD_CURRENT_LIMIT.to<int>());
+            CONSTANTS::CLIMBER::ROTATION::HARD_CURRENT_LIMIT.to<int>());
     rotation->SetSecondaryCurrentLimit(
-        CONSTANTS::CLIMBER::SOFT_CURRENT_LIMIT.to<double>());
+            CONSTANTS::CLIMBER::ROTATION::SOFT_CURRENT_LIMIT.to<double>());
     rotation->GetEncoder().SetPositionConversionFactor(
-        CONSTANTS::CLIMBER::TURN_TO_DEGREES.to<double>());
+            CONSTANTS::CLIMBER::ROTATION::TURN_TO_DEGREES.to<double>());
 
 
     // Set up PID controllers
-    rotation->GetPIDController().SetP(CONSTANTS::CLIMBER::CONTROL::P);
-    rotation->GetPIDController().SetI(CONSTANTS::CLIMBER::CONTROL::I);
-    rotation->GetPIDController().SetD(CONSTANTS::CLIMBER::CONTROL::D);
-    rotation->GetPIDController().SetFF(CONSTANTS::CLIMBER::CONTROL::F);
-    rotation->GetPIDController().SetIZone(CONSTANTS::CLIMBER::CONTROL::I_ZONE);
+    rotation->GetPIDController().SetP(
+            CONSTANTS::CLIMBER::ROTATION::PID::P);
+    rotation->GetPIDController().SetI(
+            CONSTANTS::CLIMBER::ROTATION::PID::I);
+    rotation->GetPIDController().SetD(
+            CONSTANTS::CLIMBER::ROTATION::PID::D);
+    rotation->GetPIDController().SetFF(
+            CONSTANTS::CLIMBER::ROTATION::PID::FF);
+    rotation->GetPIDController().SetIZone(
+            CONSTANTS::CLIMBER::ROTATION::PID::I_ZONE);
     rotation->GetPIDController().SetOutputRange(
-        CONSTANTS::CLIMBER::CONTROL::MIN,
-        CONSTANTS::CLIMBER::CONTROL::MAX
+            CONSTANTS::CLIMBER::ROTATION::PID::MIN,
+            CONSTANTS::CLIMBER::ROTATION::PID::MAX
     );
 }
 
@@ -63,7 +68,15 @@ void Climber::SetWinchSpeed(double speed) {
     winches->Set(speed);
 }
 
-void Climber::SetRotationAngle(double angle) {
+units::degree_t Climber::GetRotationAngle() {
+    return angle;
+}
+
+void Climber::SetRotationAngle(units::degree_t angle) {
+    // Save the angle
+    Climber::angle = angle;
+
+    // Update the PID controller
     rotation->GetPIDController().SetReference(
-        angle, rev::CANSparkMaxLowLevel::ControlType::kPosition);
+        angle.to<double>(), rev::CANSparkMaxLowLevel::ControlType::kPosition);
 }

@@ -8,19 +8,30 @@
 
 namespace CONSTANTS {
     namespace MOTORS::CAN {
-        constexpr int LEFT_FRONT_ID = 1;
-        constexpr int RIGHT_FRONT_ID = 2;
-        constexpr int LEFT_REAR_ID = 3;
-        constexpr int RIGHT_REAR_ID = 4;
-        constexpr int CLIMBER_ROTATION_ID = 5;
-        constexpr int CLIMBER_LEFT_WINCH_ID = 6;
-        constexpr int CLIMBER_RIGHT_WINCH_ID = 7;
+        constexpr int
+                LEFT_FRONT_ID = 1,
+                RIGHT_FRONT_ID = 2,
+                LEFT_REAR_ID = 3,
+                RIGHT_REAR_ID = 4,
+                CLIMBER_ROTATION_ID = 5,
+                CLIMBER_LEFT_WINCH_ID = 6,
+                CLIMBER_RIGHT_WINCH_ID = 7;
     }
     namespace CONTROLLERS::USB {
-        constexpr int DRIVE_STICK = 0;
+        constexpr int
+                DRIVE_STICK = 0,
+                CONTROL_STICK = 1;
     }
     namespace CONTROLLERS::BUTTONS {
-        constexpr int DRIVE_STICK_REVERSE_DRIVETRAIN = 1;
+        namespace DRIVE_STICK {
+            constexpr int
+                    REVERSE_DRIVETRAIN = 1;
+        }
+        namespace CONTROL_STICK {
+            constexpr int
+                    INCREMENT_CLIMBER = 1,
+                    DECREMENT_CLIMBER = 2;
+        }
     }
     namespace DRIVETRAIN {
         constexpr units::dimensionless::scalar_t
@@ -35,19 +46,30 @@ namespace CONSTANTS {
                 TRACK_WIDTH = 22_in,
                 WHEEL_CIR = (WHEEL_DIAMETER * units::constants::pi);
         constexpr auto
-                TURN_TO_METER = WHEEL_CIR * GEAR_RATIO
-                                / units::angle::turn_t(1);
+                TURN_TO_METER = WHEEL_CIR / GEAR_RATIO;
     }
-    namespace CLIMBER {
+    namespace CLIMBER::WINCH {
         constexpr units::current::ampere_t
                 HARD_CURRENT_LIMIT = 100_A,
                 SOFT_CURRENT_LIMIT = 60_A;
+    }
+    namespace CLIMBER::ROTATION {
+        constexpr units::current::ampere_t
+                HARD_CURRENT_LIMIT = 120_A,
+                SOFT_CURRENT_LIMIT = 80_A;
+        constexpr units::scalar_t
+                GEAR_RATIO = 100 * 4;
         constexpr auto
-                TURN_TO_DEGREES = 360.0 / units::angle::turn_t(1);
-        namespace CONTROL {
-            constexpr double P = 0.1, I = 0.0, D = 0.0;
-            constexpr double F = 0.0, I_ZONE = 0.0;
-            constexpr double MAX = 1.0, MIN = -1.0;
+                TURN_TO_DEGREES = GEAR_RATIO / 360_deg;
+        namespace PID {
+            constexpr double 
+                    P = 0.1,
+                    I = 0.0,
+                    D = 0.0,
+                    FF = 0.0,
+                    I_ZONE = 0.0,
+                    MAX = 1.0,
+                    MIN = -1.0;
         }
     }
 }

@@ -10,11 +10,15 @@ class Climber : public frc2::SubsystemBase {
     rev::CANSparkMax *leftWinch, *rightWinch, *rotation;
     // Groups of speed controllers
     frc::MotorControllerGroup *winches;
+    // State variables
+    units::degree_t angle;
 
   public:
     Climber();
     ~Climber();
 
     void SetWinchSpeed(double speed);
-    void SetRotationAngle(double angle);
+
+    units::degree_t GetRotationAngle();
+    void SetRotationAngle(units::degree_t angle);
 };

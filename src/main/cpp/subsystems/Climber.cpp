@@ -36,6 +36,9 @@ void Climber::WinchesOff(double winchPowerOff){
     winches->Set(winchPowerOff);
 }
 
+void Climber::ControlPivot(double pivotPower){
+    pivotClimb->Set(pivotPower);
+}
 void Climber::Periodic() {}
 
 void Climber::InitDefaultCommand()

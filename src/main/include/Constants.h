@@ -16,6 +16,11 @@ constexpr int FrontLeft = 1;
 constexpr int RearRight = 3;
 constexpr int RearLeft = 5;
 
+constexpr int winchRight = 6;
+constexpr int winchLeft = 7;
+constexpr int climbPivot = 8;
+
+
 namespace DRIVETRAIN {
     /*
 		constexpr units::current::ampere_t

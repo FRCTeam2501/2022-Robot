@@ -21,6 +21,7 @@ using namespace frc;
 #include <frc2/command/Command.h>
 #include "include.h"
 #include "subsystems/DrivetrainDrive.h"
+#include "subsystems/Climber.h"
 #include <frc2/command/Subsystem.h>
 #include "Constants.h"
 #include "ButtonMap.h"
@@ -38,6 +39,8 @@ class RobotContainer {
  private:
   // The robot's subsystems and commands are defined here...
   DrivetrainDrive *drive;
-  Joystick *driveStick;
+  Climber *climber;
+  Joystick *driveStick, *controlStick;
+  frc2::JoystickButton *winchUp, *winchDown, *winchOff;
   void ConfigureButtonBindings();
 };

@@ -29,6 +29,8 @@ namespace CONSTANTS {
         }
         namespace CONTROL_STICK {
             constexpr int
+                    RUN_WINCHES = 1,
+                    REVERSE_WINCHES = 2,
                     INCREMENT_CLIMBER_ANGLE = 7,
                     DECREMENT_CLIMBER_ANGLE = 9;
         }
@@ -52,6 +54,10 @@ namespace CONSTANTS {
         constexpr units::current::ampere_t
                 HARD_CURRENT_LIMIT = 100_A,
                 SOFT_CURRENT_LIMIT = 60_A;
+        constexpr double
+                FORWARD_ADJUSTMENT_SPEED = 0.5, // 50% to 100% speed adjustment
+                REVERSE_MIN_SPEED = 0.25,
+                REVERSE_MAX_SPEED = 0.75; // 25% to 75% speed adjustment
     }
     namespace CLIMBER::ROTATION {
         constexpr units::current::ampere_t

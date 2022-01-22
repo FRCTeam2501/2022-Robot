@@ -42,6 +42,39 @@ void RobotContainer::ConfigureButtonBindings() {
 
     temp = new frc2::JoystickButton(
         controlStick,
+        CONSTANTS::CONTROLLERS::BUTTONS::CONTROL_STICK::RUN_WINCHES
+    );
+    temp->WhileHeld(
+        [this] {
+            double speed = controlStick->GetThrottle();
+            // Scale the speed to be from 100% down to FORWARD_ADJUSTMENT_SPEED
+            speed *= CONSTANTS::CLIMBER::WINCH::FORWARD_ADJUSTMENT_SPEED;
+            speed += 1.0;
+            speed -= CONSTANTS::CLIMBER::WINCH::FORWARD_ADJUSTMENT_SPEED;
+            climber->SetWinchSpeed(speed);
+        },
+        { climber }
+    );
+
+    temp = new frc2::JoystickButton(
+        controlStick,
+        CONSTANTS::CONTROLLERS::BUTTONS::CONTROL_STICK::REVERSE_WINCHES
+    );
+    temp->WhileHeld(
+        [this] {
+            double speed = controlStick->GetThrottle();
+            // Scale the speed to be from REVERSE_MAX_SPEED down to REVERSE_MIN_SPEED
+            speed += 1.0;
+            speed /= -2.0;
+            speed *= CONSTANTS::CLIMBER::WINCH::REVERSE_MAX_SPEED - CONSTANTS::CLIMBER::WINCH::REVERSE_MIN_SPEED;
+            speed -= CONSTANTS::CLIMBER::WINCH::REVERSE_MIN_SPEED;
+            climber->SetWinchSpeed(speed);
+        },
+        { climber }
+    );
+
+    temp = new frc2::JoystickButton(
+        controlStick,
         CONSTANTS::CONTROLLERS::BUTTONS::CONTROL_STICK::INCREMENT_CLIMBER_ANGLE
     );
     temp->WhenPressed(

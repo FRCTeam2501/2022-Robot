@@ -2,6 +2,7 @@
 #include "frc/motorcontrol/MotorControllerGroup.h"
 #include "frc2/command/SubsystemBase.h"
 #include "rev/CANSparkMax.h"
+#include "units/angle.h"
 
 
 class Climber : public frc2::SubsystemBase {

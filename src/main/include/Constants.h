@@ -29,8 +29,8 @@ namespace CONSTANTS {
         }
         namespace CONTROL_STICK {
             constexpr int
-                    INCREMENT_CLIMBER = 1,
-                    DECREMENT_CLIMBER = 2;
+                    INCREMENT_CLIMBER_ANGLE = 7,
+                    DECREMENT_CLIMBER_ANGLE = 9;
         }
     }
     namespace DRIVETRAIN {
@@ -59,6 +59,10 @@ namespace CONSTANTS {
                 SOFT_CURRENT_LIMIT = 80_A;
         constexpr units::scalar_t
                 GEAR_RATIO = 100 * 4;
+        constexpr units::degree_t
+                MIN_ANGLE = 0_deg,
+                MAX_ANGLE = 60_deg,
+                ADJUSTMENT_ANGLE = 5_deg;
         constexpr auto
                 TURN_TO_DEGREES = GEAR_RATIO / 360_deg;
         namespace PID {

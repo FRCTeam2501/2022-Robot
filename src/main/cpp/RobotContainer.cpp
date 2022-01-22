@@ -11,7 +11,8 @@ RobotContainer::RobotContainer() {
         CONSTANTS::CONTROLLERS::USB::CONTROL_STICK);
 
 	drivetrain = new Drivetrain();
-	climber = new Climber();
+	climberRotate = new ClimberRotate();
+    climberWinches = new ClimberWinches();
 
     ConfigureButtonBindings();
 
@@ -51,9 +52,9 @@ void RobotContainer::ConfigureButtonBindings() {
             speed *= CONSTANTS::CLIMBER::WINCH::FORWARD_ADJUSTMENT_SPEED;
             speed += 1.0;
             speed -= CONSTANTS::CLIMBER::WINCH::FORWARD_ADJUSTMENT_SPEED;
-            climber->SetWinchSpeed(speed);
+            climberWinches->SetSpeed(speed);
         },
-        { climber }
+        { climberWinches }
     );
 
     temp = new frc2::JoystickButton(
@@ -68,9 +69,9 @@ void RobotContainer::ConfigureButtonBindings() {
             speed /= -2.0;
             speed *= CONSTANTS::CLIMBER::WINCH::REVERSE_MAX_SPEED - CONSTANTS::CLIMBER::WINCH::REVERSE_MIN_SPEED;
             speed -= CONSTANTS::CLIMBER::WINCH::REVERSE_MIN_SPEED;
-            climber->SetWinchSpeed(speed);
+            climberWinches->SetSpeed(speed);
         },
-        { climber }
+        { climberWinches }
     );
 
     temp = new frc2::JoystickButton(
@@ -79,14 +80,14 @@ void RobotContainer::ConfigureButtonBindings() {
     );
     temp->WhenPressed(
         [this] {
-            units::degree_t angle = climber->GetRotationAngle();
+            units::degree_t angle = climberRotate->GetAngle();
             angle += CONSTANTS::CLIMBER::ROTATION::ADJUSTMENT_ANGLE;
             if(angle > CONSTANTS::CLIMBER::ROTATION::MAX_ANGLE) {
                 angle = CONSTANTS::CLIMBER::ROTATION::MAX_ANGLE;
             }
-            climber->SetRotationAngle(angle);
+            climberRotate->SetAngle(angle);
         },
-		{ climber }
+		{ climberRotate }
     );
 
 	temp = new frc2::JoystickButton(
@@ -95,13 +96,13 @@ void RobotContainer::ConfigureButtonBindings() {
 	);
 	temp->WhenPressed(
 		[this] {
-			units::degree_t angle = climber->GetRotationAngle();
+			units::degree_t angle = climberRotate->GetAngle();
             angle -= CONSTANTS::CLIMBER::ROTATION::ADJUSTMENT_ANGLE;
             if(angle < CONSTANTS::CLIMBER::ROTATION::MIN_ANGLE) {
                 angle = CONSTANTS::CLIMBER::ROTATION::MIN_ANGLE;
             }
-            climber->SetRotationAngle(angle);
+            climberRotate->SetAngle(angle);
 		},
-		{ climber }
+		{ climberRotate }
 	);
 }

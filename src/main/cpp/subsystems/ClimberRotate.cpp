@@ -1,36 +1,16 @@
-#include "subsystems/Climber.h"
+#include "subsystems/ClimberRotate.h"
 #include "Constants.h"
 
 
-Climber::Climber() {
+ClimberRotate::ClimberRotate() {
     // Create motor controllers
-    leftWinch = new rev::CANSparkMax(
-        CONSTANTS::MOTORS::CAN::CLIMBER_LEFT_WINCH_ID,
-        rev::CANSparkMax::MotorType::kBrushless
-    );
-    rightWinch = new rev::CANSparkMax(
-        CONSTANTS::MOTORS::CAN::CLIMBER_RIGHT_WINCH_ID,
-        rev::CANSparkMax::MotorType::kBrushless
-    );
     rotation = new rev::CANSparkMax(
         CONSTANTS::MOTORS::CAN::CLIMBER_ROTATION_ID,
         rev::CANSparkMax::MotorType::kBrushless
     );
 
-    winches = new frc::MotorControllerGroup(*leftWinch, *rightWinch);
 
-
-    // Setup current limits, idle modes, and encoder factors
-    leftWinch->SetSmartCurrentLimit(
-            CONSTANTS::CLIMBER::WINCH::HARD_CURRENT_LIMIT.to<int>());
-    leftWinch->SetSecondaryCurrentLimit(
-            CONSTANTS::CLIMBER::WINCH::SOFT_CURRENT_LIMIT.to<double>());
-
-    rightWinch->SetSmartCurrentLimit(
-            CONSTANTS::CLIMBER::WINCH::HARD_CURRENT_LIMIT.to<int>());
-    rightWinch->SetSecondaryCurrentLimit(
-            CONSTANTS::CLIMBER::WINCH::SOFT_CURRENT_LIMIT.to<double>());
-
+    // Setup current limit, idle mode, and encoder factor
     rotation->SetSmartCurrentLimit(
             CONSTANTS::CLIMBER::ROTATION::HARD_CURRENT_LIMIT.to<int>());
     rotation->SetSecondaryCurrentLimit(
@@ -39,7 +19,7 @@ Climber::Climber() {
             CONSTANTS::CLIMBER::ROTATION::TURN_TO_DEGREES.to<double>());
 
 
-    // Set up PID controllers
+    // Set up PID controller
     rotation->GetPIDController().SetP(
             CONSTANTS::CLIMBER::ROTATION::PID::P);
     rotation->GetPIDController().SetI(
@@ -56,25 +36,17 @@ Climber::Climber() {
     );
 }
 
-Climber::~Climber() {
-    delete leftWinch;
-    delete rightWinch;
+ClimberRotate::~ClimberRotate() {
     delete rotation;
-
-    delete winches;
 }
 
-void Climber::SetWinchSpeed(double speed) {
-    winches->Set(speed);
-}
-
-units::degree_t Climber::GetRotationAngle() {
+units::degree_t ClimberRotate::GetAngle() {
     return angle;
 }
 
-void Climber::SetRotationAngle(units::degree_t angle) {
+void ClimberRotate::SetAngle(units::degree_t angle) {
     // Save the angle
-    Climber::angle = angle;
+    ClimberRotate::angle = angle;
 
     // Update the PID controller
     rotation->GetPIDController().SetReference(

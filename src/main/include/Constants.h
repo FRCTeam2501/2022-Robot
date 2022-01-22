@@ -57,7 +57,7 @@ namespace CONSTANTS {
         constexpr double
                 FORWARD_ADJUSTMENT_SPEED = 0.5, // 50% to 100% speed adjustment
                 REVERSE_MIN_SPEED = 0.25,
-                REVERSE_MAX_SPEED = 0.75; // 25% to 75% speed adjustment
+                REVERSE_MAX_SPEED = 0.625; // 25% to 62.5% speed adjustment
     }
     namespace CLIMBER::ROTATION {
         constexpr units::current::ampere_t

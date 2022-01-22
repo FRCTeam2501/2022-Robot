@@ -1,13 +1,15 @@
 #pragma once
 #include "frc/Joystick.h"
-#include "subsystems/Climber.h"
+#include "subsystems/ClimberRotate.h"
+#include "subsystems/ClimberWinches.h"
 #include "subsystems/Drivetrain.h"
 
 
 class RobotContainer {
   private:
     Drivetrain *drivetrain;
-    Climber *climber;
+    ClimberRotate *climberRotate;
+    ClimberWinches *climberWinches;
     frc::Joystick *driveStick, *controlStick;
 
     void ConfigureButtonBindings();

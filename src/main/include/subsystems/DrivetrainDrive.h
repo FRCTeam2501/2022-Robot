@@ -23,7 +23,7 @@ class DrivetrainDrive : public frc2::SubsystemBase {
  private:
   
   frc::DifferentialDrive *drive;
-   frc::MotorControllerGroup  *LeftSide, *RightSide;
+  frc::MotorControllerGroup  *LeftSide, *RightSide;
 	rev::CANSparkMax *frontLeft, *rearLeft, *frontRight, *rearRight;
   void InitDefaultCommand();
 };

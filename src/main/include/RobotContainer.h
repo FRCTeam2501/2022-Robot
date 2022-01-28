@@ -42,5 +42,6 @@ class RobotContainer {
   Climber *climber;
   Joystick *driveStick, *controlStick;
   frc2::JoystickButton *winchUp, *winchDown, *winchOff;
-  void ConfigureButtonBindings();
+  
 };
+

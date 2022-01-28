@@ -5,40 +5,46 @@ using namespace frc;
 
 Climber::Climber()
 {
-    winchLeft = new rev::CANSparkMax(Constants::winchLeft, rev::CANSparkMax::MotorType::kBrushless);
-    winchRight = new rev::CANSparkMax(Constants::winchRight, rev::CANSparkMax::MotorType::kBrushless);
+    winch = new rev::CANSparkMax(Constants::winch, rev::CANSparkMax::MotorType::kBrushless);
     pivotClimb = new rev::CANSparkMax(Constants::climbPivot, rev::CANSparkMax::MotorType::kBrushless);
 
-    winches = new frc::MotorControllerGroup(*winchLeft, *winchRight);
 
-    
+    winch->GetPIDController().SetP(0.01);
+    winch->GetPIDController().SetI(0.00);
+    winch->GetPIDController().SetD(0.00);
+    winch->GetPIDController().SetOutputRange(-1,1);
 }
 
 Climber::~Climber()
 {
-    delete winchLeft;
-    delete winchRight;
+    delete winch;
     delete pivotClimb;
-
-    delete winches;
 
 }
 
 void Climber::WinchesUp(double winchPowerUp){
-    winches->Set(winchPowerUp);
+    winch->Set(winchPowerUp);
 }
 
 void Climber::WinchesDown(double winchPowerDown){
-    winches->Set(winchPowerDown);
+    winch->Set(winchPowerDown);
 }
 
 void Climber::WinchesOff(double winchPowerOff){
-    winches->Set(winchPowerOff);
+    winch->Set(winchPowerOff);
 }
 
 void Climber::ControlPivot(double pivotPower){
     pivotClimb->Set(pivotPower);
 }
+
+void Climber::AngleControl(units::degree_t angle){
+
+     PivotClimb->GetPIDController().SetReference(angle, rev::CANSparkMaxLowLevel::ControlType::kPosition);
+
+}
+
+
 void Climber::Periodic() {}
 
 void Climber::InitDefaultCommand()

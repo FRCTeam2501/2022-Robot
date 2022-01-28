@@ -28,17 +28,19 @@ RobotContainer::RobotContainer()  {
 	));
 
 	winchUp = new frc2::JoystickButton(controlStick, JOYSTICK::BUTTON::BUTTON_7);
-	winchUp->WhenPressed(new frc2::RunCommand(
+	winchUp->ToggleWhenPressed(new frc2::RunCommand(
 		[this] {
-			climber->WinchesUp(0.6);
+			climber->WinchesUp(controlStick->GetRawAxis(
+        JOYSTICK::AXIS::Z));
 			
 		},
 		{ climber }
 	));
 	winchDown = new frc2::JoystickButton(controlStick, JOYSTICK::BUTTON::BUTTON_11);
-	winchDown->WhenPressed(new frc2::RunCommand(
+	winchDown->ToggleWhenPressed(new frc2::RunCommand(
 		[this] {
-			climber->WinchesDown(-0.6);
+			climber->WinchesDown(-1*controlStick->GetRawAxis(
+        JOYSTICK::AXIS::Z));
 		},
 		{ climber }
 	));
@@ -49,8 +51,6 @@ RobotContainer::RobotContainer()  {
 		},
 		{ climber }
 	)); 
-
-
 }
 
 RobotContainer::~RobotContainer()  {
@@ -59,9 +59,7 @@ RobotContainer::~RobotContainer()  {
   delete controlStick;
   delete climber;
 }
-
-
-
+ 
 void RobotContainer::Periodic(){
 
 }

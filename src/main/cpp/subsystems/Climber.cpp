@@ -40,7 +40,7 @@ void Climber::ControlPivot(double pivotPower){
 
 void Climber::AngleControl(units::degree_t angle){
 
-     PivotClimb->GetPIDController().SetReference(angle, rev::CANSparkMaxLowLevel::ControlType::kPosition);
+     pivotClimb->GetPIDController().SetReference(angle.to<double>(), rev::CANSparkMaxLowLevel::ControlType::kPosition);
 
 }
 

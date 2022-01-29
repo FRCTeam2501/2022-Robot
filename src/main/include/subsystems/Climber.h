@@ -3,6 +3,7 @@
 #include "rev/CANSparkMax.h"
 #include "frc/Motorcontrol/MotorControllerGroup.h"
 #include "units/angle.h"
+#include "rev/CANPIDController.h"
 
 class Climber : public frc2::SubsystemBase
 {

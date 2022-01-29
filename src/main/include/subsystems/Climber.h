@@ -4,6 +4,7 @@
 #include "frc/Motorcontrol/MotorControllerGroup.h"
 #include "units/angle.h"
 #include "rev/CANPIDController.h"
+#include "Constants.h"
 
 class Climber : public frc2::SubsystemBase
 {
@@ -16,7 +17,7 @@ public:
     void WinchesOff(double winchPowerOff);
     void ControlPivot(double pivotPower);
 
-    void AngleControl(units::degree_t angle);
+    void AngleControl();
 
     void Periodic();
     // It's desirable that everything possible under private except

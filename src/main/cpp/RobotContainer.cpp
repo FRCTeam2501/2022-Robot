@@ -21,8 +21,10 @@ RobotContainer::RobotContainer()  {
     
 	climber->SetDefaultCommand(frc2::RunCommand(
 		[this] {
-			climber->ControlPivot(controlStick->GetRawAxis(
-        JOYSTICK::AXIS::Y));
+
+		Constants::angle = (Constants::angle +((controlStick->GetRawAxis(JOYSTICK::AXIS::Y))/1000));
+
+			climber->AngleControl();
 		},
 		{ climber }
 	));
@@ -51,6 +53,10 @@ RobotContainer::RobotContainer()  {
 		},
 		{ climber }
 	)); 
+	
+
+
+
 }
 
 RobotContainer::~RobotContainer()  {

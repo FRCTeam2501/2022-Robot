@@ -16,7 +16,11 @@ Robot::~Robot() {
 }
 
 
-void Robot::RobotInit() {}
+void Robot::RobotInit() {
+
+Constants::angle = 0;
+
+}
 
 /**
  * This function is called every robot packet, no matter the mode. Use

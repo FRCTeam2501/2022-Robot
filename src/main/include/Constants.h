@@ -14,8 +14,7 @@ namespace CONSTANTS {
                 LEFT_REAR_ID = 3,
                 RIGHT_REAR_ID = 4,
                 CLIMBER_ROTATION_ID = 5,
-                CLIMBER_LEFT_WINCH_ID = 6,
-                CLIMBER_RIGHT_WINCH_ID = 7;
+                CLIMBER_WINCH_ID = 6;
     }
     namespace CONTROLLERS::USB {
         constexpr int
@@ -64,13 +63,14 @@ namespace CONSTANTS {
                 HARD_CURRENT_LIMIT = 120_A,
                 SOFT_CURRENT_LIMIT = 80_A;
         constexpr units::scalar_t
-                GEAR_RATIO = 100 * 4;
+                GEARBOX_RATIO = 100, // 100:1 planetary gearbox
+                PULLEY_RATIO = 122 / 65; // 122:65 pulley reduction
         constexpr units::degree_t
                 MIN_ANGLE = 0_deg,
                 MAX_ANGLE = 60_deg,
                 ADJUSTMENT_ANGLE = 5_deg;
         constexpr auto
-                TURN_TO_DEGREES = GEAR_RATIO / 360_deg;
+                TURN_TO_DEGREES = 360_deg / (GEARBOX_RATIO * PULLEY_RATIO);
         namespace PID {
             constexpr double 
                     P = 0.1,

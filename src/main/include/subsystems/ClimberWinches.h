@@ -8,9 +8,7 @@
 class ClimberWinches : public frc2::SubsystemBase {
   private:
     // Individual speed controllers
-    rev::CANSparkMax *leftWinch, *rightWinch;
-    // Groups of speed controllers
-    frc::MotorControllerGroup *winches;
+    rev::CANSparkMax *winch;
 
   public:
     ClimberWinches();

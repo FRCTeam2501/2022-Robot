@@ -4,37 +4,22 @@
 
 ClimberWinches::ClimberWinches() {
     // Create motor controllers
-    leftWinch = new rev::CANSparkMax(
-        CONSTANTS::MOTORS::CAN::CLIMBER_LEFT_WINCH_ID,
+    winch = new rev::CANSparkMax(
+        CONSTANTS::MOTORS::CAN::CLIMBER_WINCH_ID,
         rev::CANSparkMax::MotorType::kBrushless
     );
-    rightWinch = new rev::CANSparkMax(
-        CONSTANTS::MOTORS::CAN::CLIMBER_RIGHT_WINCH_ID,
-        rev::CANSparkMax::MotorType::kBrushless
-    );
-
-    winches = new frc::MotorControllerGroup(*leftWinch, *rightWinch);
-
 
     // Setup current limits, idle modes, and encoder factors
-    leftWinch->SetSmartCurrentLimit(
+    winch->SetSmartCurrentLimit(
             CONSTANTS::CLIMBER::WINCH::HARD_CURRENT_LIMIT.to<int>());
-    leftWinch->SetSecondaryCurrentLimit(
-            CONSTANTS::CLIMBER::WINCH::SOFT_CURRENT_LIMIT.to<double>());
-
-    rightWinch->SetSmartCurrentLimit(
-            CONSTANTS::CLIMBER::WINCH::HARD_CURRENT_LIMIT.to<int>());
-    rightWinch->SetSecondaryCurrentLimit(
+    winch->SetSecondaryCurrentLimit(
             CONSTANTS::CLIMBER::WINCH::SOFT_CURRENT_LIMIT.to<double>());
 }
 
 ClimberWinches::~ClimberWinches() {
-    delete leftWinch;
-    delete rightWinch;
-
-    delete winches;
+    delete winch;
 }
 
 void ClimberWinches::SetSpeed(double speed) {
-    winches->Set(speed);
+    winch->Set(speed);
 }

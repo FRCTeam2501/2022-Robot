@@ -1,11 +1,12 @@
 #pragma once
-#include "frc/motorcontrol/MotorControllerGroup.h"
-#include "frc2/command/SubsystemBase.h"
+#include "wpi/sendable/Sendable.h"
+#include "wpi/sendable/SendableHelper.h"
 #include "rev/CANSparkMax.h"
 #include "units/angle.h"
 
 
-class ClimberRotate : public frc2::SubsystemBase {
+class ClimberRotate : public wpi::Sendable,
+                      public wpi::SendableHelper<ClimberRotate> {
   private:
     // Individual speed controller
     rev::CANSparkMax *rotation;

@@ -12,7 +12,7 @@ RobotContainer::RobotContainer() {
 
 	drivetrain = new Drivetrain();
 	climberRotate = new ClimberRotate();
-    climberWinches = new ClimberWinches();
+    climberExtend = new ClimberExtend();
 
     ConfigureButtonBindings();
 
@@ -52,9 +52,9 @@ void RobotContainer::ConfigureButtonBindings() {
             speed *= CONSTANTS::CLIMBER::WINCH::FORWARD_ADJUSTMENT_SPEED;
             speed += 1.0;
             speed -= CONSTANTS::CLIMBER::WINCH::FORWARD_ADJUSTMENT_SPEED;
-            climberWinches->SetSpeed(speed);
+            climberExtend->SetSpeed(speed);
         },
-        { climberWinches }
+        { climberExtend }
     );
 
     temp = new frc2::JoystickButton(
@@ -69,9 +69,9 @@ void RobotContainer::ConfigureButtonBindings() {
             speed /= -2.0;
             speed *= CONSTANTS::CLIMBER::WINCH::REVERSE_MAX_SPEED - CONSTANTS::CLIMBER::WINCH::REVERSE_MIN_SPEED;
             speed -= CONSTANTS::CLIMBER::WINCH::REVERSE_MIN_SPEED;
-            climberWinches->SetSpeed(speed);
+            climberExtend->SetSpeed(speed);
         },
-        { climberWinches }
+        { climberExtend }
     );
 
     temp = new frc2::JoystickButton(

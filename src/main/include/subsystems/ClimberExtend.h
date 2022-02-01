@@ -5,14 +5,14 @@
 #include "units/angle.h"
 
 
-class ClimberWinches : public frc2::SubsystemBase {
+class ClimberExtend : public frc2::SubsystemBase {
   private:
     // Individual speed controllers
     rev::CANSparkMax *winch;
 
   public:
-    ClimberWinches();
-    ~ClimberWinches();
+    ClimberExtend();
+    ~ClimberExtend();
 
     void SetSpeed(double speed);
 };

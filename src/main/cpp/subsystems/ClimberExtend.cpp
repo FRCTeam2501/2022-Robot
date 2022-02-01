@@ -1,8 +1,8 @@
-#include "subsystems/ClimberWinches.h"
+#include "subsystems/ClimberExtend.h"
 #include "Constants.h"
 
 
-ClimberWinches::ClimberWinches() {
+ClimberExtend::ClimberExtend() {
     // Create motor controllers
     winch = new rev::CANSparkMax(
         CONSTANTS::MOTORS::CAN::CLIMBER_WINCH_ID,
@@ -16,10 +16,10 @@ ClimberWinches::ClimberWinches() {
             CONSTANTS::CLIMBER::WINCH::SOFT_CURRENT_LIMIT.to<double>());
 }
 
-ClimberWinches::~ClimberWinches() {
+ClimberExtend::~ClimberExtend() {
     delete winch;
 }
 
-void ClimberWinches::SetSpeed(double speed) {
+void ClimberExtend::SetSpeed(double speed) {
     winch->Set(speed);
 }

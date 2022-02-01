@@ -1,7 +1,7 @@
 #pragma once
 #include "frc/Joystick.h"
 #include "subsystems/ClimberRotate.h"
-#include "subsystems/ClimberWinches.h"
+#include "subsystems/ClimberExtend.h"
 #include "subsystems/Drivetrain.h"
 
 
@@ -9,7 +9,7 @@ class RobotContainer {
   private:
     Drivetrain *drivetrain;
     ClimberRotate *climberRotate;
-    ClimberWinches *climberWinches;
+    ClimberExtend *climberExtend;
     frc::Joystick *driveStick, *controlStick;
 
     void ConfigureButtonBindings();

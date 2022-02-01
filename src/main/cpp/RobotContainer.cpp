@@ -21,10 +21,8 @@ RobotContainer::RobotContainer()  {
     
 	climber->SetDefaultCommand(frc2::RunCommand(
 		[this] {
-
-		Constants::angle = (Constants::angle +((controlStick->GetRawAxis(JOYSTICK::AXIS::Y))/1000));
-
-			climber->AngleControl();
+		 
+			climber->AngleControl((climber->GetAngle() +((controlStick->GetRawAxis(JOYSTICK::AXIS::Y))/1000)));
 		},
 		{ climber }
 	));

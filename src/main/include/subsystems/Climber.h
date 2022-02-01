@@ -17,14 +17,16 @@ public:
     void WinchesOff(double winchPowerOff);
     void ControlPivot(double pivotPower);
 
-    void AngleControl();
-
+    void AngleControl(double angle);
+    int GetAngle();
+    
     void Periodic();
+    
     // It's desirable that everything possible under private except
     // for methods that implement subsystem capabilities
 
 private:
-    
+    double angle;
     
     rev::CANSparkMax *winch, *pivotClimb;
     

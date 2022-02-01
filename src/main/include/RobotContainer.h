@@ -35,7 +35,6 @@ class RobotContainer {
 
  void Periodic();
 
-
  private:
   // The robot's subsystems and commands are defined here...
   DrivetrainDrive *drive;

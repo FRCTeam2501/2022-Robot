@@ -18,7 +18,7 @@ Robot::~Robot() {
 
 void Robot::RobotInit() {
 
-Constants::angle = 0;
+
 
 }
 

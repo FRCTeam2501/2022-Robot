@@ -43,17 +43,20 @@ void Climber::ControlPivot(double pivotPower)
     pivotClimb->Set(pivotPower);
 }
 
+int Climber::GetAngle(){
+    return angle;
+}
 
-void Climber::AngleControl()
+void Climber::AngleControl(double angle)
 {
 
-    if(Constants::angle > 50){
-        Constants::angle = 50;
+    if(angle > 50){
+        angle = 50;
     }
-    if(Constants::angle < 0){
-        Constants::angle = 0;
+    if(angle < 0){
+        angle = 0;
     }
-    pivotClimb->GetPIDController().SetReference(Constants::angle, rev::CANSparkMaxLowLevel::ControlType::kPosition);
+    pivotClimb->GetPIDController().SetReference(angle, rev::CANSparkMaxLowLevel::ControlType::kPosition);
 }
 
 void Climber::Periodic() {}

@@ -12,14 +12,17 @@ public:
     Climber();
     ~Climber();
 
-    void WinchesUp(double winchPowerUp);
-    void WinchesDown(double winchPowerDown);
-    void WinchesOff(double winchPowerOff);
-    void ControlPivot(double pivotPower);
+    //void WinchesUp(double winchPowerUp);
+    //void WinchesDown(double winchPowerDown);
+    //void WinchesOff(double winchPowerOff);
+    //void ControlPivot(double pivotPower);
 
     void AngleControl(double angle);
-    int GetAngle();
+    int GetClimbAngle();
     
+    void WinchControl(double length);
+    int GetClimgDistance();
+
     void Periodic();
     
     // It's desirable that everything possible under private except
@@ -27,7 +30,8 @@ public:
 
 private:
     double angle;
-    
+    double length;
+
     rev::CANSparkMax *winch, *pivotClimb;
     
     void InitDefaultCommand();

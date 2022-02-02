@@ -22,11 +22,12 @@ RobotContainer::RobotContainer()  {
 	climber->SetDefaultCommand(frc2::RunCommand(
 		[this] {
 		 
-			climber->AngleControl((climber->GetAngle() +((controlStick->GetRawAxis(JOYSTICK::AXIS::Y))/1000)));
+			climber->AngleControl((climber->GetClimbAngle() +((controlStick->GetRawAxis(JOYSTICK::AXIS::Y))/50)));
+			//50 means that it will adjust the angle to one degree per seccond at full speed on the joystick
 		},
 		{ climber }
 	));
-
+/*
 	winchUp = new frc2::JoystickButton(controlStick, JOYSTICK::BUTTON::BUTTON_7);
 	winchUp->ToggleWhenPressed(new frc2::RunCommand(
 		[this] {
@@ -52,7 +53,7 @@ RobotContainer::RobotContainer()  {
 		{ climber }
 	)); 
 	
-
+*/
 
 
 }

@@ -15,6 +15,13 @@ Climber::Climber()
     pivotClimb->GetEncoder().SetPositionConversionFactor(
         (360 / (Constants::PivotConversionFactorOne * Constants::PivotConversionFactorTwo)));
     // Makes it so that one unit into the motor makes one degree of rotation of the climb arm
+
+    winch->GetPIDController().SetP(0.00);
+    winch->GetPIDController().SetI(0.00);
+    winch->GetPIDController().SetD(0.00);
+    winch->GetPIDController().SetOutputRange(-1, 1);
+    winch->GetEncoder().SetPositionConversionFactor((1/100));
+
 }
 
 Climber::~Climber()
@@ -23,6 +30,7 @@ Climber::~Climber()
     delete pivotClimb;
 }
 
+/*
 void Climber::WinchesUp(double winchPowerUp)
 {
     winch->Set(winchPowerUp);
@@ -42,9 +50,22 @@ void Climber::ControlPivot(double pivotPower)
 {
     pivotClimb->Set(pivotPower);
 }
+*/
 
-int Climber::GetAngle(){
+int Climber::GetClimbAngle(){
     return angle;
+}
+
+void Climber::WinchControl(double length){
+
+    if(length > 20){
+        length = 20;
+    }
+    if(length < 0){
+        length = 0;
+    }
+
+    winch->GetPIDController().SetReference(length, rev::CANSparkMaxLowLevel::ControlType::kPosition);
 }
 
 void Climber::AngleControl(double angle)

@@ -1,4 +1,4 @@
-#include "subsystems/ClimberRotate.h"
+#include "subsystems/climber/ClimberRotate.h"
 #include "Constants.h"
 
 
@@ -16,7 +16,7 @@ ClimberRotate::ClimberRotate() {
     rotation->SetSecondaryCurrentLimit(
             CONSTANTS::CLIMBER::ROTATION::SOFT_CURRENT_LIMIT.to<double>());
     rotation->GetEncoder().SetPositionConversionFactor(
-            CONSTANTS::CLIMBER::ROTATION::TURN_TO_DEGREES.to<double>());
+            CONSTANTS::CLIMBER::ROTATION::TURN_TO_DEGREE.to<double>());
 
 
     // Set up PID controller

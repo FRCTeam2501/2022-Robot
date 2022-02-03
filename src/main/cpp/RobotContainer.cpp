@@ -11,8 +11,7 @@ RobotContainer::RobotContainer() {
         CONSTANTS::CONTROLLERS::USB::CONTROL_STICK);
 
 	drivetrain = new Drivetrain();
-	climberRotate = new ClimberRotate();
-    climberExtend = new ClimberExtend();
+    climber = new Climber();
 
     ConfigureButtonBindings();
 
@@ -43,51 +42,18 @@ void RobotContainer::ConfigureButtonBindings() {
 
     temp = new frc2::JoystickButton(
         controlStick,
-        CONSTANTS::CONTROLLERS::BUTTONS::CONTROL_STICK::RUN_WINCHES
-    );
-    temp->WhileHeld(
-        [this] {
-            double speed = controlStick->GetThrottle();
-            // Scale the speed to be from 100% down to FORWARD_ADJUSTMENT_SPEED
-            speed *= CONSTANTS::CLIMBER::WINCH::FORWARD_ADJUSTMENT_SPEED;
-            speed += 1.0;
-            speed -= CONSTANTS::CLIMBER::WINCH::FORWARD_ADJUSTMENT_SPEED;
-            climberExtend->SetSpeed(speed);
-        },
-        { climberExtend }
-    );
-
-    temp = new frc2::JoystickButton(
-        controlStick,
-        CONSTANTS::CONTROLLERS::BUTTONS::CONTROL_STICK::REVERSE_WINCHES
-    );
-    temp->WhileHeld(
-        [this] {
-            double speed = controlStick->GetThrottle();
-            // Scale the speed to be from REVERSE_MAX_SPEED down to REVERSE_MIN_SPEED
-            speed += 1.0;
-            speed /= -2.0;
-            speed *= CONSTANTS::CLIMBER::WINCH::REVERSE_MAX_SPEED - CONSTANTS::CLIMBER::WINCH::REVERSE_MIN_SPEED;
-            speed -= CONSTANTS::CLIMBER::WINCH::REVERSE_MIN_SPEED;
-            climberExtend->SetSpeed(speed);
-        },
-        { climberExtend }
-    );
-
-    temp = new frc2::JoystickButton(
-        controlStick,
         CONSTANTS::CONTROLLERS::BUTTONS::CONTROL_STICK::INCREMENT_CLIMBER_ANGLE
     );
     temp->WhenPressed(
         [this] {
-            units::degree_t angle = climberRotate->GetAngle();
+            units::degree_t angle = climber->GetAngle();
             angle += CONSTANTS::CLIMBER::ROTATION::ADJUSTMENT_ANGLE;
             if(angle > CONSTANTS::CLIMBER::ROTATION::MAX_ANGLE) {
                 angle = CONSTANTS::CLIMBER::ROTATION::MAX_ANGLE;
             }
-            climberRotate->SetAngle(angle);
+            climber->SetAngle(angle);
         },
-		{ climberRotate }
+		{ climber }
     );
 
 	temp = new frc2::JoystickButton(
@@ -96,13 +62,13 @@ void RobotContainer::ConfigureButtonBindings() {
 	);
 	temp->WhenPressed(
 		[this] {
-			units::degree_t angle = climberRotate->GetAngle();
+			units::degree_t angle = climber->GetAngle();
             angle -= CONSTANTS::CLIMBER::ROTATION::ADJUSTMENT_ANGLE;
             if(angle < CONSTANTS::CLIMBER::ROTATION::MIN_ANGLE) {
                 angle = CONSTANTS::CLIMBER::ROTATION::MIN_ANGLE;
             }
-            climberRotate->SetAngle(angle);
+            climber->SetAngle(angle);
 		},
-		{ climberRotate }
+		{ climber }
 	);
 }

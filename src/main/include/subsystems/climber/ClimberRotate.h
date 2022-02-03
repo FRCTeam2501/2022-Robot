@@ -1,12 +1,9 @@
 #pragma once
-#include "wpi/sendable/Sendable.h"
-#include "wpi/sendable/SendableHelper.h"
 #include "rev/CANSparkMax.h"
 #include "units/angle.h"
 
 
-class ClimberRotate : public wpi::Sendable,
-                      public wpi::SendableHelper<ClimberRotate> {
+class ClimberRotate {
   private:
     // Individual speed controller
     rev::CANSparkMax *rotation;

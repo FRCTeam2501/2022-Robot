@@ -14,7 +14,7 @@ namespace CONSTANTS {
                 LEFT_REAR_ID = 3,
                 RIGHT_REAR_ID = 4,
                 CLIMBER_ROTATION_ID = 5,
-                CLIMBER_WINCH_ID = 6;
+                CLIMBER_EXTEND_ID = 6;
     }
     namespace CONTROLLERS::USB {
         constexpr int
@@ -49,28 +49,39 @@ namespace CONSTANTS {
         constexpr auto
                 TURN_TO_METER = WHEEL_CIR / GEAR_RATIO;
     }
-    namespace CLIMBER::WINCH {
+    namespace CLIMBER::EXTEND {
         constexpr units::current::ampere_t
                 HARD_CURRENT_LIMIT = 100_A,
                 SOFT_CURRENT_LIMIT = 60_A;
-        constexpr double
-                FORWARD_ADJUSTMENT_SPEED = 0.5, // 50% to 100% speed adjustment
-                REVERSE_MIN_SPEED = 0.25,
-                REVERSE_MAX_SPEED = 0.625; // 25% to 62.5% speed adjustment
+        constexpr units::scalar_t
+                GEARBOX_RATIO = 100.0, // 100:1 planetary gearbox
+                PULLEY_RATIO = 122.0 / 65.0; // 122:65 pulley reduction
+        constexpr auto
+                TURN_TO_METER = 1_m / (GEARBOX_RATIO * PULLEY_RATIO);
+        namespace PID {
+            constexpr double 
+                    P = 0.1,
+                    I = 0.0,
+                    D = 0.0,
+                    FF = 0.0,
+                    I_ZONE = 0.0,
+                    MAX = 1.0,
+                    MIN = -1.0;
+        }
     }
     namespace CLIMBER::ROTATION {
         constexpr units::current::ampere_t
                 HARD_CURRENT_LIMIT = 120_A,
                 SOFT_CURRENT_LIMIT = 80_A;
         constexpr units::scalar_t
-                GEARBOX_RATIO = 100, // 100:1 planetary gearbox
-                PULLEY_RATIO = 122 / 65; // 122:65 pulley reduction
+                GEARBOX_RATIO = 100.0, // 100:1 planetary gearbox
+                PULLEY_RATIO = 122.0 / 65.0; // 122:65 pulley reduction
         constexpr units::degree_t
                 MIN_ANGLE = 0_deg,
                 MAX_ANGLE = 60_deg,
                 ADJUSTMENT_ANGLE = 5_deg;
         constexpr auto
-                TURN_TO_DEGREES = 360_deg / (GEARBOX_RATIO * PULLEY_RATIO);
+                TURN_TO_DEGREE = 360_deg / (GEARBOX_RATIO * PULLEY_RATIO);
         namespace PID {
             constexpr double 
                     P = 0.1,

@@ -5,6 +5,8 @@
 #include "units/angle.h"
 #include "rev/CANPIDController.h"
 #include "Constants.h"
+#include <math.h> 
+
 
 class Climber : public frc2::SubsystemBase
 {
@@ -18,10 +20,10 @@ public:
     //void ControlPivot(double pivotPower);
 
     void AngleControl(double angle);
-    int GetClimbAngle();
+   
     
-    void WinchControl(double length);
-    int GetClimgDistance();
+    void WinchControl(double LengthAdjust);
+ 
 
     void Periodic();
     
@@ -30,7 +32,11 @@ public:
 
 private:
     double angle;
+    double angleAdjust;
+
     double length;
+    double lengthAdjust;
+
 
     rev::CANSparkMax *winch, *pivotClimb;
     

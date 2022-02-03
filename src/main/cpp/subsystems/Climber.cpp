@@ -52,31 +52,51 @@ void Climber::ControlPivot(double pivotPower)
 }
 */
 
-int Climber::GetClimbAngle(){
-    return angle;
-}
 
-void Climber::WinchControl(double length){
 
-    if(length > 20){
-        length = 20;
+void Climber::WinchControl(double lengthAdjust){
+
+    if((length + lengthAdjust) > 20){
+        lengthAdjust = 20;
     }
-    if(length < 0){
-        length = 0;
+    if((length + lengthAdjust) < 0){
+        lengthAdjust = 0;
+    }
+
+    if((length+lengthAdjust)<(40-((23)/(std::sin(angle))))){
+    length = (length+lengthAdjust);
+    lengthAdjust  = 0;
     }
 
     winch->GetPIDController().SetReference(length, rev::CANSparkMaxLowLevel::ControlType::kPosition);
 }
 
-void Climber::AngleControl(double angle)
+
+void Climber::AngleControl(double angleAdjust)
 {
 
     if(angle > 50){
-        angle = 50;
+    angle = 50;
     }
     if(angle < 0){
-        angle = 0;
+    angle = 0;
     }
+
+    if((angle + angleAdjust) > 50){
+        angleAdjust = (50 - angle);
+    }
+    if((angle + angleAdjust) < 0){
+        angleAdjust = (angleAdjust*-1);
+    }
+
+ angle = (angleAdjust + angle);
+
+    if(length < (40-((23)/(std::sin(angle))))){
+        length = (40-((23)/(std::sin(angle))));
+    }
+   
+    angleAdjust = 0;
+
     pivotClimb->GetPIDController().SetReference(angle, rev::CANSparkMaxLowLevel::ControlType::kPosition);
 }
 

@@ -39,36 +39,4 @@ void RobotContainer::ConfigureButtonBindings() {
         },
 		{ drivetrain }
     );
-
-    temp = new frc2::JoystickButton(
-        controlStick,
-        CONSTANTS::CONTROLLERS::BUTTONS::CONTROL_STICK::INCREMENT_CLIMBER_ANGLE
-    );
-    temp->WhenPressed(
-        [this] {
-            units::degree_t angle = climber->GetAngle();
-            angle += CONSTANTS::CLIMBER::ROTATION::ADJUSTMENT_ANGLE;
-            if(angle > CONSTANTS::CLIMBER::ROTATION::MAX_ANGLE) {
-                angle = CONSTANTS::CLIMBER::ROTATION::MAX_ANGLE;
-            }
-            climber->SetAngle(angle);
-        },
-		{ climber }
-    );
-
-	temp = new frc2::JoystickButton(
-		controlStick,
-		CONSTANTS::CONTROLLERS::BUTTONS::CONTROL_STICK::DECREMENT_CLIMBER_ANGLE
-	);
-	temp->WhenPressed(
-		[this] {
-			units::degree_t angle = climber->GetAngle();
-            angle -= CONSTANTS::CLIMBER::ROTATION::ADJUSTMENT_ANGLE;
-            if(angle < CONSTANTS::CLIMBER::ROTATION::MIN_ANGLE) {
-                angle = CONSTANTS::CLIMBER::ROTATION::MIN_ANGLE;
-            }
-            climber->SetAngle(angle);
-		},
-		{ climber }
-	);
 }

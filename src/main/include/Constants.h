@@ -16,17 +16,8 @@ namespace CONSTANTS {
                 DRIVE_STICK = 0,
                 CONTROL_STICK = 1;
     }
-    namespace CONTROLLERS::BUTTONS {
-        namespace DRIVE_STICK {
-            constexpr int
-                    REVERSE_DRIVETRAIN = 1;
-        }
-        namespace CONTROL_STICK {
-            constexpr int
-                    RUN_WINCHES = 1,
-                    REVERSE_WINCHES = 2,
-                    INCREMENT_CLIMBER_ANGLE = 7,
-                    DECREMENT_CLIMBER_ANGLE = 9;
-        }
+    namespace CONTROLLERS::BUTTONS::DRIVE_STICK {
+        constexpr int
+                REVERSE_DRIVETRAIN = 1;
     }
 }

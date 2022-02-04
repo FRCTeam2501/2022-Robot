@@ -3,6 +3,28 @@
 #include "frc/motorcontrol/MotorControllerGroup.h"
 #include "frc2/command/SubsystemBase.h"
 #include "rev/CANSparkMax.h"
+#include "units/angle.h"
+#include "units/constants.h"
+#include "units/current.h"
+#include "units/dimensionless.h"
+#include "units/length.h"
+
+
+namespace CONSTANTS::DRIVETRAIN {
+    constexpr units::dimensionless::scalar_t
+            GEAR_RATIO = 10.71,
+            FORWARD_SPEED = -1.0,
+            ROTATION_SPEED = 0.6;
+    constexpr units::current::ampere_t
+            HARD_CURRENT_LIMIT = 100_A,
+            SOFT_CURRENT_LIMIT = 60_A;
+    constexpr units::length::meter_t
+            WHEEL_DIAMETER = 6_in,
+            TRACK_WIDTH = 22_in,
+            WHEEL_CIR = (WHEEL_DIAMETER * units::constants::pi);
+    constexpr auto
+            TURN_TO_METER = WHEEL_CIR / GEAR_RATIO;
+}
 
 
 class Drivetrain : public frc2::SubsystemBase {

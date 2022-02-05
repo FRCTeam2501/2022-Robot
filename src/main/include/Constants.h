@@ -15,12 +15,7 @@ constexpr int FrontLeft = 1;
 constexpr int RearRight = 3;
 constexpr int RearLeft = 5;
 
-constexpr int winch = 6;
 
-constexpr int climbPivot = 8;
-
-constexpr int PivotConversionFactorOne = 100;
-constexpr int PivotConversionFactorTwo = (122/65);
 //These are the numbers to compute the number of turns
 //of the neo per degree of rotation of the climber.
 

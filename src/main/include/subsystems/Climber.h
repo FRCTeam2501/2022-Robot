@@ -7,6 +7,26 @@
 #include "Constants.h"
 #include <math.h> 
 
+namespace ClimbConstants{
+
+  constexpr double rotationOffset = 3;
+  constexpr double defaultClimbLength = 40;
+  constexpr double pivotToFrameDist = 15;
+  constexpr double maxDistFromFrame = 13;
+
+  constexpr double maxAngle = 50;
+  constexpr double minAngle = 0;
+  constexpr double maxLength = 20;
+  constexpr double minLength = 0;
+
+
+  constexpr int winch = 6;
+  
+  constexpr int climbPivot = 8;
+  
+  constexpr int PivotConversionFactorOne = 100;
+  constexpr int PivotConversionFactorTwo = (122/65);
+}
 
 class Climber : public frc2::SubsystemBase
 {

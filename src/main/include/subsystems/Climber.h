@@ -11,14 +11,18 @@ namespace ClimbConstants{
 
   constexpr double rotationOffset = 3;
   constexpr double defaultClimbLength = 40;
-  constexpr double pivotToFrameDist = 15;
-  constexpr double maxDistFromFrame = 13;
+  constexpr double pivotToFrameDist = 26.5; //checked
+  constexpr double maxDistFromFrame = 12;
 
   constexpr double maxAngle = 50;
   constexpr double minAngle = 0;
   constexpr double maxLength = 20;
   constexpr double minLength = 0;
 
+  constexpr double defaultScealing = 25;
+  constexpr double minExtension = 8;
+
+  constexpr double pi =  3.1415926535;
 
   constexpr int winch = 6;
   
@@ -34,13 +38,10 @@ public:
     Climber();
     ~Climber();
 
-    //void WinchesUp(double winchPowerUp);
-    //void WinchesDown(double winchPowerDown);
-    //void WinchesOff(double winchPowerOff);
-    //void ControlPivot(double pivotPower);
 
     void AngleControl(double angle);
-   
+   int GetAngle();
+   int GetLength();
     
     void WinchControl(double LengthAdjust);
  

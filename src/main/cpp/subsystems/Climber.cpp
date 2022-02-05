@@ -30,7 +30,8 @@ Climber::~Climber()
 
 void Climber::WinchControl(double lengthAdjust)
 {
-    // makes shure length is not outside of limet
+    // lengthAdjust is the new length that we want to set the arms to
+    //  makes sure length is not outside of limet
     if (length > ClimbConstants::maxLength)
     {
         length = ClimbConstants::maxLength;
@@ -41,28 +42,30 @@ void Climber::WinchControl(double lengthAdjust)
     }
 
     // makes shure we are not trying to set length to a value that is outside the length limet
-    if ((length + lengthAdjust) > ClimbConstants::maxLength)
+    if (lengthAdjust > ClimbConstants::maxLength)
     {
-        lengthAdjust = (ClimbConstants::maxLength - length);
+        lengthAdjust = ClimbConstants::maxLength;
     }
-    if ((length + lengthAdjust) < ClimbConstants::minLength)
+    if (lengthAdjust < ClimbConstants::minLength)
     {
-        lengthAdjust = (length * -1);
+        lengthAdjust = ClimbConstants::minLength;
     }
     // checks if new length is legal and if not sets length to maximum it can and sets length adjust to zero
-
+ 
     if (angle > 1)
     {
-        if ((length + lengthAdjust) < (ClimbConstants::defaultClimbLength - (((ClimbConstants::pivotToFrameDist + ClimbConstants::maxDistFromFrame) - ClimbConstants::rotationOffset * std::cos(angle)) / (std::sin(angle)))))
+        if (lengthAdjust < (ClimbConstants::defaultClimbLength - (((ClimbConstants::pivotToFrameDist + ClimbConstants::maxDistFromFrame) - ClimbConstants::rotationOffset * std::cos((angle / (180 * ClimbConstants::pi)))) / (std::sin((angle / (180 * ClimbConstants::pi)))))))
         {
-            length = (ClimbConstants::defaultClimbLength - (((ClimbConstants::pivotToFrameDist + ClimbConstants::maxDistFromFrame) - ClimbConstants::rotationOffset * std::cos(angle)) / (std::sin(angle))));
-
-            lengthAdjust = 0;
+            lengthAdjust = (ClimbConstants::defaultClimbLength - (((ClimbConstants::pivotToFrameDist + ClimbConstants::maxDistFromFrame) - ClimbConstants::rotationOffset * std::cos((angle / (180 * ClimbConstants::pi)))) / (std::sin((angle / (180 * ClimbConstants::pi))))));
+        }
+        if (lengthAdjust > (((ClimbConstants::defaultScealing - ClimbConstants::rotationOffset * std::sin((angle / (180 * ClimbConstants::pi)))) / std::cos((angle / (180 * ClimbConstants::pi)))) - ClimbConstants::minExtension))
+        {
+            lengthAdjust = (((ClimbConstants::defaultScealing - ClimbConstants::rotationOffset * std::sin((angle / (180 * ClimbConstants::pi)))) / std::cos((angle / (180 * ClimbConstants::pi)))) - ClimbConstants::minExtension);
         }
     }
 
     // sets length to new length
-    length = (lengthAdjust + length);
+    length = lengthAdjust;
     lengthAdjust = 0;
     // positions motor to new length
     winch->GetPIDController().SetReference(length, rev::CANSparkMaxLowLevel::ControlType::kPosition);
@@ -81,24 +84,34 @@ void Climber::AngleControl(double angleAdjust)
     }
 
     // This makes shure that the angle adjustment does not move the climber outside of the limet
-    if ((angle + angleAdjust) > ClimbConstants::maxAngle)
+    if (angleAdjust > ClimbConstants::maxAngle)
     {
-        angleAdjust = (ClimbConstants::maxAngle - angle);
+        angleAdjust = (ClimbConstants::maxAngle);
     }
-    if ((angle + angleAdjust) < ClimbConstants::minAngle)
+    if (angleAdjust < ClimbConstants::minAngle)
     {
-        angleAdjust = (angle * -1);
+        angleAdjust = ClimbConstants::minAngle;
     }
 
     // combines angle and angle adjust
-    angle = (angleAdjust + angle);
+    angle = angleAdjust;
 
-    // checks new climber position to make shure that it is legal.
-    if (length < (ClimbConstants::defaultClimbLength - (((ClimbConstants::pivotToFrameDist + ClimbConstants::maxDistFromFrame) - ClimbConstants::rotationOffset * std::cos(angle)) / (std::sin(angle)))))
+    // Checks if angle is greater than one, this is so that there is no issue with it deviding by zero
+    if (angle > 1)
     {
-        // if the length is not legal, set it to the legal length.
-        length = (ClimbConstants::defaultClimbLength - (((ClimbConstants::pivotToFrameDist + ClimbConstants::maxDistFromFrame) - ClimbConstants::rotationOffset * std::cos(angle)) / (std::sin(angle))));
-        winch->GetPIDController().SetReference(length, rev::CANSparkMaxLowLevel::ControlType::kPosition);
+        // checks new climber position to make shure that it is legal.
+        if (length < (ClimbConstants::defaultClimbLength - (((ClimbConstants::pivotToFrameDist + ClimbConstants::maxDistFromFrame) - ClimbConstants::rotationOffset * std::cos((angle / (180 * ClimbConstants::pi)))) / (std::sin((angle / (180 * ClimbConstants::pi)))))))
+        {
+            // if the length is not legal, set it to the legal length.
+            length = (ClimbConstants::defaultClimbLength - (((ClimbConstants::pivotToFrameDist + ClimbConstants::maxDistFromFrame) - ClimbConstants::rotationOffset * std::cos((angle / (180 * ClimbConstants::pi)))) / (std::sin((angle / (180 * ClimbConstants::pi))))));
+            winch->GetPIDController().SetReference(length, rev::CANSparkMaxLowLevel::ControlType::kPosition);
+        }
+        if (length > (((ClimbConstants::defaultScealing - ClimbConstants::rotationOffset * std::sin((angle / (180 * ClimbConstants::pi)))) / std::cos((angle / (180 * ClimbConstants::pi)))) - ClimbConstants::minExtension))
+        {
+            length = (((ClimbConstants::defaultScealing - ClimbConstants::rotationOffset * std::sin((angle / (180 * ClimbConstants::pi)))) / std::cos((angle / (180 * ClimbConstants::pi)))) - ClimbConstants::minExtension);
+            lengthAdjust = 0;
+            winch->GetPIDController().SetReference(length, rev::CANSparkMaxLowLevel::ControlType::kPosition);
+        }
     }
 
     angleAdjust = 0;

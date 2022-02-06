@@ -1,0 +1,230 @@
+See file:///C:/Users/User/Documents/2022%20robot%20code/2022%20RobotCodeAtempt/build/tmp/compileFrcUserProgramDebugExecutableFrcUserProgramCpp/output.txt for all output for compileFrcUserProgramDebugExecutableFrcUserProgramCpp.
+compiling DriveTest.cpp successful.
+
+compiling ExampleSubsystem.cpp successful.
+
+compiling ExampleCommand.cpp successful.
+
+compiling DrivetrainDrive.cpp successful.
+
+compiling Climber.cpp successful.
+
+compiling RobotContainer.cpp successful.
+In file included from C:\Users\User\Documents\2022 robot code\2022 RobotCodeAtempt\src\main\include/include.h:9:0,
+                 from C:\Users\User\Documents\2022 robot code\2022 RobotCodeAtempt\src\main\include/RobotContainer.h:22,
+                 from C:\Users\User\Documents\2022 robot code\2022 RobotCodeAtempt\src\main\cpp\RobotContainer.cpp:5:
+C:\Users\User\.gradle\caches\transforms-3\4de15149d92e0f74281da4c7343532e6\transformed\wpilibc-cpp-2022.3.1-headers/frc/SpeedControllerGroup.h:26:34: warning: 'SpeedControllerGroup' is deprecated: use MotorControllerGroup [-Wdeprecated-declarations]
+       public wpi::SendableHelper<SpeedControllerGroup> {
+                                  ^~~~~~~~~~~~~~~~~~~~
+C:\Users\User\.gradle\caches\transforms-3\4de15149d92e0f74281da4c7343532e6\transformed\wpilibc-cpp-2022.3.1-headers/frc/SpeedControllerGroup.h:23:50: note: declared here
+ class WPI_DEPRECATED("use MotorControllerGroup") SpeedControllerGroup
+                                                  ^~~~~~~~~~~~~~~~~~~~
+C:\Users\User\.gradle\caches\transforms-3\4de15149d92e0f74281da4c7343532e6\transformed\wpilibc-cpp-2022.3.1-headers/frc/SpeedControllerGroup.h:30:70: warning: 'SpeedController' is deprecated: use MotorController [-Wdeprecated-declarations]
+                                 SpeedControllers&... speedControllers);
+                                                                      ^
+In file included from C:\Users\User\.gradle\caches\transforms-3\4de15149d92e0f74281da4c7343532e6\transformed\wpilibc-cpp-2022.3.1-headers/frc/motorcontrol/MotorController.h:9:0,
+                 from C:\Users\User\.gradle\caches\transforms-3\f82842666fd91cc86289c2f6b53b770d\transformed\REVLib-cpp-2022.1.1-headers/rev/CANSparkMaxLowLevel.h:36,
+                 from C:\Users\User\.gradle\caches\transforms-3\f82842666fd91cc86289c2f6b53b770d\transformed\REVLib-cpp-2022.1.1-headers/rev/CANSparkMax.h:53,
+                 from C:\Users\User\Documents\2022 robot code\2022 RobotCodeAtempt\src\main\include/subsystems/DrivetrainDrive.h:9,
+                 from C:\Users\User\Documents\2022 robot code\2022 RobotCodeAtempt\src\main\include/RobotContainer.h:11,
+                 from C:\Users\User\Documents\2022 robot code\2022 RobotCodeAtempt\src\main\cpp\RobotContainer.cpp:5:
+C:\Users\User\.gradle\caches\transforms-3\4de15149d92e0f74281da4c7343532e6\transformed\wpilibc-cpp-2022.3.1-headers/frc/SpeedController.h:17:45: note: declared here
+ class WPI_DEPRECATED("use MotorController") SpeedController {
+                                             ^~~~~~~~~~~~~~~
+In file included from C:\Users\User\Documents\2022 robot code\2022 RobotCodeAtempt\src\main\include/include.h:9:0,
+                 from C:\Users\User\Documents\2022 robot code\2022 RobotCodeAtempt\src\main\include/RobotContainer.h:22,
+                 from C:\Users\User\Documents\2022 robot code\2022 RobotCodeAtempt\src\main\cpp\RobotContainer.cpp:5:
+C:\Users\User\.gradle\caches\transforms-3\4de15149d92e0f74281da4c7343532e6\transformed\wpilibc-cpp-2022.3.1-headers/frc/SpeedControllerGroup.h:32:42: warning: 'SpeedController' is deprecated: use MotorController [-Wdeprecated-declarations]
+       std::vector<std::reference_wrapper<SpeedController>>&& speedControllers);
+                                          ^~~~~~~~~~~~~~~
+In file included from C:\Users\User\.gradle\caches\transforms-3\4de15149d92e0f74281da4c7343532e6\transformed\wpilibc-cpp-2022.3.1-headers/frc/motorcontrol/MotorController.h:9:0,
+                 from C:\Users\User\.gradle\caches\transforms-3\f82842666fd91cc86289c2f6b53b770d\transformed\REVLib-cpp-2022.1.1-headers/rev/CANSparkMaxLowLevel.h:36,
+                 from C:\Users\User\.gradle\caches\transforms-3\f82842666fd91cc86289c2f6b53b770d\transformed\REVLib-cpp-2022.1.1-headers/rev/CANSparkMax.h:53,
+                 from C:\Users\User\Documents\2022 robot code\2022 RobotCodeAtempt\src\main\include/subsystems/DrivetrainDrive.h:9,
+                 from C:\Users\User\Documents\2022 robot code\2022 RobotCodeAtempt\src\main\include/RobotContainer.h:11,
+                 from C:\Users\User\Documents\2022 robot code\2022 RobotCodeAtempt\src\main\cpp\RobotContainer.cpp:5:
+C:\Users\User\.gradle\caches\transforms-3\4de15149d92e0f74281da4c7343532e6\transformed\wpilibc-cpp-2022.3.1-headers/frc/SpeedController.h:17:45: note: declared here
+ class WPI_DEPRECATED("use MotorController") SpeedController {
+                                             ^~~~~~~~~~~~~~~
+In file included from C:\Users\User\Documents\2022 robot code\2022 RobotCodeAtempt\src\main\include/include.h:9:0,
+                 from C:\Users\User\Documents\2022 robot code\2022 RobotCodeAtempt\src\main\include/RobotContainer.h:22,
+                 from C:\Users\User\Documents\2022 robot code\2022 RobotCodeAtempt\src\main\cpp\RobotContainer.cpp:5:
+C:\Users\User\.gradle\caches\transforms-3\4de15149d92e0f74281da4c7343532e6\transformed\wpilibc-cpp-2022.3.1-headers/frc/SpeedControllerGroup.h:34:50: warning: 'SpeedControllerGroup' is deprecated: use MotorControllerGroup [-Wdeprecated-declarations]
+   SpeedControllerGroup(SpeedControllerGroup&&) = default;
+                                                  ^~~~~~~
+C:\Users\User\.gradle\caches\transforms-3\4de15149d92e0f74281da4c7343532e6\transformed\wpilibc-cpp-2022.3.1-headers/frc/SpeedControllerGroup.h:23:50: note: declared here
+ class WPI_DEPRECATED("use MotorControllerGroup") SpeedControllerGroup
+                                                  ^~~~~~~~~~~~~~~~~~~~
+C:\Users\User\.gradle\caches\transforms-3\4de15149d92e0f74281da4c7343532e6\transformed\wpilibc-cpp-2022.3.1-headers/frc/SpeedControllerGroup.h:35:61: warning: 'SpeedControllerGroup' is deprecated: use MotorControllerGroup [-Wdeprecated-declarations]
+   SpeedControllerGroup& operator=(SpeedControllerGroup&&) = default;
+                                                             ^~~~~~~
+C:\Users\User\.gradle\caches\transforms-3\4de15149d92e0f74281da4c7343532e6\transformed\wpilibc-cpp-2022.3.1-headers/frc/SpeedControllerGroup.h:23:50: note: declared here
+ class WPI_DEPRECATED("use MotorControllerGroup") SpeedControllerGroup
+                                                  ^~~~~~~~~~~~~~~~~~~~
+C:\Users\User\.gradle\caches\transforms-3\4de15149d92e0f74281da4c7343532e6\transformed\wpilibc-cpp-2022.3.1-headers/frc/SpeedControllerGroup.h:35:61: warning: 'SpeedControllerGroup' is deprecated: use MotorControllerGroup [-Wdeprecated-declarations]
+   SpeedControllerGroup& operator=(SpeedControllerGroup&&) = default;
+                                                             ^~~~~~~
+C:\Users\User\.gradle\caches\transforms-3\4de15149d92e0f74281da4c7343532e6\transformed\wpilibc-cpp-2022.3.1-headers/frc/SpeedControllerGroup.h:23:50: note: declared here
+ class WPI_DEPRECATED("use MotorControllerGroup") SpeedControllerGroup
+                                                  ^~~~~~~~~~~~~~~~~~~~
+C:\Users\User\.gradle\caches\transforms-3\4de15149d92e0f74281da4c7343532e6\transformed\wpilibc-cpp-2022.3.1-headers/frc/SpeedControllerGroup.h:48:38: warning: 'SpeedController' is deprecated: use MotorController [-Wdeprecated-declarations]
+   std::vector<std::reference_wrapper<SpeedController>> m_speedControllers;
+                                      ^~~~~~~~~~~~~~~
+In file included from C:\Users\User\.gradle\caches\transforms-3\4de15149d92e0f74281da4c7343532e6\transformed\wpilibc-cpp-2022.3.1-headers/frc/motorcontrol/MotorController.h:9:0,
+                 from C:\Users\User\.gradle\caches\transforms-3\f82842666fd91cc86289c2f6b53b770d\transformed\REVLib-cpp-2022.1.1-headers/rev/CANSparkMaxLowLevel.h:36,
+                 from C:\Users\User\.gradle\caches\transforms-3\f82842666fd91cc86289c2f6b53b770d\transformed\REVLib-cpp-2022.1.1-headers/rev/CANSparkMax.h:53,
+                 from C:\Users\User\Documents\2022 robot code\2022 RobotCodeAtempt\src\main\include/subsystems/DrivetrainDrive.h:9,
+                 from C:\Users\User\Documents\2022 robot code\2022 RobotCodeAtempt\src\main\include/RobotContainer.h:11,
+                 from C:\Users\User\Documents\2022 robot code\2022 RobotCodeAtempt\src\main\cpp\RobotContainer.cpp:5:
+C:\Users\User\.gradle\caches\transforms-3\4de15149d92e0f74281da4c7343532e6\transformed\wpilibc-cpp-2022.3.1-headers/frc/SpeedController.h:17:45: note: declared here
+ class WPI_DEPRECATED("use MotorController") SpeedController {
+                                             ^~~~~~~~~~~~~~~
+In file included from C:\Users\User\.gradle\caches\transforms-3\4de15149d92e0f74281da4c7343532e6\transformed\wpilibc-cpp-2022.3.1-headers/frc/SpeedControllerGroup.h:55:0,
+                 from C:\Users\User\Documents\2022 robot code\2022 RobotCodeAtempt\src\main\include/include.h:9,
+                 from C:\Users\User\Documents\2022 robot code\2022 RobotCodeAtempt\src\main\include/RobotContainer.h:22,
+                 from C:\Users\User\Documents\2022 robot code\2022 RobotCodeAtempt\src\main\cpp\RobotContainer.cpp:5:
+C:\Users\User\.gradle\caches\transforms-3\4de15149d92e0f74281da4c7343532e6\transformed\wpilibc-cpp-2022.3.1-headers/frc/SpeedControllerGroup.inc:16:76: warning: 'SpeedController' is deprecated: use MotorController [-Wdeprecated-declarations]
+     SpeedController& speedController, SpeedControllers&... speedControllers)
+                                                                            ^
+In file included from C:\Users\User\.gradle\caches\transforms-3\4de15149d92e0f74281da4c7343532e6\transformed\wpilibc-cpp-2022.3.1-headers/frc/motorcontrol/MotorController.h:9:0,
+                 from C:\Users\User\.gradle\caches\transforms-3\f82842666fd91cc86289c2f6b53b770d\transformed\REVLib-cpp-2022.1.1-headers/rev/CANSparkMaxLowLevel.h:36,
+                 from C:\Users\User\.gradle\caches\transforms-3\f82842666fd91cc86289c2f6b53b770d\transformed\REVLib-cpp-2022.1.1-headers/rev/CANSparkMax.h:53,
+                 from C:\Users\User\Documents\2022 robot code\2022 RobotCodeAtempt\src\main\include/subsystems/DrivetrainDrive.h:9,
+                 from C:\Users\User\Documents\2022 robot code\2022 RobotCodeAtempt\src\main\include/RobotContainer.h:11,
+                 from C:\Users\User\Documents\2022 robot code\2022 RobotCodeAtempt\src\main\cpp\RobotContainer.cpp:5:
+C:\Users\User\.gradle\caches\transforms-3\4de15149d92e0f74281da4c7343532e6\transformed\wpilibc-cpp-2022.3.1-headers/frc/SpeedController.h:17:45: note: declared here
+ class WPI_DEPRECATED("use MotorController") SpeedController {
+                                             ^~~~~~~~~~~~~~~
+In file included from C:\Users\User\.gradle\caches\transforms-3\4de15149d92e0f74281da4c7343532e6\transformed\wpilibc-cpp-2022.3.1-headers/frc/SpeedControllerGroup.h:55:0,
+                 from C:\Users\User\Documents\2022 robot code\2022 RobotCodeAtempt\src\main\include/include.h:9,
+                 from C:\Users\User\Documents\2022 robot code\2022 RobotCodeAtempt\src\main\include/RobotContainer.h:22,
+                 from C:\Users\User\Documents\2022 robot code\2022 RobotCodeAtempt\src\main\cpp\RobotContainer.cpp:5:
+C:\Users\User\.gradle\caches\transforms-3\4de15149d92e0f74281da4c7343532e6\transformed\wpilibc-cpp-2022.3.1-headers/frc/SpeedControllerGroup.inc: In constructor 'frc::SpeedControllerGroup::SpeedControllerGroup(frc::SpeedController&, SpeedControllers& ...)':
+C:\Users\User\.gradle\caches\transforms-3\4de15149d92e0f74281da4c7343532e6\transformed\wpilibc-cpp-2022.3.1-headers/frc/SpeedControllerGroup.inc:17:61: warning: 'SpeedController' is deprecated: use MotorController [-Wdeprecated-declarations]
+     : m_speedControllers(std::vector<std::reference_wrapper<SpeedController>>{
+                                                             ^~~~~~~~~~~~~~~
+In file included from C:\Users\User\.gradle\caches\transforms-3\4de15149d92e0f74281da4c7343532e6\transformed\wpilibc-cpp-2022.3.1-headers/frc/motorcontrol/MotorController.h:9:0,
+                 from C:\Users\User\.gradle\caches\transforms-3\f82842666fd91cc86289c2f6b53b770d\transformed\REVLib-cpp-2022.1.1-headers/rev/CANSparkMaxLowLevel.h:36,
+                 from C:\Users\User\.gradle\caches\transforms-3\f82842666fd91cc86289c2f6b53b770d\transformed\REVLib-cpp-2022.1.1-headers/rev/CANSparkMax.h:53,
+                 from C:\Users\User\Documents\2022 robot code\2022 RobotCodeAtempt\src\main\include/subsystems/DrivetrainDrive.h:9,
+                 from C:\Users\User\Documents\2022 robot code\2022 RobotCodeAtempt\src\main\include/RobotContainer.h:11,
+                 from C:\Users\User\Documents\2022 robot code\2022 RobotCodeAtempt\src\main\cpp\RobotContainer.cpp:5:
+C:\Users\User\.gradle\caches\transforms-3\4de15149d92e0f74281da4c7343532e6\transformed\wpilibc-cpp-2022.3.1-headers/frc/SpeedController.h:17:45: note: declared here
+ class WPI_DEPRECATED("use MotorController") SpeedController {
+                                             ^~~~~~~~~~~~~~~
+
+compiling Robot.cpp successful.
+In file included from C:\Users\User\Documents\2022 robot code\2022 RobotCodeAtempt\src\main\include/include.h:9:0,
+                 from C:\Users\User\Documents\2022 robot code\2022 RobotCodeAtempt\src\main\include/RobotContainer.h:22,
+                 from C:\Users\User\Documents\2022 robot code\2022 RobotCodeAtempt\src\main\include/Robot.h:10,
+                 from C:\Users\User\Documents\2022 robot code\2022 RobotCodeAtempt\src\main\cpp\Robot.cpp:5:
+C:\Users\User\.gradle\caches\transforms-3\4de15149d92e0f74281da4c7343532e6\transformed\wpilibc-cpp-2022.3.1-headers/frc/SpeedControllerGroup.h:26:34: warning: 'SpeedControllerGroup' is deprecated: use MotorControllerGroup [-Wdeprecated-declarations]
+       public wpi::SendableHelper<SpeedControllerGroup> {
+                                  ^~~~~~~~~~~~~~~~~~~~
+C:\Users\User\.gradle\caches\transforms-3\4de15149d92e0f74281da4c7343532e6\transformed\wpilibc-cpp-2022.3.1-headers/frc/SpeedControllerGroup.h:23:50: note: declared here
+ class WPI_DEPRECATED("use MotorControllerGroup") SpeedControllerGroup
+                                                  ^~~~~~~~~~~~~~~~~~~~
+C:\Users\User\.gradle\caches\transforms-3\4de15149d92e0f74281da4c7343532e6\transformed\wpilibc-cpp-2022.3.1-headers/frc/SpeedControllerGroup.h:30:70: warning: 'SpeedController' is deprecated: use MotorController [-Wdeprecated-declarations]
+                                 SpeedControllers&... speedControllers);
+                                                                      ^
+In file included from C:\Users\User\.gradle\caches\transforms-3\4de15149d92e0f74281da4c7343532e6\transformed\wpilibc-cpp-2022.3.1-headers/frc/motorcontrol/MotorController.h:9:0,
+                 from C:\Users\User\.gradle\caches\transforms-3\f82842666fd91cc86289c2f6b53b770d\transformed\REVLib-cpp-2022.1.1-headers/rev/CANSparkMaxLowLevel.h:36,
+                 from C:\Users\User\.gradle\caches\transforms-3\f82842666fd91cc86289c2f6b53b770d\transformed\REVLib-cpp-2022.1.1-headers/rev/CANSparkMax.h:53,
+                 from C:\Users\User\Documents\2022 robot code\2022 RobotCodeAtempt\src\main\include/subsystems/DrivetrainDrive.h:9,
+                 from C:\Users\User\Documents\2022 robot code\2022 RobotCodeAtempt\src\main\include/RobotContainer.h:11,
+                 from C:\Users\User\Documents\2022 robot code\2022 RobotCodeAtempt\src\main\include/Robot.h:10,
+                 from C:\Users\User\Documents\2022 robot code\2022 RobotCodeAtempt\src\main\cpp\Robot.cpp:5:
+C:\Users\User\.gradle\caches\transforms-3\4de15149d92e0f74281da4c7343532e6\transformed\wpilibc-cpp-2022.3.1-headers/frc/SpeedController.h:17:45: note: declared here
+ class WPI_DEPRECATED("use MotorController") SpeedController {
+                                             ^~~~~~~~~~~~~~~
+In file included from C:\Users\User\Documents\2022 robot code\2022 RobotCodeAtempt\src\main\include/include.h:9:0,
+                 from C:\Users\User\Documents\2022 robot code\2022 RobotCodeAtempt\src\main\include/RobotContainer.h:22,
+                 from C:\Users\User\Documents\2022 robot code\2022 RobotCodeAtempt\src\main\include/Robot.h:10,
+                 from C:\Users\User\Documents\2022 robot code\2022 RobotCodeAtempt\src\main\cpp\Robot.cpp:5:
+C:\Users\User\.gradle\caches\transforms-3\4de15149d92e0f74281da4c7343532e6\transformed\wpilibc-cpp-2022.3.1-headers/frc/SpeedControllerGroup.h:32:42: warning: 'SpeedController' is deprecated: use MotorController [-Wdeprecated-declarations]
+       std::vector<std::reference_wrapper<SpeedController>>&& speedControllers);
+                                          ^~~~~~~~~~~~~~~
+In file included from C:\Users\User\.gradle\caches\transforms-3\4de15149d92e0f74281da4c7343532e6\transformed\wpilibc-cpp-2022.3.1-headers/frc/motorcontrol/MotorController.h:9:0,
+                 from C:\Users\User\.gradle\caches\transforms-3\f82842666fd91cc86289c2f6b53b770d\transformed\REVLib-cpp-2022.1.1-headers/rev/CANSparkMaxLowLevel.h:36,
+                 from C:\Users\User\.gradle\caches\transforms-3\f82842666fd91cc86289c2f6b53b770d\transformed\REVLib-cpp-2022.1.1-headers/rev/CANSparkMax.h:53,
+                 from C:\Users\User\Documents\2022 robot code\2022 RobotCodeAtempt\src\main\include/subsystems/DrivetrainDrive.h:9,
+                 from C:\Users\User\Documents\2022 robot code\2022 RobotCodeAtempt\src\main\include/RobotContainer.h:11,
+                 from C:\Users\User\Documents\2022 robot code\2022 RobotCodeAtempt\src\main\include/Robot.h:10,
+                 from C:\Users\User\Documents\2022 robot code\2022 RobotCodeAtempt\src\main\cpp\Robot.cpp:5:
+C:\Users\User\.gradle\caches\transforms-3\4de15149d92e0f74281da4c7343532e6\transformed\wpilibc-cpp-2022.3.1-headers/frc/SpeedController.h:17:45: note: declared here
+ class WPI_DEPRECATED("use MotorController") SpeedController {
+                                             ^~~~~~~~~~~~~~~
+In file included from C:\Users\User\Documents\2022 robot code\2022 RobotCodeAtempt\src\main\include/include.h:9:0,
+                 from C:\Users\User\Documents\2022 robot code\2022 RobotCodeAtempt\src\main\include/RobotContainer.h:22,
+                 from C:\Users\User\Documents\2022 robot code\2022 RobotCodeAtempt\src\main\include/Robot.h:10,
+                 from C:\Users\User\Documents\2022 robot code\2022 RobotCodeAtempt\src\main\cpp\Robot.cpp:5:
+C:\Users\User\.gradle\caches\transforms-3\4de15149d92e0f74281da4c7343532e6\transformed\wpilibc-cpp-2022.3.1-headers/frc/SpeedControllerGroup.h:34:50: warning: 'SpeedControllerGroup' is deprecated: use MotorControllerGroup [-Wdeprecated-declarations]
+   SpeedControllerGroup(SpeedControllerGroup&&) = default;
+                                                  ^~~~~~~
+C:\Users\User\.gradle\caches\transforms-3\4de15149d92e0f74281da4c7343532e6\transformed\wpilibc-cpp-2022.3.1-headers/frc/SpeedControllerGroup.h:23:50: note: declared here
+ class WPI_DEPRECATED("use MotorControllerGroup") SpeedControllerGroup
+                                                  ^~~~~~~~~~~~~~~~~~~~
+C:\Users\User\.gradle\caches\transforms-3\4de15149d92e0f74281da4c7343532e6\transformed\wpilibc-cpp-2022.3.1-headers/frc/SpeedControllerGroup.h:35:61: warning: 'SpeedControllerGroup' is deprecated: use MotorControllerGroup [-Wdeprecated-declarations]
+   SpeedControllerGroup& operator=(SpeedControllerGroup&&) = default;
+                                                             ^~~~~~~
+C:\Users\User\.gradle\caches\transforms-3\4de15149d92e0f74281da4c7343532e6\transformed\wpilibc-cpp-2022.3.1-headers/frc/SpeedControllerGroup.h:23:50: note: declared here
+ class WPI_DEPRECATED("use MotorControllerGroup") SpeedControllerGroup
+                                                  ^~~~~~~~~~~~~~~~~~~~
+C:\Users\User\.gradle\caches\transforms-3\4de15149d92e0f74281da4c7343532e6\transformed\wpilibc-cpp-2022.3.1-headers/frc/SpeedControllerGroup.h:35:61: warning: 'SpeedControllerGroup' is deprecated: use MotorControllerGroup [-Wdeprecated-declarations]
+   SpeedControllerGroup& operator=(SpeedControllerGroup&&) = default;
+                                                             ^~~~~~~
+C:\Users\User\.gradle\caches\transforms-3\4de15149d92e0f74281da4c7343532e6\transformed\wpilibc-cpp-2022.3.1-headers/frc/SpeedControllerGroup.h:23:50: note: declared here
+ class WPI_DEPRECATED("use MotorControllerGroup") SpeedControllerGroup
+                                                  ^~~~~~~~~~~~~~~~~~~~
+C:\Users\User\.gradle\caches\transforms-3\4de15149d92e0f74281da4c7343532e6\transformed\wpilibc-cpp-2022.3.1-headers/frc/SpeedControllerGroup.h:48:38: warning: 'SpeedController' is deprecated: use MotorController [-Wdeprecated-declarations]
+   std::vector<std::reference_wrapper<SpeedController>> m_speedControllers;
+                                      ^~~~~~~~~~~~~~~
+In file included from C:\Users\User\.gradle\caches\transforms-3\4de15149d92e0f74281da4c7343532e6\transformed\wpilibc-cpp-2022.3.1-headers/frc/motorcontrol/MotorController.h:9:0,
+                 from C:\Users\User\.gradle\caches\transforms-3\f82842666fd91cc86289c2f6b53b770d\transformed\REVLib-cpp-2022.1.1-headers/rev/CANSparkMaxLowLevel.h:36,
+                 from C:\Users\User\.gradle\caches\transforms-3\f82842666fd91cc86289c2f6b53b770d\transformed\REVLib-cpp-2022.1.1-headers/rev/CANSparkMax.h:53,
+                 from C:\Users\User\Documents\2022 robot code\2022 RobotCodeAtempt\src\main\include/subsystems/DrivetrainDrive.h:9,
+                 from C:\Users\User\Documents\2022 robot code\2022 RobotCodeAtempt\src\main\include/RobotContainer.h:11,
+                 from C:\Users\User\Documents\2022 robot code\2022 RobotCodeAtempt\src\main\include/Robot.h:10,
+                 from C:\Users\User\Documents\2022 robot code\2022 RobotCodeAtempt\src\main\cpp\Robot.cpp:5:
+C:\Users\User\.gradle\caches\transforms-3\4de15149d92e0f74281da4c7343532e6\transformed\wpilibc-cpp-2022.3.1-headers/frc/SpeedController.h:17:45: note: declared here
+ class WPI_DEPRECATED("use MotorController") SpeedController {
+                                             ^~~~~~~~~~~~~~~
+In file included from C:\Users\User\.gradle\caches\transforms-3\4de15149d92e0f74281da4c7343532e6\transformed\wpilibc-cpp-2022.3.1-headers/frc/SpeedControllerGroup.h:55:0,
+                 from C:\Users\User\Documents\2022 robot code\2022 RobotCodeAtempt\src\main\include/include.h:9,
+                 from C:\Users\User\Documents\2022 robot code\2022 RobotCodeAtempt\src\main\include/RobotContainer.h:22,
+                 from C:\Users\User\Documents\2022 robot code\2022 RobotCodeAtempt\src\main\include/Robot.h:10,
+                 from C:\Users\User\Documents\2022 robot code\2022 RobotCodeAtempt\src\main\cpp\Robot.cpp:5:
+C:\Users\User\.gradle\caches\transforms-3\4de15149d92e0f74281da4c7343532e6\transformed\wpilibc-cpp-2022.3.1-headers/frc/SpeedControllerGroup.inc:16:76: warning: 'SpeedController' is deprecated: use MotorController [-Wdeprecated-declarations]
+     SpeedController& speedController, SpeedControllers&... speedControllers)
+                                                                            ^
+In file included from C:\Users\User\.gradle\caches\transforms-3\4de15149d92e0f74281da4c7343532e6\transformed\wpilibc-cpp-2022.3.1-headers/frc/motorcontrol/MotorController.h:9:0,
+                 from C:\Users\User\.gradle\caches\transforms-3\f82842666fd91cc86289c2f6b53b770d\transformed\REVLib-cpp-2022.1.1-headers/rev/CANSparkMaxLowLevel.h:36,
+                 from C:\Users\User\.gradle\caches\transforms-3\f82842666fd91cc86289c2f6b53b770d\transformed\REVLib-cpp-2022.1.1-headers/rev/CANSparkMax.h:53,
+                 from C:\Users\User\Documents\2022 robot code\2022 RobotCodeAtempt\src\main\include/subsystems/DrivetrainDrive.h:9,
+                 from C:\Users\User\Documents\2022 robot code\2022 RobotCodeAtempt\src\main\include/RobotContainer.h:11,
+                 from C:\Users\User\Documents\2022 robot code\2022 RobotCodeAtempt\src\main\include/Robot.h:10,
+                 from C:\Users\User\Documents\2022 robot code\2022 RobotCodeAtempt\src\main\cpp\Robot.cpp:5:
+C:\Users\User\.gradle\caches\transforms-3\4de15149d92e0f74281da4c7343532e6\transformed\wpilibc-cpp-2022.3.1-headers/frc/SpeedController.h:17:45: note: declared here
+ class WPI_DEPRECATED("use MotorController") SpeedController {
+                                             ^~~~~~~~~~~~~~~
+In file included from C:\Users\User\.gradle\caches\transforms-3\4de15149d92e0f74281da4c7343532e6\transformed\wpilibc-cpp-2022.3.1-headers/frc/SpeedControllerGroup.h:55:0,
+                 from C:\Users\User\Documents\2022 robot code\2022 RobotCodeAtempt\src\main\include/include.h:9,
+                 from C:\Users\User\Documents\2022 robot code\2022 RobotCodeAtempt\src\main\include/RobotContainer.h:22,
+                 from C:\Users\User\Documents\2022 robot code\2022 RobotCodeAtempt\src\main\include/Robot.h:10,
+                 from C:\Users\User\Documents\2022 robot code\2022 RobotCodeAtempt\src\main\cpp\Robot.cpp:5:
+C:\Users\User\.gradle\caches\transforms-3\4de15149d92e0f74281da4c7343532e6\transformed\wpilibc-cpp-2022.3.1-headers/frc/SpeedControllerGroup.inc: In constructor 'frc::SpeedControllerGroup::SpeedControllerGroup(frc::SpeedController&, SpeedControllers& ...)':
+C:\Users\User\.gradle\caches\transforms-3\4de15149d92e0f74281da4c7343532e6\transformed\wpilibc-cpp-2022.3.1-headers/frc/SpeedControllerGroup.inc:17:61: warning: 'SpeedController' is deprecated: use MotorController [-Wdeprecated-declarations]
+     : m_speedControllers(std::vector<std::reference_wrapper<SpeedController>>{
+                                                             ^~~~~~~~~~~~~~~
+In file included from C:\Users\User\.gradle\caches\transforms-3\4de15149d92e0f74281da4c7343532e6\transformed\wpilibc-cpp-2022.3.1-headers/frc/motorcontrol/MotorController.h:9:0,
+                 from C:\Users\User\.gradle\caches\transforms-3\f82842666fd91cc86289c2f6b53b770d\transformed\REVLib-cpp-2022.1.1-headers/rev/CANSparkMaxLowLevel.h:36,
+                 from C:\Users\User\.gradle\caches\transforms-3\f82842666fd91cc86289c2f6b53b770d\transformed\REVLib-cpp-2022.1.1-headers/rev/CANSparkMax.h:53,
+                 from C:\Users\User\Documents\2022 robot code\2022 RobotCodeAtempt\src\main\include/subsystems/DrivetrainDrive.h:9,
+                 from C:\Users\User\Documents\2022 robot code\2022 RobotCodeAtempt\src\main\include/RobotContainer.h:11,
+                 from C:\Users\User\Documents\2022 robot code\2022 RobotCodeAtempt\src\main\include/Robot.h:10,
+                 from C:\Users\User\Documents\2022 robot code\2022 RobotCodeAtempt\src\main\cpp\Robot.cpp:5:
+C:\Users\User\.gradle\caches\transforms-3\4de15149d92e0f74281da4c7343532e6\transformed\wpilibc-cpp-2022.3.1-headers/frc/SpeedController.h:17:45: note: declared here
+ class WPI_DEPRECATED("use MotorController") SpeedController {
+                                             ^~~~~~~~~~~~~~~
+
+Finished compileFrcUserProgramDebugExecutableFrcUserProgramCpp, see full log file:///C:/Users/User/Documents/2022%20robot%20code/2022%20RobotCodeAtempt/build/tmp/compileFrcUserProgramDebugExecutableFrcUserProgramCpp/output.txt.

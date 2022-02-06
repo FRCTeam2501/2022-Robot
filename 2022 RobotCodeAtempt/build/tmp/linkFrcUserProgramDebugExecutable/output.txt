@@ -1,0 +1,4 @@
+See file:///C:/Users/User/Documents/2022%20robot%20code/2022%20RobotCodeAtempt/build/tmp/linkFrcUserProgramDebugExecutable/output.txt for all output for linkFrcUserProgramDebugExecutable.
+linking frcUserProgram successful.
+
+Finished linkFrcUserProgramDebugExecutable, see full log file:///C:/Users/User/Documents/2022%20robot%20code/2022%20RobotCodeAtempt/build/tmp/linkFrcUserProgramDebugExecutable/output.txt.

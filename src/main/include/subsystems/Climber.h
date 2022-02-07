@@ -43,8 +43,9 @@ public:
    int GetAngle();
    int GetLength();
     
-    void WinchControl(double LengthAdjust);
- 
+    void WinchControl(double lengthAdjust);
+
+    void ClimbControl(double angleAdjust, double lengthAdjust);
 
     void Periodic();
     

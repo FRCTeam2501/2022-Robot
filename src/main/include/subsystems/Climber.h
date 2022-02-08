@@ -39,13 +39,13 @@ public:
     ~Climber();
 
 
-    void AngleControl(double angle);
+    //void AngleControl(double angle);
    int GetAngle();
    int GetLength();
     
-    void WinchControl(double lengthAdjust);
+    //void WinchControl(double lengthAdjust);
 
-    void ClimbControl(double angleAdjust, double lengthAdjust);
+    int ClimbControl(double angleAdjust, double lengthAdjust);
 
     void Periodic();
     
@@ -59,6 +59,7 @@ private:
     double length;
     double lengthAdjust;
 
+    bool lengthChanged;
 
     rev::CANSparkMax *winch, *pivotClimb;
     

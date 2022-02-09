@@ -19,7 +19,7 @@ Climber::Climber()
     winch->GetPIDController().SetI(0.00);
     winch->GetPIDController().SetD(0.00);
     winch->GetPIDController().SetOutputRange(-1, 1);
-    winch->GetEncoder().SetPositionConversionFactor((1 / 100)); //not currect, but maby is
+    winch->GetEncoder().SetPositionConversionFactor((1 / 100)); // not currect, but maby is
 }
 
 Climber::~Climber()
@@ -52,7 +52,7 @@ void Climber::WinchControl(double lengthAdjust)
         lengthAdjust = ClimbConstants::minLength;
     }
     // checks if new length is legal and if not sets length to maximum it can and sets length adjust to zero
- 
+
     if (angle > 1)
     {
         if (lengthAdjust < (ClimbConstants::defaultClimbLength - (((ClimbConstants::pivotToFrameDist + ClimbConstants::maxDistFromFrame) - ClimbConstants::rotationOffset * std::cos((angle * ClimbConstants::pi / (180)))) / (std::sin((angle * ClimbConstants::pi / (180)))))))
@@ -64,7 +64,7 @@ void Climber::WinchControl(double lengthAdjust)
         {
             lengthAdjust = (((ClimbConstants::defaultScealing - ClimbConstants::rotationOffset * std::sin((angle * ClimbConstants::pi / (180)))) / std::cos((angle * ClimbConstants::pi / (180)))) - ClimbConstants::minExtension);
         }
-    
+
 
     // sets length to new length
     length = lengthAdjust;
@@ -115,7 +115,7 @@ void Climber::AngleControl(double angleAdjust)
             lengthAdjust = 0;
             winch->GetPIDController().SetReference(length, rev::CANSparkMaxLowLevel::ControlType::kPosition);
         }
-    
+
 
     angleAdjust = 0;
 
@@ -123,11 +123,13 @@ void Climber::AngleControl(double angleAdjust)
 }
 */
 
-int Climber::ClimbControl(double angleAdjust, double lengthAdjust){
+int Climber::ClimbControl(double angleAdjust, double lengthAdjust)
+{
 
+    seccondaryMove = false; 
     lengthChanged = false;
 
-     // lengthAdjust is the new length that we want to set the arms to
+    // lengthAdjust is the new length that we want to set the arms to
     //  makes sure length is not outside of limet
     if (length > ClimbConstants::maxLength)
     {
@@ -169,14 +171,8 @@ int Climber::ClimbControl(double angleAdjust, double lengthAdjust){
         angleAdjust = ClimbConstants::minAngle;
     }
 
-//Think of a batter way to do the if function check because there is definatly a better way to do it. 
-    if((angleAdjust <= 15 && angleAdjust >= 6) || (angleAdjust >= 15 && angle <=6) || (angleAdjust <= 6 && angle >= 15)){
-        if(lengthAdjust < 4){
-            lengthAdjust = 4;
-            lengthChanged = true;
-        }
-
-    }
+    // Think of a batter way to do the if function check because there is definatly a better way to do it.
+    
 
     if (angleAdjust > 1)
     {
@@ -188,12 +184,11 @@ int Climber::ClimbControl(double angleAdjust, double lengthAdjust){
             lengthChanged = true;
         }
     }
-        if (lengthAdjust > (((ClimbConstants::defaultScealing - ClimbConstants::rotationOffset * std::sin((angleAdjust * ClimbConstants::pi / (180)))) / std::cos((angleAdjust * ClimbConstants::pi / (180)))) - ClimbConstants::minExtension))
-        {
-            lengthAdjust = (((ClimbConstants::defaultScealing - ClimbConstants::rotationOffset * std::sin((angleAdjust * ClimbConstants::pi / (180)))) / std::cos((angleAdjust * ClimbConstants::pi / (180)))) - ClimbConstants::minExtension);
-            lengthChanged = true;
-        }
-
+    if (lengthAdjust > (((ClimbConstants::defaultScealing - ClimbConstants::rotationOffset * std::sin((angleAdjust * ClimbConstants::pi / (180)))) / std::cos((angleAdjust * ClimbConstants::pi / (180)))) - ClimbConstants::minExtension))
+    {
+        lengthAdjust = (((ClimbConstants::defaultScealing - ClimbConstants::rotationOffset * std::sin((angleAdjust * ClimbConstants::pi / (180)))) / std::cos((angleAdjust * ClimbConstants::pi / (180)))) - ClimbConstants::minExtension);
+        lengthChanged = true;
+    }
 
     if (angleAdjust > 1)
     {
@@ -209,23 +204,48 @@ int Climber::ClimbControl(double angleAdjust, double lengthAdjust){
         lengthChanged = true;
     }
 
+    if ((angleAdjust <= 15 && angleAdjust >= 6) || (angleAdjust > 15 && angle < 6) || (angleAdjust < 6 && angle > 15))
+    {
+        if(angleAdjust <= 15 && angleAdjust >= 6){
+        
+            if(lengthAdjust < 4){
+            lengthAdjust = 4;
+            }
+        }else{
+            if(lengthAdjust < 4){
+            targetLength = lengthAdjust;
+            targetAngle = angleAdjust;
+            lengthAdjust = 4;
+            lengthChanged = true;
+            seccondaryMove = true; 
+            }
+        }
+    }
+
     length = lengthAdjust;
     angle = angleAdjust;
     winch->GetPIDController().SetReference(length, rev::CANSparkMaxLowLevel::ControlType::kPosition);
     pivotClimb->GetPIDController().SetReference(angle, rev::CANSparkMaxLowLevel::ControlType::kPosition);
     return lengthChanged;
-
 }
 
-int Climber::GetAngle(){
+int Climber::GetAngle()
+{
     return angle;
 }
 
-int Climber::GetLength(){
+int Climber::GetLength()
+{
     return length;
 }
 
-void Climber::Periodic() {
+void Climber::Periodic()
+{
+    if (seccondaryMove = true && (abs((pivotClimb->GetEncoder().GetPosition() - targetAngle)) < 1)){
+        winch->GetPIDController().SetReference(targetLength, rev::CANSparkMaxLowLevel::ControlType::kPosition);
+        seccondaryMove = false;
+    }
+
 
 }
 

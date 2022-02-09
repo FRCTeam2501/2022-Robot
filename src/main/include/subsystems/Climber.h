@@ -55,11 +55,15 @@ public:
 private:
     double angle;
     double angleAdjust;
+    double targetAngle;
 
     double length;
     double lengthAdjust;
+    double targetLength; 
 
     bool lengthChanged;
+
+    bool seccondaryMove;
 
     rev::CANSparkMax *winch, *pivotClimb;
     

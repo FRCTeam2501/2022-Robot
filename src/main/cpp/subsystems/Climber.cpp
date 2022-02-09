@@ -98,22 +98,6 @@ int Climber::ClimbControl(double angleAdjust, double lengthAdjust)
         lengthChanged = true;
     }
 
-    /*
-    if (angleAdjust > 1)
-    {
-        //Checks if the backward wall is veing violated, if so, it will change the length to make it legal, the greater that one is so that the code does not try to devide by zero
-        if (lengthAdjust < (ClimbConstants::defaultClimbLength - (((ClimbConstants::pivotToFrameDist + ClimbConstants::maxDistFromFrame) - ClimbConstants::rotationOffset * std::cos((angleAdjust * ClimbConstants::pi / (180)))) / (std::sin((angleAdjust * ClimbConstants::pi / (180)))))))
-        {
-            lengthAdjust = (ClimbConstants::defaultClimbLength - (((ClimbConstants::pivotToFrameDist + ClimbConstants::maxDistFromFrame) - ClimbConstants::rotationOffset * std::cos((angleAdjust * ClimbConstants::pi / (180)))) / (std::sin((angleAdjust * ClimbConstants::pi / (180))))));
-            lengthChanged = true;
-        }
-    }
-    if (lengthAdjust > (((ClimbConstants::defaultScealing - ClimbConstants::rotationOffset * std::sin((angleAdjust * ClimbConstants::pi / (180)))) / std::cos((angleAdjust * ClimbConstants::pi / (180)))) - ClimbConstants::minExtension))
-    {
-        lengthAdjust = (((ClimbConstants::defaultScealing - ClimbConstants::rotationOffset * std::sin((angleAdjust * ClimbConstants::pi / (180)))) / std::cos((angleAdjust * ClimbConstants::pi / (180)))) - ClimbConstants::minExtension);
-        lengthChanged = true;
-    }
-    */
 
     if ((angleAdjust <= 15 && angleAdjust >= 6) || (angleAdjust > 15 && angle < 6) || (angleAdjust < 6 && angle > 15))
     {

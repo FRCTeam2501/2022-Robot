@@ -7,17 +7,25 @@ Climber::Climber()
     winch = new rev::CANSparkMax(ClimbConstants::winch, rev::CANSparkMax::MotorType::kBrushless);
     pivotClimb = new rev::CANSparkMax(ClimbConstants::climbPivot, rev::CANSparkMax::MotorType::kBrushless);
 
-    pivotClimb->GetPIDController().SetP(0.00);
-    pivotClimb->GetPIDController().SetI(0.00);
-    pivotClimb->GetPIDController().SetD(0.00);
+    pivotClimb->GetForwardLimitSwitch(rev::SparkMaxLimitSwitch::Type::kNormallyOpen).EnableLimitSwitch(true);
+    pivotClimb->SetSmartCurrentLimit(ClimbConstants::pivotClimbSmartCurrentLimet);
+    pivotClimb->SetSecondaryCurrentLimit(ClimbConstants::pivotClimbSeccondaryCurrentLimet);
+    pivotClimb->GetReverseLimitSwitch(rev::SparkMaxLimitSwitch::Type::kNormallyOpen).EnableLimitSwitch(true);
+
+    pivotClimb->GetPIDController().SetP(ClimbConstants::pivotClimbSetP);
+    pivotClimb->GetPIDController().SetI(ClimbConstants::pivotClimbSetP);
+    pivotClimb->GetPIDController().SetD(ClimbConstants::pivotClimbSetP);
     pivotClimb->GetPIDController().SetOutputRange(-1, 1);
     pivotClimb->GetEncoder().SetPositionConversionFactor(
-        (360 / (ClimbConstants::PivotConversionFactorOne * ClimbConstants::PivotConversionFactorTwo)));
+        (360 / (ClimbConstants::pivotConversionFactorOne * ClimbConstants::pivotConversionFactorTwo)));
     // Makes it so that one unit into the motor makes one degree of rotation of the climb arm
 
-    winch->GetPIDController().SetP(0.00);
-    winch->GetPIDController().SetI(0.00);
-    winch->GetPIDController().SetD(0.00);
+    winch->SetSmartCurrentLimit(ClimbConstants::winchSmartCurrentLimet);
+    winch->SetSecondaryCurrentLimit(ClimbConstants::winchSeccondaryCurrentLimet);
+
+    winch->GetPIDController().SetP(ClimbConstants::winchSetP);
+    winch->GetPIDController().SetI(ClimbConstants::winchSetP);
+    winch->GetPIDController().SetD(ClimbConstants::winchSetP);
     winch->GetPIDController().SetOutputRange(-1, 1);
     winch->GetEncoder().SetPositionConversionFactor((1 / 100)); // not currect, but maby is
 }

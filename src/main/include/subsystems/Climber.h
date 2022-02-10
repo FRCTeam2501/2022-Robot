@@ -6,6 +6,7 @@
 #include "rev/CANPIDController.h"
 #include "Constants.h"
 #include <math.h> 
+#include "rev/SparkMaxLimitSwitch.h"
 
 namespace ClimbConstants{
 
@@ -24,14 +25,28 @@ namespace ClimbConstants{
   constexpr double defaultScealing = 25;
   constexpr double minExtension = 8;
 
-  constexpr double pi =  3.1415926535;
+  constexpr double pi =  3.14159265358979;
 
   constexpr int winch = 6;
   
   constexpr int climbPivot = 8;
   
-  constexpr int PivotConversionFactorOne = 100;
-  constexpr int PivotConversionFactorTwo = (122/65);
+  constexpr int pivotConversionFactorOne = 100;
+  constexpr int pivotConversionFactorTwo = (122/65);
+
+  constexpr double winchSmartCurrentLimet = 60.0;
+  constexpr double winchSeccondaryCurrentLimet = 70.0;
+
+  constexpr double pivotClimbSmartCurrentLimet = 60.0;
+  constexpr double pivotClimbSeccondaryCurrentLimet = 70.0;
+
+  constexpr double pivotClimbSetP = 0.00;
+  constexpr double pivotClimbSetI = 0.00;
+  constexpr double pivotClimbSetD = 0.00;
+  constexpr double winchSetP = 0.00;
+  constexpr double winchSetI = 0.00;
+  constexpr double winchSetD = 0.00;
+
 }
 
 class Climber : public frc2::SubsystemBase

@@ -10,22 +10,23 @@ using namespace frc;
  
 DrivetrainDrive::DrivetrainDrive()
 {
-  frontLeft = new rev::CANSparkMax(Drivetrain::FrontLeft, rev::CANSparkMax::MotorType::kBrushless);
-  frontRight = new rev::CANSparkMax(Drivetrain::FrontRight, rev::CANSparkMax::MotorType::kBrushless);
-  rearLeft = new rev::CANSparkMax(Drivetrain::RearLeft, rev::CANSparkMax::MotorType::kBrushless);
-  rearRight = new rev::CANSparkMax(Drivetrain::RearRight, rev::CANSparkMax::MotorType::kBrushless);
+  frontLeft = new rev::CANSparkMax(Drivetrain::frontLeft, rev::CANSparkMax::MotorType::kBrushless);
+  frontRight = new rev::CANSparkMax(Drivetrain::frontRight, rev::CANSparkMax::MotorType::kBrushless);
+  rearLeft = new rev::CANSparkMax(Drivetrain::rearLeft, rev::CANSparkMax::MotorType::kBrushless);
+  rearRight = new rev::CANSparkMax(Drivetrain::rearRight, rev::CANSparkMax::MotorType::kBrushless);
  
-  frontLeft->SetSmartCurrentLimit(60);
-	frontLeft->SetSecondaryCurrentLimit(70);
+
+  frontLeft->SetSmartCurrentLimit(Drivetrain::driveSmartCurrentLimet);
+	frontLeft->SetSecondaryCurrentLimit(Drivetrain::driveSeccondaryCurrentLimet);
 	frontLeft->SetIdleMode(rev::CANSparkMax::IdleMode::kCoast);
-  frontRight->SetSmartCurrentLimit(60);
-  frontRight->SetSecondaryCurrentLimit(70);
+  frontRight->SetSmartCurrentLimit(Drivetrain::driveSmartCurrentLimet);
+  frontRight->SetSecondaryCurrentLimit(Drivetrain::driveSeccondaryCurrentLimet);
   frontRight->SetIdleMode(rev::CANSparkMax::IdleMode::kCoast);
-  rearLeft->SetSmartCurrentLimit(60);
-  rearLeft->SetSecondaryCurrentLimit(70);
+  rearLeft->SetSmartCurrentLimit(Drivetrain::driveSmartCurrentLimet);
+  rearLeft->SetSecondaryCurrentLimit(Drivetrain::driveSeccondaryCurrentLimet);
   rearLeft->SetIdleMode(rev::CANSparkMax::IdleMode::kCoast);
-  rearRight->SetSmartCurrentLimit(60);
-  rearRight->SetSecondaryCurrentLimit(70);
+  rearRight->SetSmartCurrentLimit(Drivetrain::driveSmartCurrentLimet);
+  rearRight->SetSecondaryCurrentLimit(Drivetrain::driveSeccondaryCurrentLimet);
   rearRight->SetIdleMode(rev::CANSparkMax::IdleMode::kCoast);
 
 

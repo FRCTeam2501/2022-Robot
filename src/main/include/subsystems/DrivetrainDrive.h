@@ -10,15 +10,15 @@
 #include "frc/Motorcontrol/MotorControllerGroup.h"
 
 
-
-
 namespace Drivetrain{
-constexpr int FrontRight = 2;
-constexpr int FrontLeft = 1;
-constexpr int RearRight = 3;
-constexpr int RearLeft = 5;
-}
+constexpr int frontRight = 2;
+constexpr int frontLeft = 1;
+constexpr int rearRight = 3;
+constexpr int rearLeft = 5;
 
+constexpr double driveSmartCurrentLimet = 60.0;
+constexpr double driveSeccondaryCurrentLimet = 70.0;
+}
 
 
 class DrivetrainDrive : public frc2::SubsystemBase {

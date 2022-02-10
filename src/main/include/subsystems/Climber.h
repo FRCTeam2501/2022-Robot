@@ -9,12 +9,14 @@
 
 namespace ClimbConstants{
 
+  constexpr double rotationBigOffset = 4.5;
+  //rotationBigOffset is the horisontal distance bretween the top left of the hook and the actual rotation point
   constexpr double rotationOffset = 3;
   constexpr double defaultClimbLength = 40;
   constexpr double pivotToFrameDist = 26.5; //checked
   constexpr double maxDistFromFrame = 12;
 
-  constexpr double maxAngle = 50;
+  constexpr double maxAngle = 70;
   constexpr double minAngle = 0;
   constexpr double maxLength = 20;
   constexpr double minLength = 0;

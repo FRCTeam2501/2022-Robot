@@ -10,10 +10,7 @@
 namespace Constants {
 
 
-constexpr int FrontRight = 2;
-constexpr int FrontLeft = 1;
-constexpr int RearRight = 3;
-constexpr int RearLeft = 5;
+
 
 
 //These are the numbers to compute the number of turns

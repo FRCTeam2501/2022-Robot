@@ -10,11 +10,25 @@ using namespace frc;
  
 DrivetrainDrive::DrivetrainDrive()
 {
-  frontLeft = new rev::CANSparkMax(Constants::FrontLeft, rev::CANSparkMax::MotorType::kBrushless);
-  frontRight = new rev::CANSparkMax(Constants::FrontRight, rev::CANSparkMax::MotorType::kBrushless);
-  rearLeft = new rev::CANSparkMax(Constants::RearLeft, rev::CANSparkMax::MotorType::kBrushless);
-  rearRight = new rev::CANSparkMax(Constants::RearRight, rev::CANSparkMax::MotorType::kBrushless);
+  frontLeft = new rev::CANSparkMax(Drivetrain::FrontLeft, rev::CANSparkMax::MotorType::kBrushless);
+  frontRight = new rev::CANSparkMax(Drivetrain::FrontRight, rev::CANSparkMax::MotorType::kBrushless);
+  rearLeft = new rev::CANSparkMax(Drivetrain::RearLeft, rev::CANSparkMax::MotorType::kBrushless);
+  rearRight = new rev::CANSparkMax(Drivetrain::RearRight, rev::CANSparkMax::MotorType::kBrushless);
  
+  frontLeft->SetSmartCurrentLimit(60);
+	frontLeft->SetSecondaryCurrentLimit(70);
+	frontLeft->SetIdleMode(rev::CANSparkMax::IdleMode::kCoast);
+  frontRight->SetSmartCurrentLimit(60);
+  frontRight->SetSecondaryCurrentLimit(70);
+  frontRight->SetIdleMode(rev::CANSparkMax::IdleMode::kCoast);
+  rearLeft->SetSmartCurrentLimit(60);
+  rearLeft->SetSecondaryCurrentLimit(70);
+  rearLeft->SetIdleMode(rev::CANSparkMax::IdleMode::kCoast);
+  rearRight->SetSmartCurrentLimit(60);
+  rearRight->SetSecondaryCurrentLimit(70);
+  rearRight->SetIdleMode(rev::CANSparkMax::IdleMode::kCoast);
+
+
   LeftSide = new frc::MotorControllerGroup(*frontLeft, *rearLeft);
   RightSide = new frc::MotorControllerGroup(*frontRight, *rearRight);
   
@@ -33,7 +47,7 @@ DrivetrainDrive::~DrivetrainDrive()
 }
 void DrivetrainDrive::ArcadeDrive(double x, double z){
     
-    drive->ArcadeDrive(x, z);
+  drive->ArcadeDrive(x, z);
 }
 void DrivetrainDrive::InitDefaultCommand()
 {

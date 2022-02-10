@@ -9,6 +9,18 @@
 #include "rev/CANSparkMax.h"
 #include "frc/Motorcontrol/MotorControllerGroup.h"
 
+
+
+
+namespace Drivetrain{
+constexpr int FrontRight = 2;
+constexpr int FrontLeft = 1;
+constexpr int RearRight = 3;
+constexpr int RearLeft = 5;
+}
+
+
+
 class DrivetrainDrive : public frc2::SubsystemBase {
  public:
  DrivetrainDrive();

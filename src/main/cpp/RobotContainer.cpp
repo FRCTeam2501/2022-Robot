@@ -22,7 +22,7 @@ RobotContainer::RobotContainer()  {
 	climber->SetDefaultCommand(frc2::RunCommand(
 		[this] {
 			climber->ControlPivot(controlStick->GetRawAxis(
-        JOYSTICK::AXIS::Y));
+        JOYSTICK::AXIS::Y) * 0.3);
 		},
 		{ climber }
 	));
@@ -30,7 +30,7 @@ RobotContainer::RobotContainer()  {
 	winchUp = new frc2::JoystickButton(controlStick, JOYSTICK::BUTTON::BUTTON_7);
 	winchUp->WhenPressed(new frc2::RunCommand(
 		[this] {
-			climber->WinchesUp(0.6);
+			climber->WinchesUp(0.2);
 			
 		},
 		{ climber }
@@ -38,7 +38,7 @@ RobotContainer::RobotContainer()  {
 	winchDown = new frc2::JoystickButton(controlStick, JOYSTICK::BUTTON::BUTTON_11);
 	winchDown->WhenPressed(new frc2::RunCommand(
 		[this] {
-			climber->WinchesDown(-0.6);
+			climber->WinchesDown(-0.2);
 		},
 		{ climber }
 	));

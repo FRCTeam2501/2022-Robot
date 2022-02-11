@@ -22,7 +22,7 @@ public:
 
 private:
     frc::MotorControllerGroup *winches;
-    rev::CANSparkMax *winchLeft, *winchRight, *pivotClimb;
+    rev::CANSparkMax *winch, *pivotClimb;
     
     void InitDefaultCommand();
 };

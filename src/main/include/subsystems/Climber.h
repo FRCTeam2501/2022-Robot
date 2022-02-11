@@ -55,7 +55,6 @@ public:
     Climber();
     ~Climber();
 
-
     //void AngleControl(double angle);
    int GetAngle();
    int GetLength();
@@ -76,13 +75,13 @@ private:
 
     double length;
     double lengthAdjust;
-    double targetLength; 
+    double targetLength;
 
     bool lengthChanged;
 
     bool seccondaryMove;
 
     rev::CANSparkMax *winch, *pivotClimb;
-    
+
     void InitDefaultCommand();
 };

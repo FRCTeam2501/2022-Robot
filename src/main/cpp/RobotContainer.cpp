@@ -8,6 +8,7 @@
 RobotContainer::RobotContainer()  {
   drive = new DrivetrainDrive();
   driveStick = new Joystick(0);
+  camera = new Camera();
   controlStick = new Joystick(1);
   climber = new Climber();
  drive->SetDefaultCommand(frc2::RunCommand(
@@ -54,6 +55,7 @@ RobotContainer::~RobotContainer()  {
   delete driveStick;
   delete controlStick;
   delete climber;
+  delete camera;
 }
  
 void RobotContainer::Periodic(){

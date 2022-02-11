@@ -38,7 +38,6 @@ Climber::~Climber()
 
 int Climber::ClimbControl(double angleAdjust, double lengthAdjust)
 {
-
     seccondaryMove = false;
     lengthChanged = false;
 

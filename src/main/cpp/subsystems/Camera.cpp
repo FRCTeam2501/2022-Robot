@@ -1,64 +1,55 @@
 #include "subsystems/Camera.h"
 
-
-
-Camera::Camera(){
-climbCamera = new cs::UsbCamera ("climb cam", 0);
-intakeCamera = new cs::UsbCamera ("intake cam", 1);
-
- streamVideo = new cs::MjpegServer("Dashboard Stream", 1185);
-
-
+Camera::Camera()
+{
+    climbCamera = new cs::UsbCamera("climb cam", 0);
+    intakeCamera = new cs::UsbCamera("intake cam", 1);
+    streamVideo = new cs::MjpegServer("Dashboard Stream", 1185);
 
     climbCamera->SetResolution(Cameras::with, Cameras::height);
-	climbCamera->SetFPS(Cameras::fps);
-	climbCamera->SetConnectionStrategy(cs::VideoSource::kConnectionKeepOpen);
-    
+    climbCamera->SetFPS(Cameras::fps);
+    climbCamera->SetConnectionStrategy(cs::VideoSource::kConnectionKeepOpen);
 
     intakeCamera->SetResolution(Cameras::with, Cameras::height);
-	intakeCamera->SetFPS(Cameras::fps);
-	intakeCamera->SetConnectionStrategy(cs::VideoSource::kConnectionKeepOpen);
+    intakeCamera->SetFPS(Cameras::fps);
+    intakeCamera->SetConnectionStrategy(cs::VideoSource::kConnectionKeepOpen);
 
     streamVideo->SetResolution(Cameras::with, Cameras::height);
-	streamVideo->SetFPS(Cameras::fps);
-     
+    streamVideo->SetFPS(Cameras::fps);
 }
 
-Camera::~Camera(){
-     delete climbCamera;
+Camera::~Camera()
+{
+    delete climbCamera;
     delete intakeCamera;
-     delete streamVideo;
+    delete streamVideo;
 }
 
-void Camera::SwitchFeed(){
+void Camera::SwitchFeed()
+{
 
     switch (currentFeed)
     {
     case 1:
-    streamVideo->SetSource(*climbCamera);
-     currentFeed = 2;
+        streamVideo->SetSource(*climbCamera);
+        currentFeed = 2;
         break;
     case 2:
-    streamVideo->SetSource(*intakeCamera);
-    currentFeed = 1;
-    break; 
+        streamVideo->SetSource(*intakeCamera);
+        currentFeed = 1;
+        break;
 
     default:
         break;
     }
-    
 }
 
-void Camera::Periodic(){
-
+void Camera::Periodic()
+{
 }
 
-void Camera::init(){
-    currentFeed = 1; 
+void Camera::init()
+{
+    currentFeed = 1;
     streamVideo->SetSource(*intakeCamera);
 }
-
-
-
-
-

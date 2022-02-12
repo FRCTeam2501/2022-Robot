@@ -6,8 +6,6 @@
 
 #include <frc2/command/Command.h>
 
-
-
 #include "subsystems/DrivetrainDrive.h"
 
 /**
@@ -29,19 +27,19 @@ using namespace frc;
 #include <frc2/command/RunCommand.h>
 #include "subsystems/Camera.h"
 
-class RobotContainer {
- public:
-   RobotContainer();
+class RobotContainer
+{
+public:
+  RobotContainer();
   ~RobotContainer();
 
- void Periodic();
+  void Periodic();
 
- private:
+private:
   // The robot's subsystems and commands are defined here...
   DrivetrainDrive *drive;
   Climber *climber;
   Camera *camera;
   Joystick *driveStick, *controlStick;
   frc2::JoystickButton *winchUp, *winchDown, *feedSwitch;
-  
 };

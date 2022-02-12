@@ -1,5 +1,6 @@
 #pragma once
 #include "frc2/command/SubsystemBase.h"
+#include "frc2/command/InstantCommand.h"
 #include "rev/CANSparkMax.h"
 #include "frc/Motorcontrol/MotorControllerGroup.h"
 

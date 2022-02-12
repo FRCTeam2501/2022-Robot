@@ -28,22 +28,22 @@ RobotContainer::RobotContainer()  {
 	));
 
 	winchUp = new frc2::JoystickButton(controlStick, JOYSTICK::BUTTON::BUTTON_7);
-	winchUp->WhenPressed(new frc2::RunCommand(
+	winchUp->WhenPressed(new frc2::InstantCommand(
 		[this] {
-			climber->WinchesUp(0.2);
+			climber->WinchesUp(0.48);
 			
 		},
 		{ climber }
 	));
 	winchDown = new frc2::JoystickButton(controlStick, JOYSTICK::BUTTON::BUTTON_11);
-	winchDown->WhenPressed(new frc2::RunCommand(
+	winchDown->WhenPressed(new frc2::InstantCommand(
 		[this] {
-			climber->WinchesDown(-0.2);
+			climber->WinchesDown(-0.48);
 		},
 		{ climber }
 	));
 	winchOff = new frc2::JoystickButton(controlStick, JOYSTICK::BUTTON::BUTTON_9);
-	winchOff->WhenPressed(new frc2::RunCommand(
+	winchOff->WhenPressed(new frc2::InstantCommand(
 		[this] {
 			climber->WinchesOff(0.0);
 		},

@@ -26,6 +26,7 @@ using namespace frc;
 #include <frc2/command/CommandScheduler.h>
 #include <frc2/command/RunCommand.h>
 #include "subsystems/Camera.h"
+#include "frc2/command/InstantCommand.h"
 
 class RobotContainer
 {

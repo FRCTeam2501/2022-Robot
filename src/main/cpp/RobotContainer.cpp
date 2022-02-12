@@ -30,14 +30,14 @@ RobotContainer::RobotContainer()
 		{climber}));
 
 	winchUp = new frc2::JoystickButton(controlStick, JOYSTICK::BUTTON::BUTTON_7);
-	winchUp->WhenPressed(new frc2::RunCommand(
+	winchUp->WhenPressed(new frc2::InstantCommand(
 		[this]
 		{
 			climber->ClimbControl((climber->GetAngle()), ((climber->GetLength()) + 5));
 		},
 		{climber}));
 	winchDown = new frc2::JoystickButton(controlStick, JOYSTICK::BUTTON::BUTTON_11);
-	winchDown->WhenPressed(new frc2::RunCommand(
+	winchDown->WhenPressed(new frc2::InstantCommand(
 		[this]
 		{
 			climber->ClimbControl((climber->GetAngle()), ((climber->GetLength()) - 5));
@@ -45,7 +45,7 @@ RobotContainer::RobotContainer()
 		{climber}));
 
 	feedSwitch = new frc2::JoystickButton(controlStick, JOYSTICK::BUTTON::BUTTON_8);
-	feedSwitch->WhenPressed(new frc2::RunCommand(
+	feedSwitch->WhenPressed(new frc2::InstantCommand(
 		[this]
 		{
 			camera->SwitchFeed();

@@ -46,8 +46,14 @@ RobotContainer::RobotContainer()  {
 		{ climber }
 	));
 	
-
-
+	feedSwitch = new frc2::JoystickButton(controlStick, JOYSTICK::BUTTON::BUTTON_8);
+	feedSwitch->WhenPressed(new frc2::RunCommand(
+		[this] {
+			camera->SwitchFeed();
+		},
+		{ camera }
+	));
+	
 }
 
 RobotContainer::~RobotContainer()  {

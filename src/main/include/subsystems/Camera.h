@@ -21,7 +21,7 @@ public:
     void Periodic();
     void init();
  private:
-    cs::UsbCamera *climbCamera, intakeCamera;
+    cs::UsbCamera *climbCamera, *intakeCamera;
     cs::MjpegServer *streamVideo;
 
     int currentFeed; 

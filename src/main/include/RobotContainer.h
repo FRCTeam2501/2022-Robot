@@ -42,7 +42,6 @@ class RobotContainer {
   Climber *climber;
   Camera *camera;
   Joystick *driveStick, *controlStick;
-  frc2::JoystickButton *winchUp, *winchDown;
+  frc2::JoystickButton *winchUp, *winchDown, *feedSwitch;
   
 };
-

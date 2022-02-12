@@ -2,7 +2,7 @@
 
 
 
-void Camera::Camera(){
+Camera::Camera(){
 climbCamera = new cs::UsbCamera ("climb cam", 0);
 intakeCamera = new cs::UsbCamera ("intake cam", 1);
 
@@ -13,6 +13,7 @@ intakeCamera = new cs::UsbCamera ("intake cam", 1);
     climbCamera->SetResolution(Cameras::with, Cameras::height);
 	climbCamera->SetFPS(Cameras::fps);
 	climbCamera->SetConnectionStrategy(cs::VideoSource::kConnectionKeepOpen);
+    
 
     intakeCamera->SetResolution(Cameras::with, Cameras::height);
 	intakeCamera->SetFPS(Cameras::fps);
@@ -20,35 +21,32 @@ intakeCamera = new cs::UsbCamera ("intake cam", 1);
 
     streamVideo->SetResolution(Cameras::with, Cameras::height);
 	streamVideo->SetFPS(Cameras::fps);
-    
+     
 }
 
-void Camera::~Camera(){
+Camera::~Camera(){
      delete climbCamera;
-     delete intakeCamera;
+    delete intakeCamera;
      delete streamVideo;
 }
 
 void Camera::SwitchFeed(){
 
-if (currentFeed = 1){
-    currentFeed = 2;
-}else{
-    currentFeed = 1;
-}
-
     switch (currentFeed)
     {
     case 1:
     streamVideo->SetSource(*climbCamera);
+     currentFeed = 2;
         break;
     case 2:
     streamVideo->SetSource(*intakeCamera);
+    currentFeed = 1;
     break; 
 
     default:
         break;
     }
+    
 }
 
 void Camera::Periodic(){
@@ -57,7 +55,7 @@ void Camera::Periodic(){
 
 void Camera::init(){
     currentFeed = 1; 
-    streamVideo->SetSource(*climbCamera);
+    streamVideo->SetSource(*intakeCamera);
 }
 
 

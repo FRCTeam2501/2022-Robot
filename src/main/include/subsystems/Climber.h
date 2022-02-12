@@ -64,6 +64,8 @@ class Climber : public frc2::SubsystemBase {
   private:
     ClimberExtend *extend;
     ClimberRotate *rotate;
+    bool hasNextStep = false;
+    units::meter_t nextStepExtension = 0_m;
 
   public:
     Climber();

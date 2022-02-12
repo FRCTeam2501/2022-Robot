@@ -60,8 +60,52 @@ bool Climber::Set(units::meter_t extension, units::degree_t angle) {
     }
 
     // Handle the battery box constraint
+    hasNextStep = false;
+    units::degree_t currentAngle = GetAngle();
+    // Target is below the battery box maximum, and the current is above
+    // aka transitioning into the battery box
     if(angle < CONSTANTS::CLIMBER::BATTERY_BOX_ANGLE_MAXIMUM
-            && angle > CONSTANTS::CLIMBER::BATTERY_BOX_ANGLE_MINIMUM) {
+            && currentAngle > CONSTANTS::CLIMBER::BATTERY_BOX_ANGLE_MAXIMUM) {
+        // If the target is below the minimum, setup a next step to extend again
+        if(angle < CONSTANTS::CLIMBER::BATTERY_BOX_ANGLE_MINIMUM) {
+            wpi::outs() << "Climber: setup next step to: "
+                    << extension << "m (down)\n";
+            nextStepExtension = extension;
+            hasNextStep = true;
+        }
+        // Constrain the extension to more than the extension minimum
+        if(extension < CONSTANTS::CLIMBER::BATTERY_BOX_EXTENSION_MINIMUM) {
+            extension = CONSTANTS::CLIMBER::BATTERY_BOX_EXTENSION_MINIMUM;
+            wpi::outs() << "Climber: constrained extension to: "
+                    << extension.to<double>()
+                    << "m (battery box constraint)\n";
+            result = true;
+        }
+    }
+    // Target is above the battery box minimum, and the current is below
+    // aka transitioning into the battery box
+    else if(angle > CONSTANTS::CLIMBER::BATTERY_BOX_ANGLE_MINIMUM
+            && currentAngle < CONSTANTS::CLIMBER::BATTERY_BOX_ANGLE_MINIMUM) {
+        // If the target is above the maximum, setup a next step to extend again
+        if(angle > CONSTANTS::CLIMBER::BATTERY_BOX_ANGLE_MAXIMUM) {
+            wpi::outs() << "Climber: setup next step to: "
+                    << extension << "m (up)\n";
+            nextStepExtension = extension;
+            hasNextStep = true;
+        }
+        // Constrain the extension to less than the extension maximum
+        if(extension > CONSTANTS::CLIMBER::BATTERY_BOX_EXTENSION_MINIMUM) {
+            extension = CONSTANTS::CLIMBER::BATTERY_BOX_EXTENSION_MINIMUM;
+            wpi::outs() << "Climber: constrained extension to: "
+                    << extension.to<double>()
+                    << "m (battery box constraint)\n";
+            result = true;
+        }
+    }
+    // Current is within the battery box, constrain the extension
+    else if(currentAngle < CONSTANTS::CLIMBER::BATTERY_BOX_ANGLE_MAXIMUM
+            && currentAngle > CONSTANTS::CLIMBER::BATTERY_BOX_ANGLE_MINIMUM) {
+        // Current is in the battery box
         if(extension < CONSTANTS::CLIMBER::BATTERY_BOX_EXTENSION_MINIMUM) {
             extension = CONSTANTS::CLIMBER::BATTERY_BOX_EXTENSION_MINIMUM;
             wpi::outs() << "Climber: constrained extension to: "

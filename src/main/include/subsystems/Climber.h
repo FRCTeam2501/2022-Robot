@@ -47,6 +47,7 @@ namespace ClimbConstants{
   constexpr double winchSetI = 0.00;
   constexpr double winchSetD = 0.00;
 
+
 }
 
 class Climber : public frc2::SubsystemBase
@@ -62,6 +63,8 @@ public:
     //void WinchControl(double lengthAdjust);
 
     int ClimbControl(double angleAdjust, double lengthAdjust);
+
+  int LengthToTurns(double inchesToTurns);
 
     void Periodic();
     

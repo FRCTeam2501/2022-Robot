@@ -83,7 +83,7 @@ private:
     bool lengthChanged;
 
     rev::CANSparkMax winch{ClimbConstants::winch, rev::CANSparkMax::MotorType::kBrushless};
-    rev::CANSparkMax pivotClimb{ClimbConstants::winch, rev::CANSparkMax::MotorType::kBrushless};
+    rev::CANSparkMax pivotClimb{ClimbConstants::climbPivot, rev::CANSparkMax::MotorType::kBrushless};
     bool seccondaryMove;
     rev::SparkMaxPIDController winchPID = winch.GetPIDController();
     rev::SparkMaxPIDController pivotPID = pivotClimb.GetPIDController();

@@ -54,7 +54,6 @@ class Climber : public frc2::SubsystemBase
 {
 public:
     Climber();
-    ~Climber();
 
     //void AngleControl(double angle);
    int GetAngle();
@@ -67,6 +66,7 @@ public:
   int LengthToTurns(double inchesToTurns);
 
     void Periodic();
+    void Init();
     
     // It's desirable that everything possible under private except
     // for methods that implement subsystem capabilities
@@ -82,9 +82,12 @@ private:
 
     bool lengthChanged;
 
+    rev::CANSparkMax winch{ClimbConstants::winch, rev::CANSparkMax::MotorType::kBrushless};
+    rev::CANSparkMax pivotClimb{ClimbConstants::winch, rev::CANSparkMax::MotorType::kBrushless};
     bool seccondaryMove;
+    rev::SparkMaxPIDController winchPID = winch.GetPIDController();
+    rev::SparkMaxPIDController pivotPID = pivotClimb.GetPIDController();
 
-    rev::CANSparkMax *winch, *pivotClimb;
 
     void InitDefaultCommand();
 };

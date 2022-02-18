@@ -37,10 +37,11 @@ public:
   void Periodic();
 
 private:
+double testing = 6;
   // The robot's subsystems and commands are defined here...
   DrivetrainDrive *drive;
   Climber *climber;
   Camera *camera;
   Joystick *driveStick, *controlStick;
-  frc2::JoystickButton *winchUp, *winchDown, *feedSwitch;
+  frc2::JoystickButton *winchUp, *winchDown, *feedSwitch, *hardLength;
 };

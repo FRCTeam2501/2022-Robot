@@ -11,10 +11,10 @@
 
 
 namespace Drivetrain{
-constexpr int frontRight = 2;
-constexpr int frontLeft = 1;
-constexpr int rearRight = 3;
-constexpr int rearLeft = 5;
+constexpr int frontRight = 15;
+constexpr int frontLeft = 6;
+constexpr int rearRight = 8;
+constexpr int rearLeft = 12;
 
 constexpr double driveSmartCurrentLimet = 60.0;
 constexpr double driveSeccondaryCurrentLimet = 70.0;
@@ -23,7 +23,7 @@ constexpr double driveSeccondaryCurrentLimet = 70.0;
 
 class DrivetrainDrive : public frc2::SubsystemBase {
  public:
- DrivetrainDrive();
+ DrivetrainDrive(); 
  ~DrivetrainDrive();
 
  void ArcadeDrive(double x, double z);

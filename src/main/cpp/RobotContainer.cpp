@@ -14,12 +14,29 @@ RobotContainer::RobotContainer()
 	drive->SetDefaultCommand(frc2::RunCommand(
 		[this]
 		{
+		
 			//	remove the constants from the coppy pasted code
 			drive->ArcadeDrive(-1.0 * driveStick->GetRawAxis(
 										  JOYSTICK::AXIS::Y),
 							   0.6 * driveStick->GetRawAxis(JOYSTICK::AXIS::X));
 		},
 		{drive}));
+
+	hardLength = new frc2::JoystickButton(controlStick, JOYSTICK::BUTTON::BUTTON_8);
+	hardLength->WhenPressed(new frc2::InstantCommand(
+		[this]
+		{
+				if (testing < 8){
+					testing = 40;			
+					}else{
+						testing = 2;
+					}
+
+			
+			// frc::SmartDashboard::PutNumber("hi", 1);
+			climber->HardLength(testing);
+		},
+		{climber}));
 
 	climber->SetDefaultCommand(frc2::RunCommand(
 		[this]
@@ -33,6 +50,7 @@ RobotContainer::RobotContainer()
 	winchUp->WhenPressed(new frc2::InstantCommand(
 		[this]
 		{
+			// frc::SmartDashboard::PutNumber("hi", 1);
 			climber->ClimbControl((climber->GetAngle()), ((climber->GetLength()) + 5));
 		},
 		{climber}));

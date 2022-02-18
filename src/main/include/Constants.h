@@ -11,14 +11,14 @@ namespace Constants {
 
 
 
-constexpr int FrontRight = 8;
-constexpr int FrontLeft = 12;
-constexpr int RearRight = 11;
-constexpr int RearLeft = 6;
+constexpr int FrontRight = 15;
+constexpr int FrontLeft = 6;
+constexpr int RearRight = 8;
+constexpr int RearLeft = 12;
 
 
 constexpr int winch = 10;
-constexpr int climbPivot = 15;
+constexpr int climbPivot = 11;
 
 
 namespace DRIVETRAIN {

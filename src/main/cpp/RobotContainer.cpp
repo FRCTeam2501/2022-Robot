@@ -46,7 +46,7 @@ RobotContainer::RobotContainer()
 			
 			
 			// frc::SmartDashboard::PutNumber("hi", 1);
-			climber->HardLength(-1);
+			climber->HardLength(-0.5);
 			
 		},
 		{climber}));
@@ -57,7 +57,7 @@ RobotContainer::RobotContainer()
 		{
 			
 			// frc::SmartDashboard::PutNumber("hi", 1);
-			climber->HardLength(1);
+			climber->HardLength(0.5);
 		},
 		{climber}));
 

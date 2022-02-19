@@ -18,14 +18,14 @@ Climber::Climber()
         (360 / (ClimbConstants::pivotConversionFactorOne * ClimbConstants::pivotConversionFactorTwo)));
     // Makes it so that one unit into the motor makes one degree of rotation of the climb arm
 
-    winchPID.SetP(0.01);
-    winchPID.SetI(0);
+    winchPID.SetP(0.0005);
+    winchPID.SetI(0.000001);
     winchPID.GetD(0);
     winchPID.SetOutputRange(-1, 1);
 
     winch.SetSmartCurrentLimit(ClimbConstants::winchSmartCurrentLimet);
     winch.SetSecondaryCurrentLimit(ClimbConstants::winchSeccondaryCurrentLimet);
-    winch.GetEncoder().SetPositionConversionFactor(1/48); // not currect, but maby is
+    winchEncoder.SetPositionConversionFactor(1/48); // not currect, but maby is
 }
 
 int Climber::ClimbControl(double angleAdjust, double lengthAdjust)
@@ -124,6 +124,9 @@ int Climber::ClimbControl(double angleAdjust, double lengthAdjust)
 
 void Climber::HardLength(double floatTest){
     winchPID.SetReference(floatTest, rev::CANSparkMaxLowLevel::ControlType::kPosition);
+    frc::SmartDashboard::PutNumber("Winch terget", floatTest);
+   frc::SmartDashboard::PutNumber("winch actual", winchEncoder.GetPosition());
+    //frc::SmartDashboard::PutNumber("hi", 1);
 }
 
 int Climber::LengthToTurns(double inchesToTurns)
@@ -212,6 +215,8 @@ void Climber::Periodic()
         seccondaryMove = false;
     }
     */
+  // frc::SmartDashboard::PutNumber("Winch terget", floatTest);
+   frc::SmartDashboard::PutNumber("winch actual", winchEncoder.GetPosition());
 }
 
 void Climber::Init()

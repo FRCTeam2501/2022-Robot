@@ -63,7 +63,7 @@ void Robot::TeleopInit() {
     m_autonomousCommand->Cancel();
     m_autonomousCommand = nullptr;
   }
-
+ //frc::SmartDashboard.putNumber("Winch terget", winch.getPosition());
 }
 
 /**

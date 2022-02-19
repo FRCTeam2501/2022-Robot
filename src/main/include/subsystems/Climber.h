@@ -7,6 +7,7 @@
 #include "Constants.h"
 #include <math.h> 
 #include "rev/SparkMaxLimitSwitch.h"
+#include "frc/smartdashboard/SmartDashboard.h"
 
 namespace ClimbConstants{
 
@@ -91,6 +92,7 @@ double floatTest;
     bool seccondaryMove;
     rev::SparkMaxPIDController winchPID = winch.GetPIDController();
     rev::SparkMaxPIDController pivotPID = pivotClimb.GetPIDController();
+    rev::SparkMaxRelativeEncoder winchEncoder = winch.GetEncoder();
 
 
     void InitDefaultCommand();

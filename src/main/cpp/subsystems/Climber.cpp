@@ -147,7 +147,6 @@ constexpr double l4 = (l3 - c3);
 constexpr double l5 = (l4 - c4);
 constexpr double l6 = (l5 - c5);
 
-
 constexpr double f6 = ((1/c5)*l5);
 constexpr double f5 = ((1/c4)*(l4-l5)+f6);
 constexpr double f4 = ((1/c3)*(l3-l4)+f5);

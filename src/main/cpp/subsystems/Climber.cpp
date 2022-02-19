@@ -20,9 +20,9 @@ Climber::Climber()
         ((360.0/(ClimbConstants::pivotConversionFactorOne * ClimbConstants::pivotConversionFactorTwo))));
     // Makes it so that one unit into the motor makes one degree of rotation of the climb arm
 
-    winchPID.SetP(2.0);
-    winchPID.SetI(0.0);
-    winchPID.GetD(0);
+    winchPID.SetP(ClimbConstants::winchSetP);
+    winchPID.SetI(ClimbConstants::winchSetI);
+    winchPID.GetD(ClimbConstants::winchSetD);
     winchPID.SetOutputRange(-1.0, 1.0);
 
     winch.SetSmartCurrentLimit(ClimbConstants::winchSmartCurrentLimet);

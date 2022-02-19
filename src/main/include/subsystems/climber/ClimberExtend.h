@@ -1,23 +1,24 @@
 #pragma once
 #include "rev/CANSparkMax.h"
+#include "units/angle.h"
+#include "units/constants.h"
 #include "units/current.h"
 #include "units/dimensionless.h"
 #include "units/length.h"
 #include "Constants.h"
-
 
 namespace CONSTANTS::CLIMBER::EXTEND {
     constexpr units::current::ampere_t
             HARD_CURRENT_LIMIT = 100_A,
             SOFT_CURRENT_LIMIT = 60_A;
     constexpr units::scalar_t
-            GEARBOX_RATIO = 100.0, // 100:1 planetary gearbox
-            PULLEY_RATIO = 122.0 / 65.0; // 122:65 pulley reduction
-    constexpr auto
-            TURN_TO_METER = 1_m / (GEARBOX_RATIO * PULLEY_RATIO);
+            GEARBOX_RATIO = 1 / 100.0; // 100:1 planetary gearbox
+    constexpr units::meter_t
+            PULLEY_DIAMETER = 1.4275_in,
+            PULLEY_CIRCUMFERENCE = PULLEY_DIAMETER * units::constants::pi;
     namespace PID {
         constexpr double 
-                P = 0.1,
+                P = 2.0,
                 I = 0.0,
                 D = 0.0,
                 FF = 0.0,
@@ -29,19 +30,24 @@ namespace CONSTANTS::CLIMBER::EXTEND {
 
 class ClimberExtend {
   private:
-    // Individual speed controllers
+    // Individual speed controller
     rev::CANSparkMax winch{CONSTANTS::MOTORS::CAN::CLIMBER_EXTEND_ID,
                 rev::CANSparkMax::MotorType::kBrushless};
-    // Speed controller PID controllers
+    // Speed controller objects
     rev::SparkMaxPIDController pid = winch.GetPIDController();
+    rev::SparkMaxRelativeEncoder encoder = winch.GetEncoder();
     // State variables
     units::meter_t distance;
+
+    units::turn_t GetTurns(units::meter_t distance);
+    units::meter_t GetDistance(units::turn_t turns);
 
   public:
     ClimberExtend();
 
-    units::meter_t GetExtension();
-    void SetExtension(units::meter_t distance);
+    units::meter_t Get();
+    void Set(units::meter_t distance);
 
-    units::meter_t GetActualExtension();
+    units::turn_t GetActual();
 };
+

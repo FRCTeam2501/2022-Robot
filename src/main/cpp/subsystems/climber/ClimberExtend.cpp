@@ -9,8 +9,8 @@ ClimberExtend::ClimberExtend() {
     winch.SetSecondaryCurrentLimit(
             CONSTANTS::CLIMBER::EXTEND::SOFT_CURRENT_LIMIT.to<double>());
     winch.GetEncoder().SetPositionConversionFactor(
-            CONSTANTS::CLIMBER::EXTEND::TURN_TO_METER.to<double>());
-            // The encoder is now in units of meters
+            CONSTANTS::CLIMBER::EXTEND::GEARBOX_RATIO.to<double>());
+            // The encoder is now in units of drum turns
 
     // Set up PID controller
     pid.SetP(CONSTANTS::CLIMBER::EXTEND::PID::P);
@@ -22,19 +22,31 @@ ClimberExtend::ClimberExtend() {
             CONSTANTS::CLIMBER::EXTEND::PID::MAX);
 }
 
-units::meter_t ClimberExtend::GetExtension() {
+units::meter_t ClimberExtend::Get() {
     return distance;
 }
 
-void ClimberExtend::SetExtension(units::meter_t distance) {
+void ClimberExtend::Set(units::meter_t distance) {
     // Save the distance
     ClimberExtend::distance = distance;
 
     // Update the PID controller
-    pid.SetReference(distance.to<double>(),
+    pid.SetReference(GetTurns(distance).to<double>(),
                 rev::CANSparkMaxLowLevel::ControlType::kPosition);
 }
 
-units::meter_t ClimberExtend::GetActualExtension() {
-    return (units::meter_t) winch.GetEncoder().GetPosition();
+units::turn_t ClimberExtend::GetActual() {
+    return (units::turn_t) encoder.GetPosition();
+}
+
+units::turn_t ClimberExtend::GetTurns(units::meter_t distance) {
+    // Note: This only accounts for a single circumference,
+    //  not the changing circumference of the pulley system
+    return distance * 1_tr / CONSTANTS::CLIMBER::EXTEND::PULLEY_CIRCUMFERENCE;
+}
+
+units::meter_t ClimberExtend::GetDistance(units::turn_t turns) {
+    // Note: This only accounts for a single circumference,
+    //  not the changing circumference of the pulley system
+    return turns * CONSTANTS::CLIMBER::EXTEND::PULLEY_CIRCUMFERENCE / 1_tr;
 }

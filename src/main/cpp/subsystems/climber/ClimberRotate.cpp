@@ -21,19 +21,19 @@ ClimberRotate::ClimberRotate() {
             CONSTANTS::CLIMBER::ROTATION::PID::MAX);
 }
 
-units::degree_t ClimberRotate::GetAngle() {
+units::degree_t ClimberRotate::Get() {
     return angle;
 }
 
-void ClimberRotate::SetAngle(units::degree_t angle) {
+void ClimberRotate::Set(units::degree_t angle) {
     // Save the angle
     ClimberRotate::angle = angle;
 
     // Update the PID controller
     pid.SetReference(angle.to<double>(),
-                rev::CANSparkMaxLowLevel::ControlType::kPosition);
+            rev::CANSparkMaxLowLevel::ControlType::kPosition);
 }
 
-units::degree_t ClimberRotate::GetActualAngle() {
+units::degree_t ClimberRotate::GetActual() {
     return (units::degree_t) encoder.GetPosition();
 }

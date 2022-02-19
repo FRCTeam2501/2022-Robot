@@ -1,4 +1,5 @@
 #include "subsystems/Climber.h"
+#include <iostream>
 #include <frc/smartdashboard/SmartDashboard.h>
 #include "units/math.h"
 
@@ -14,7 +15,7 @@ Climber::~Climber() {
 }
 
 units::meter_t Climber::GetExtension() {
-    return extend->GetExtension();
+    return extend->Get();
 }
 
 bool Climber::SetExtension(units::meter_t extension) {
@@ -22,7 +23,7 @@ bool Climber::SetExtension(units::meter_t extension) {
 }
 
 units::degree_t Climber::GetAngle() {
-    return rotate->GetAngle();
+    return rotate->Get();
 }
 
 bool Climber::SetAngle(units::degree_t angle) {
@@ -35,13 +36,13 @@ bool Climber::Set(units::meter_t extension, units::degree_t angle) {
     // Hard extension limits
     if(extension > CONSTANTS::CLIMBER::EXTENSION_MAXIMUM) {
         extension = CONSTANTS::CLIMBER::EXTENSION_MAXIMUM;
-        wpi::outs() << "Climber: constrained extension to: "
+        std::cout << "Climber: constrained extension to: "
                 << extension.to<double>() << "m (hard)\n";
         result = true;
     }
     else if(extension < CONSTANTS::CLIMBER::EXTENSION_MINIMUM) {
         extension = CONSTANTS::CLIMBER::EXTENSION_MINIMUM;
-        wpi::outs() << "Climber: constrained extension to: "
+        std::cout << "Climber: constrained extension to: "
                 << extension.to<double>() << "m (hard)\n";
         result = true;
     }
@@ -49,13 +50,13 @@ bool Climber::Set(units::meter_t extension, units::degree_t angle) {
     // Hard angle limits
     if(angle > CONSTANTS::CLIMBER::ANGLE_MAXIMUM) {
         angle = CONSTANTS::CLIMBER::ANGLE_MAXIMUM;
-        wpi::outs() << "Climber: constrained angle to: "
+        std::cout << "Climber: constrained angle to: "
                 << angle.to<double>() << "deg (hard)\n";
         result = true;
     }
     else if(angle < CONSTANTS::CLIMBER::ANGLE_MINIMUM) {
         angle = CONSTANTS::CLIMBER::ANGLE_MINIMUM;
-        wpi::outs() << "Climber: constrained angle to: "
+        std::cout << "Climber: constrained angle to: "
                 << angle.to<double>() << "deg (hard)\n";
         result = true;
     }
@@ -69,17 +70,16 @@ bool Climber::Set(units::meter_t extension, units::degree_t angle) {
             && currentAngle > CONSTANTS::CLIMBER::BATTERY_BOX_ANGLE_MAXIMUM) {
         // If the target is below the minimum, setup a next step to extend again
         if(angle < CONSTANTS::CLIMBER::BATTERY_BOX_ANGLE_MINIMUM) {
-            wpi::outs() << "Climber: setup next step to: "
-                    << extension << "m (down)\n";
+            std::cout << "Climber: setup next step to: "
+                    << extension.to<double>() << "m (down)\n";
             nextStepExtension = extension;
             hasNextStep = true;
         }
         // Constrain the extension to more than the extension minimum
         if(extension < CONSTANTS::CLIMBER::BATTERY_BOX_EXTENSION_MINIMUM) {
             extension = CONSTANTS::CLIMBER::BATTERY_BOX_EXTENSION_MINIMUM;
-            wpi::outs() << "Climber: constrained extension to: "
-                    << extension.to<double>()
-                    << "m (battery box constraint)\n";
+            std::cout << "Climber: constrained extension to: "
+                    << extension.to<double>() << "m (battery box constraint)\n";
             result = true;
         }
     }
@@ -89,17 +89,16 @@ bool Climber::Set(units::meter_t extension, units::degree_t angle) {
             && currentAngle < CONSTANTS::CLIMBER::BATTERY_BOX_ANGLE_MINIMUM) {
         // If the target is above the maximum, setup a next step to extend again
         if(angle > CONSTANTS::CLIMBER::BATTERY_BOX_ANGLE_MAXIMUM) {
-            wpi::outs() << "Climber: setup next step to: "
-                    << extension << "m (up)\n";
+            std::cout << "Climber: setup next step to: "
+                    << extension.to<double>() << "m (up)\n";
             nextStepExtension = extension;
             hasNextStep = true;
         }
         // Constrain the extension to less than the extension maximum
         if(extension > CONSTANTS::CLIMBER::BATTERY_BOX_EXTENSION_MINIMUM) {
             extension = CONSTANTS::CLIMBER::BATTERY_BOX_EXTENSION_MINIMUM;
-            wpi::outs() << "Climber: constrained extension to: "
-                    << extension.to<double>()
-                    << "m (battery box constraint)\n";
+            std::cout << "Climber: constrained extension to: "
+                    << extension.to<double>() << "m (battery box constraint)\n";
             result = true;
         }
     }
@@ -109,9 +108,8 @@ bool Climber::Set(units::meter_t extension, units::degree_t angle) {
         // Current is in the battery box
         if(extension < CONSTANTS::CLIMBER::BATTERY_BOX_EXTENSION_MINIMUM) {
             extension = CONSTANTS::CLIMBER::BATTERY_BOX_EXTENSION_MINIMUM;
-            wpi::outs() << "Climber: constrained extension to: "
-                    << extension.to<double>()
-                    << "m (battery box constraint)\n";
+            std::cout << "Climber: constrained extension to: "
+                    << extension.to<double>() << "m (battery box constraint)\n";
             result = true;
         }
     }
@@ -137,9 +135,8 @@ bool Climber::Set(units::meter_t extension, units::degree_t angle) {
     minimum = CONSTANTS::CLIMBER::ARM_BACKWARD_LENGTH - minimum;
     if(extension < minimum) {
         extension = minimum;
-        wpi::outs() << "Climber: constrained extension to: "
-                << extension.to<double>()
-                << "m (wall constraint)\n";
+        std::cout << "Climber: constrained extension to: "
+                << extension.to<double>() << "m (wall constraint)\n";
         result = true;
     }
 
@@ -163,25 +160,24 @@ bool Climber::Set(units::meter_t extension, units::degree_t angle) {
     maximum -= CONSTANTS::CLIMBER::ARM_FORWARD_LENGTH;
     if(extension > maximum) {
         extension = maximum;
-        wpi::outs() << "Climber: constrained extension to: "
-                << extension.to<double>()
-                << "m (ceiling constraint)\n";
+        std::cout << "Climber: constrained extension to: "
+                << extension.to<double>() << "m (ceiling constraint)\n";
         result = true;
     }
 
-    extend->SetExtension(extension);
-    rotate->SetAngle(angle);
+    extend->Set(extension);
+    rotate->Set(angle);
     return result;
 }
 
 void Climber::Periodic() {
     frc::SmartDashboard::PutNumber("Climber extension setpoint",
-            extend->GetExtension().to<double>());
+            extend->Get().to<double>());
     frc::SmartDashboard::PutNumber("Climber angle setpoint",
-            rotate->GetAngle().to<double>());
+            rotate->Get().to<double>());
 
     frc::SmartDashboard::PutNumber("Climber extension",
-            extend->GetActualExtension().to<double>());
+            extend->GetActual().to<double>());
     frc::SmartDashboard::PutNumber("Climber angle",
-            rotate->GetActualAngle().to<double>());
+            rotate->GetActual().to<double>());
 }

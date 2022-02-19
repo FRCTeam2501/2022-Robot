@@ -41,8 +41,8 @@ class ClimberRotate {
   public:
     ClimberRotate();
 
-    units::degree_t GetAngle();
-    void SetAngle(units::degree_t angle);
+    units::degree_t Get();
+    void Set(units::degree_t angle);
 
-    units::degree_t GetActualAngle();
+    units::degree_t GetActual();
 };

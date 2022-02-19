@@ -3,6 +3,7 @@
 #include "units/angle.h"
 #include "units/current.h"
 #include "units/dimensionless.h"
+#include "Constants.h"
 
 
 namespace CONSTANTS::CLIMBER::ROTATION {
@@ -29,14 +30,19 @@ namespace CONSTANTS::CLIMBER::ROTATION {
 class ClimberRotate {
   private:
     // Individual speed controller
-    rev::CANSparkMax *rotation;
+    rev::CANSparkMax rotation{CONSTANTS::MOTORS::CAN::CLIMBER_ROTATION_ID,
+            rev::CANSparkMax::MotorType::kBrushless};
+    // Speed controller objects
+    rev::SparkMaxPIDController pid = rotation.GetPIDController();
+    rev::SparkMaxRelativeEncoder encoder = rotation.GetEncoder();
     // State variables
     units::degree_t angle;
 
   public:
     ClimberRotate();
-    ~ClimberRotate();
 
     units::degree_t GetAngle();
     void SetAngle(units::degree_t angle);
+
+    units::degree_t GetActualAngle();
 };

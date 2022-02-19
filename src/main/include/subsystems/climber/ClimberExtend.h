@@ -3,6 +3,7 @@
 #include "units/current.h"
 #include "units/dimensionless.h"
 #include "units/length.h"
+#include "Constants.h"
 
 
 namespace CONSTANTS::CLIMBER::EXTEND {
@@ -29,14 +30,16 @@ namespace CONSTANTS::CLIMBER::EXTEND {
 class ClimberExtend {
   private:
     // Individual speed controllers
-    rev::CANSparkMax *winch;
+    rev::CANSparkMax winch{CONSTANTS::MOTORS::CAN::CLIMBER_EXTEND_ID,
+                rev::CANSparkMax::MotorType::kBrushless};
+    // Speed controller PID controllers
+    rev::SparkMaxPIDController pid = winch.GetPIDController();
     // State variables
     units::meter_t distance;
 
   public:
     ClimberExtend();
-    ~ClimberExtend();
 
-    void SetExtension(units::meter_t distance);
     units::meter_t GetExtension();
+    void SetExtension(units::meter_t distance);
 };

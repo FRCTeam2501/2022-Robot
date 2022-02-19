@@ -1,43 +1,24 @@
 #include "subsystems/climber/ClimberRotate.h"
-#include "Constants.h"
 
 
 ClimberRotate::ClimberRotate() {
-    // Create motor controllers
-    rotation = new rev::CANSparkMax(
-        CONSTANTS::MOTORS::CAN::CLIMBER_ROTATION_ID,
-        rev::CANSparkMax::MotorType::kBrushless
-    );
-
-
     // Setup current limit, idle mode, and encoder factor
-    rotation->SetSmartCurrentLimit(
+    rotation.SetSmartCurrentLimit(
             CONSTANTS::CLIMBER::ROTATION::HARD_CURRENT_LIMIT.to<int>());
-    rotation->SetSecondaryCurrentLimit(
+    rotation.SetSecondaryCurrentLimit(
             CONSTANTS::CLIMBER::ROTATION::SOFT_CURRENT_LIMIT.to<double>());
-    rotation->GetEncoder().SetPositionConversionFactor(
+    encoder.SetPositionConversionFactor(
             CONSTANTS::CLIMBER::ROTATION::TURN_TO_DEGREE.to<double>());
-
+            // The encoder is now in units of degrees
 
     // Set up PID controller
-    rotation->GetPIDController().SetP(
-            CONSTANTS::CLIMBER::ROTATION::PID::P);
-    rotation->GetPIDController().SetI(
-            CONSTANTS::CLIMBER::ROTATION::PID::I);
-    rotation->GetPIDController().SetD(
-            CONSTANTS::CLIMBER::ROTATION::PID::D);
-    rotation->GetPIDController().SetFF(
-            CONSTANTS::CLIMBER::ROTATION::PID::FF);
-    rotation->GetPIDController().SetIZone(
-            CONSTANTS::CLIMBER::ROTATION::PID::I_ZONE);
-    rotation->GetPIDController().SetOutputRange(
-            CONSTANTS::CLIMBER::ROTATION::PID::MIN,
-            CONSTANTS::CLIMBER::ROTATION::PID::MAX
-    );
-}
-
-ClimberRotate::~ClimberRotate() {
-    delete rotation;
+    pid.SetP(CONSTANTS::CLIMBER::ROTATION::PID::P);
+    pid.SetI(CONSTANTS::CLIMBER::ROTATION::PID::I);
+    pid.SetD(CONSTANTS::CLIMBER::ROTATION::PID::D);
+    pid.SetFF(CONSTANTS::CLIMBER::ROTATION::PID::FF);
+    pid.SetIZone(CONSTANTS::CLIMBER::ROTATION::PID::I_ZONE);
+    pid.SetOutputRange(CONSTANTS::CLIMBER::ROTATION::PID::MIN,
+            CONSTANTS::CLIMBER::ROTATION::PID::MAX);
 }
 
 units::degree_t ClimberRotate::GetAngle() {
@@ -49,6 +30,10 @@ void ClimberRotate::SetAngle(units::degree_t angle) {
     ClimberRotate::angle = angle;
 
     // Update the PID controller
-    rotation->GetPIDController().SetReference(
-        angle.to<double>(), rev::CANSparkMaxLowLevel::ControlType::kPosition);
+    pid.SetReference(angle.to<double>(),
+                rev::CANSparkMaxLowLevel::ControlType::kPosition);
+}
+
+units::degree_t ClimberRotate::GetActualAngle() {
+    return (units::degree_t) encoder.GetPosition();
 }

@@ -11,13 +11,14 @@ Climber::Climber()
     pivotClimb.GetReverseLimitSwitch(rev::SparkMaxLimitSwitch::Type::kNormallyOpen).EnableLimitSwitch(true);
 
     winch.SetInverted(true);
+    pivotClimb.SetInverted(true);
 
     pivotPID.SetP(ClimbConstants::pivotClimbSetP);
     pivotPID.SetI(ClimbConstants::pivotClimbSetI);
     pivotPID.SetD(ClimbConstants::pivotClimbSetD);
     pivotPID.SetOutputRange(-1, 1);
-    pivotClimb.GetEncoder().SetPositionConversionFactor(
-        (360 / (ClimbConstants::pivotConversionFactorOne * ClimbConstants::pivotConversionFactorTwo)));
+    pivotEncoder.SetPositionConversionFactor(
+        ((360.0/(ClimbConstants::pivotConversionFactorOne * ClimbConstants::pivotConversionFactorTwo))));
     // Makes it so that one unit into the motor makes one degree of rotation of the climb arm
 
     winchPID.SetP(2.0);
@@ -27,13 +28,21 @@ Climber::Climber()
 
     winch.SetSmartCurrentLimit(ClimbConstants::winchSmartCurrentLimet);
     winch.SetSecondaryCurrentLimit(ClimbConstants::winchSeccondaryCurrentLimet);
-    winchEncoder.SetPositionConversionFactor( (1.4275 * M_PI)/100.0); // not currect, but maby is
+    winchEncoder.SetPositionConversionFactor((1.4275 * M_PI) / 100.0); // not currect, but maby is
 }
 
 void Climber::HardLength(double floatTest)
 {
+    length += floatTest;
+
     winchPID.SetReference(floatTest, rev::CANSparkMaxLowLevel::ControlType::kPosition);
-    frc::SmartDashboard::PutNumber("Winch target", floatTest);
+}
+
+void Climber::HardAngle(double angleTest)
+{
+    Climber::angleTest = angleTest;
+   // angle += angleTest;
+    pivotPID.SetReference(angleTest, rev::CANSparkMaxLowLevel::ControlType::kPosition);
 }
 
 int Climber::GetAngle()
@@ -48,5 +57,8 @@ int Climber::GetLength()
 
 void Climber::Periodic()
 {
+    frc::SmartDashboard::PutNumber("pivot actual", pivotEncoder.GetPosition());
+    frc::SmartDashboard::PutNumber("pivot target", angleTest);
+    frc::SmartDashboard::PutNumber("Winch target", length);
     frc::SmartDashboard::PutNumber("winch actual", winchEncoder.GetPosition());
 }

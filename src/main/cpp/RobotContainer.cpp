@@ -22,22 +22,38 @@ RobotContainer::RobotContainer()
 		{drive}
 	));
 
-	hardLength = new frc2::JoystickButton(controlStick, JOYSTICK::BUTTON::TRIGGER);
-	hardLength->WhenPressed(new frc2::InstantCommand(
+
+	hardAngle = new frc2::JoystickButton(controlStick, JOYSTICK::BUTTON::TRIGGER);
+	hardAngle->WhenPressed(new frc2::InstantCommand(
 		[this]
 		{
-			if (testing < 3)
-			{
-				testing = 4;
-			}
-			else
-			{
-				testing = 2;
-			}
+				if (testing < 40){
+					testing = 60;			
+					}else{
+						testing = 30;
+					}
+			
 
-			climber->HardLength(testing);
+			
+			// frc::SmartDashboard::PutNumber("hi", 1);
+			climber->HardAngle(testing);
 		},
 		{climber}));
+
+	climber->SetDefaultCommand(frc2::RunCommand(
+		[this]
+		{
+			if(abs(controlStick->GetRawAxis(JOYSTICK::AXIS::Y))<0.1){
+
+			}else{
+			//	remove the constants from the coppy pasted code
+			climber->HardLength(
+					(-0.05 * controlStick->GetRawAxis(JOYSTICK::AXIS::Y))
+			);
+			}
+		},
+		{ climber }
+	));
 }
 
 RobotContainer::~RobotContainer()

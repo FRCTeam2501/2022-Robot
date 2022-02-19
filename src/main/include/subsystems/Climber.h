@@ -34,8 +34,8 @@ namespace ClimbConstants
 
     constexpr int climbPivot = 11;
 
-    constexpr int pivotConversionFactorOne = 100;
-    constexpr int pivotConversionFactorTwo = (122 / 65);
+    constexpr double pivotConversionFactorOne = 100;
+    constexpr double pivotConversionFactorTwo = (48 / 22);
 
     constexpr double winchSmartCurrentLimet = 60.0;
     constexpr double winchSeccondaryCurrentLimet = 70.0;
@@ -43,7 +43,7 @@ namespace ClimbConstants
     constexpr double pivotClimbSmartCurrentLimet = 60.0;
     constexpr double pivotClimbSeccondaryCurrentLimet = 70.0;
 
-    constexpr double pivotClimbSetP = 0.00;
+    constexpr double pivotClimbSetP = 0.015;
     constexpr double pivotClimbSetI = 0.00;
     constexpr double pivotClimbSetD = 0.00;
     constexpr double winchSetP = 0.00;
@@ -63,6 +63,7 @@ public:
     int LengthToTurns(double inchesToTurns);
 
     void HardLength(double floatTest);
+    void HardAngle(double angleTest);
 
     void Periodic() override;
 
@@ -74,6 +75,7 @@ private:
     double length;
     double lengthAdjust;
     double targetLength;
+    double angleTest;
 
     double floatTest;
 
@@ -85,6 +87,7 @@ private:
     rev::SparkMaxPIDController winchPID = winch.GetPIDController();
     rev::SparkMaxPIDController pivotPID = pivotClimb.GetPIDController();
     rev::SparkMaxRelativeEncoder winchEncoder = winch.GetEncoder();
+    rev::SparkMaxRelativeEncoder pivotEncoder = pivotClimb.GetEncoder();
 
     void InitDefaultCommand();
 };

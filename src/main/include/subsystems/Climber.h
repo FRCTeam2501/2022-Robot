@@ -71,6 +71,8 @@ class Climber : public frc2::SubsystemBase {
     Climber();
     ~Climber();
 
+    void Periodic() override;
+
     units::meter_t GetExtension();
     bool SetExtension(units::meter_t extension);
 

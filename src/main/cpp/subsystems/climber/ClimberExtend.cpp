@@ -34,3 +34,7 @@ void ClimberExtend::SetExtension(units::meter_t distance) {
     pid.SetReference(distance.to<double>(),
                 rev::CANSparkMaxLowLevel::ControlType::kPosition);
 }
+
+units::meter_t ClimberExtend::GetActualExtension() {
+    return (units::meter_t) winch.GetEncoder().GetPosition();
+}

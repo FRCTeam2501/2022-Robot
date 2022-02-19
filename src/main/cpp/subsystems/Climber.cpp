@@ -1,4 +1,5 @@
 #include "subsystems/Climber.h"
+#include <frc/smartdashboard/SmartDashboard.h>
 #include "units/math.h"
 
 
@@ -171,4 +172,16 @@ bool Climber::Set(units::meter_t extension, units::degree_t angle) {
     extend->SetExtension(extension);
     rotate->SetAngle(angle);
     return result;
+}
+
+void Climber::Periodic() {
+    frc::SmartDashboard::PutNumber("Climber extension setpoint",
+            extend->GetExtension().to<double>());
+    frc::SmartDashboard::PutNumber("Climber angle setpoint",
+            rotate->GetAngle().to<double>());
+
+    frc::SmartDashboard::PutNumber("Climber extension",
+            extend->GetActualExtension().to<double>());
+    frc::SmartDashboard::PutNumber("Climber angle",
+            rotate->GetActualAngle().to<double>());
 }

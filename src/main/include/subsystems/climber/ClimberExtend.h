@@ -42,4 +42,6 @@ class ClimberExtend {
 
     units::meter_t GetExtension();
     void SetExtension(units::meter_t distance);
+
+    units::meter_t GetActualExtension();
 };

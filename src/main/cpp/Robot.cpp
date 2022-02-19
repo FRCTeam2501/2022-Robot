@@ -16,7 +16,11 @@ Robot::~Robot() {
 }
 
 
-void Robot::RobotInit() {}
+void Robot::RobotInit() {
+
+
+
+}
 
 /**
  * This function is called every robot packet, no matter the mode. Use
@@ -59,6 +63,7 @@ void Robot::TeleopInit() {
     m_autonomousCommand->Cancel();
     m_autonomousCommand = nullptr;
   }
+ //frc::SmartDashboard.putNumber("Winch terget", winch.getPosition());
 }
 
 /**

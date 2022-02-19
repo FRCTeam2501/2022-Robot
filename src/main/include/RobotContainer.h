@@ -6,8 +6,6 @@
 
 #include <frc2/command/Command.h>
 
-
-
 #include "subsystems/DrivetrainDrive.h"
 
 /**
@@ -28,19 +26,22 @@ using namespace frc;
 #include <frc2/command/CommandScheduler.h>
 #include <frc2/command/RunCommand.h>
 
-class RobotContainer {
- public:
-   RobotContainer();
+#include "frc2/command/InstantCommand.h"
+
+class RobotContainer
+{
+public:
+  RobotContainer();
   ~RobotContainer();
 
- void Periodic();
+  void Periodic();
 
-
- private:
+private:
+double testing = 4;
   // The robot's subsystems and commands are defined here...
   DrivetrainDrive *drive;
   Climber *climber;
+  
   Joystick *driveStick, *controlStick;
-  frc2::JoystickButton *winchUp, *winchDown, *winchOff;
-  void ConfigureButtonBindings();
+  frc2::JoystickButton *winchUp, *winchDown, *feedSwitch, *hardLength, *hardAngle;
 };

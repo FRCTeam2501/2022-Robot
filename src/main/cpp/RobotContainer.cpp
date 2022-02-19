@@ -4,64 +4,87 @@
 
 #include "RobotContainer.h"
 
-
-RobotContainer::RobotContainer()  {
-  drive = new DrivetrainDrive();
-  driveStick = new Joystick(0);
-  controlStick = new Joystick(1);
-  climber = new Climber();
- drive->SetDefaultCommand(frc2::RunCommand(
-		[this] {
+RobotContainer::RobotContainer()
+{
+	drive = new DrivetrainDrive();
+	driveStick = new Joystick(0);
+	
+	controlStick = new Joystick(1);
+	climber = new Climber();
+	drive->SetDefaultCommand(frc2::RunCommand(
+		[this]
+		{
 			//	remove the constants from the coppy pasted code
 			drive->ArcadeDrive(-1.0 * driveStick->GetRawAxis(
-        JOYSTICK::AXIS::Y), 0.6 * driveStick->GetRawAxis(JOYSTICK::AXIS::X));
+										  JOYSTICK::AXIS::Y),
+							   0.6 * driveStick->GetRawAxis(JOYSTICK::AXIS::X));
 		},
-		{ drive }
-	));
-    
-	climber->SetDefaultCommand(frc2::RunCommand(
-		[this] {
-			climber->ControlPivot(controlStick->GetRawAxis(
-        JOYSTICK::AXIS::Y));
-		},
-		{ climber }
+		{drive}
 	));
 
-	winchUp = new frc2::JoystickButton(controlStick, JOYSTICK::BUTTON::BUTTON_7);
-	winchUp->WhenPressed(new frc2::RunCommand(
-		[this] {
-			climber->WinchesUp(0.6);
+/*
+	winnchUp = new frc2::JoystickButton(controlStick, JOYSTICK::BUTTON::TRIGGER);
+	hardAngle->WhenPressed(new frc2::InstantCommand(
+		[this]
+		{
+				if (testing < 40){
+					testing = 60;			
+					}else{
+						testing = 30;
+					}
+			
+			// frc::SmartDashboard::PutNumber("hi", 1);
+			climber->HardAngle(testing);
+		},
+		{climber}));
+		*/
+
+		winchDown = new frc2::JoystickButton(controlStick, JOYSTICK::BUTTON::THUMB);
+	winchDown->WhenPressed(new frc2::InstantCommand(
+		[this]
+		{
+			
+			
+			// frc::SmartDashboard::PutNumber("hi", 1);
+			climber->HardLength(-0.5);
 			
 		},
-		{ climber }
-	));
-	winchDown = new frc2::JoystickButton(controlStick, JOYSTICK::BUTTON::BUTTON_11);
-	winchDown->WhenPressed(new frc2::RunCommand(
-		[this] {
-			climber->WinchesDown(-0.6);
+		{climber}));
+
+	winchUp = new frc2::JoystickButton(controlStick, JOYSTICK::BUTTON::TRIGGER);
+	winchUp->WhenPressed(new frc2::InstantCommand(
+		[this]
+		{
+			
+			// frc::SmartDashboard::PutNumber("hi", 1);
+			climber->HardLength(0.5);
+		},
+		{climber}));
+
+	climber->SetDefaultCommand(frc2::RunCommand(
+		[this]
+		{
+			if(abs(controlStick->GetRawAxis(JOYSTICK::AXIS::Y))<0.1){
+
+			}else{
+			//	remove the constants from the coppy pasted code
+			climber->HardAngle(
+					(-0.75 * controlStick->GetRawAxis(JOYSTICK::AXIS::Y))
+			);
+			}
 		},
 		{ climber }
 	));
-	winchOff = new frc2::JoystickButton(controlStick, JOYSTICK::BUTTON::BUTTON_9);
-	winchOff->WhenPressed(new frc2::RunCommand(
-		[this] {
-			climber->WinchesOff(0.0);
-		},
-		{ climber }
-	)); 
-
-
 }
 
-RobotContainer::~RobotContainer()  {
-  delete drive;
-  delete driveStick;
-  delete controlStick;
-  delete climber;
+RobotContainer::~RobotContainer()
+{
+	delete drive;
+	delete driveStick;
+	delete controlStick;
+	delete climber;
 }
 
-
-
-void RobotContainer::Periodic(){
-
+void RobotContainer::Periodic()
+{
 }

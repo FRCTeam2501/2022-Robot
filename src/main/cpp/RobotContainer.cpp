@@ -33,14 +33,14 @@ RobotContainer::RobotContainer()
 	winchUp->WhenPressed(new frc2::InstantCommand(
 		[this]
 		{
-			climber->ClimbControl((climber->GetAngle()), ((climber->GetLength()) + 5));
+			climber->ClimbControl((climber->GetAngle()), ((climber->GetLength()) + 0.5));
 		},
 		{climber}));
 	winchDown = new frc2::JoystickButton(controlStick, JOYSTICK::BUTTON::BUTTON_11);
 	winchDown->WhenPressed(new frc2::InstantCommand(
 		[this]
 		{
-			climber->ClimbControl((climber->GetAngle()), ((climber->GetLength()) - 5));
+			climber->ClimbControl((climber->GetAngle()), ((climber->GetLength()) - 0.5));
 		},
 		{climber}));
 

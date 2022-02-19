@@ -4,37 +4,32 @@ using namespace frc;
 
 Climber::Climber()
 {
-    winch = new rev::CANSparkMax(ClimbConstants::winch, rev::CANSparkMax::MotorType::kBrushless);
-    pivotClimb = new rev::CANSparkMax(ClimbConstants::climbPivot, rev::CANSparkMax::MotorType::kBrushless);
+    pivotClimb.GetForwardLimitSwitch(rev::SparkMaxLimitSwitch::Type::kNormallyOpen).EnableLimitSwitch(true);
+    pivotClimb.SetSmartCurrentLimit(ClimbConstants::pivotClimbSmartCurrentLimet);
+    pivotClimb.SetSecondaryCurrentLimit(ClimbConstants::pivotClimbSeccondaryCurrentLimet);
+    pivotClimb.GetReverseLimitSwitch(rev::SparkMaxLimitSwitch::Type::kNormallyOpen).EnableLimitSwitch(true);
 
-    pivotClimb->GetForwardLimitSwitch(rev::SparkMaxLimitSwitch::Type::kNormallyOpen).EnableLimitSwitch(true);
-    pivotClimb->SetSmartCurrentLimit(ClimbConstants::pivotClimbSmartCurrentLimet);
-    pivotClimb->SetSecondaryCurrentLimit(ClimbConstants::pivotClimbSeccondaryCurrentLimet);
-    pivotClimb->GetReverseLimitSwitch(rev::SparkMaxLimitSwitch::Type::kNormallyOpen).EnableLimitSwitch(true);
+    winch.SetInverted(true);
+    pivotClimb.SetInverted(true);
 
-    pivotClimb->GetPIDController().SetP(ClimbConstants::pivotClimbSetP);
-    pivotClimb->GetPIDController().SetI(ClimbConstants::pivotClimbSetP);
-    pivotClimb->GetPIDController().SetD(ClimbConstants::pivotClimbSetP);
-    pivotClimb->GetPIDController().SetOutputRange(-1, 1);
-    pivotClimb->GetEncoder().SetPositionConversionFactor(
-        (360 / (ClimbConstants::pivotConversionFactorOne * ClimbConstants::pivotConversionFactorTwo)));
+    pivotPID.SetP(ClimbConstants::pivotClimbSetP);
+    pivotPID.SetI(ClimbConstants::pivotClimbSetI);
+    pivotPID.SetD(ClimbConstants::pivotClimbSetD);
+    pivotPID.SetOutputRange(-1, 1);
+    pivotEncoder.SetPositionConversionFactor(
+        ((360.0/(ClimbConstants::pivotConversionFactorOne * ClimbConstants::pivotConversionFactorTwo))));
     // Makes it so that one unit into the motor makes one degree of rotation of the climb arm
 
-    winch->SetSmartCurrentLimit(ClimbConstants::winchSmartCurrentLimet);
-    winch->SetSecondaryCurrentLimit(ClimbConstants::winchSeccondaryCurrentLimet);
+    winchPID.SetP(2.0);
+    winchPID.SetI(0.0);
+    winchPID.GetD(0);
+    winchPID.SetOutputRange(-1.0, 1.0);
 
-    winch->GetPIDController().SetP(ClimbConstants::winchSetP);
-    winch->GetPIDController().SetI(ClimbConstants::winchSetP);
-    winch->GetPIDController().SetD(ClimbConstants::winchSetP);
-    winch->GetPIDController().SetOutputRange(-1, 1);
-    winch->GetEncoder().SetPositionConversionFactor((1 / 48)); // not currect, but maby is
+    winch.SetSmartCurrentLimit(ClimbConstants::winchSmartCurrentLimet);
+    winch.SetSecondaryCurrentLimit(ClimbConstants::winchSeccondaryCurrentLimet);
+    winchEncoder.SetPositionConversionFactor((1.4275 * M_PI) / 100.0); // not currect, but maby is
 }
 
-Climber::~Climber()
-{
-    delete winch;
-    delete pivotClimb;
-}
 
 int Climber::ClimbControl(double angleAdjust, double lengthAdjust)
 {
@@ -124,8 +119,8 @@ int Climber::ClimbControl(double angleAdjust, double lengthAdjust)
 
     length = lengthAdjust;
     angle = angleAdjust;
-    winch->GetPIDController().SetReference(Climber::LengthToTurns(length), rev::CANSparkMaxLowLevel::ControlType::kPosition);
-    pivotClimb->GetPIDController().SetReference(angle, rev::CANSparkMaxLowLevel::ControlType::kPosition);
+    winchPID.SetReference(Climber::LengthToTurns(length), rev::CANSparkMaxLowLevel::ControlType::kPosition);
+    pivotPID.SetReference(angle, rev::CANSparkMaxLowLevel::ControlType::kPosition);
     return lengthChanged;
 }
 
@@ -197,7 +192,6 @@ turns = ((1/c0)*(inchesToTurns - l1) + f2);
     return turns;
 }
 
-
 int Climber::GetAngle()
 {
     return angle;
@@ -211,9 +205,9 @@ int Climber::GetLength()
 void Climber::Periodic()
 {
     // This checks if we have a scedjuled seccond move once we have reached the angle we were going for
-    if (seccondaryMove = true && (abs(pivotClimb->GetEncoder().GetPosition() - targetAngle) < 1))
+    if (seccondaryMove = true && (abs(pivotEncoder.GetPosition() - targetAngle) < 1))
     {
-        winch->GetPIDController().SetReference(Climber::LengthToTurns(targetLength), rev::CANSparkMaxLowLevel::ControlType::kPosition);
+        winchPID.SetReference(Climber::LengthToTurns(targetLength), rev::CANSparkMaxLowLevel::ControlType::kPosition);
         seccondaryMove = false;
     }
 }

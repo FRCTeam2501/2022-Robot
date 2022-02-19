@@ -22,8 +22,8 @@ RobotContainer::RobotContainer()
 		{drive}
 	));
 
-
-	hardAngle = new frc2::JoystickButton(controlStick, JOYSTICK::BUTTON::TRIGGER);
+/*
+	winnchUp = new frc2::JoystickButton(controlStick, JOYSTICK::BUTTON::TRIGGER);
 	hardAngle->WhenPressed(new frc2::InstantCommand(
 		[this]
 		{
@@ -33,10 +33,31 @@ RobotContainer::RobotContainer()
 						testing = 30;
 					}
 			
-
-			
 			// frc::SmartDashboard::PutNumber("hi", 1);
 			climber->HardAngle(testing);
+		},
+		{climber}));
+		*/
+
+		winchDown = new frc2::JoystickButton(controlStick, JOYSTICK::BUTTON::THUMB);
+	winchDown->WhenPressed(new frc2::InstantCommand(
+		[this]
+		{
+			
+			
+			// frc::SmartDashboard::PutNumber("hi", 1);
+			climber->HardLength(-1);
+			
+		},
+		{climber}));
+
+	winchUp = new frc2::JoystickButton(controlStick, JOYSTICK::BUTTON::TRIGGER);
+	winchUp->WhenPressed(new frc2::InstantCommand(
+		[this]
+		{
+			
+			// frc::SmartDashboard::PutNumber("hi", 1);
+			climber->HardLength(1);
 		},
 		{climber}));
 
@@ -47,8 +68,8 @@ RobotContainer::RobotContainer()
 
 			}else{
 			//	remove the constants from the coppy pasted code
-			climber->HardLength(
-					(-0.05 * controlStick->GetRawAxis(JOYSTICK::AXIS::Y))
+			climber->HardAngle(
+					(-0.75 * controlStick->GetRawAxis(JOYSTICK::AXIS::Y))
 			);
 			}
 		},

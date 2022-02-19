@@ -35,14 +35,14 @@ void Climber::HardLength(double floatTest)
 {
     length += floatTest;
 
-    winchPID.SetReference(floatTest, rev::CANSparkMaxLowLevel::ControlType::kPosition);
+    winchPID.SetReference(length, rev::CANSparkMaxLowLevel::ControlType::kPosition);
 }
 
-void Climber::HardAngle(double angleTest)
+void Climber::HardAngle(double angleAdjust)
 {
-    Climber::angleTest = angleTest;
+    angle += angleAdjust;
    // angle += angleTest;
-    pivotPID.SetReference(angleTest, rev::CANSparkMaxLowLevel::ControlType::kPosition);
+    pivotPID.SetReference(angle, rev::CANSparkMaxLowLevel::ControlType::kPosition);
 }
 
 int Climber::GetAngle()
@@ -58,7 +58,7 @@ int Climber::GetLength()
 void Climber::Periodic()
 {
     frc::SmartDashboard::PutNumber("pivot actual", pivotEncoder.GetPosition());
-    frc::SmartDashboard::PutNumber("pivot target", angleTest);
+    frc::SmartDashboard::PutNumber("pivot target", angle);
     frc::SmartDashboard::PutNumber("Winch target", length);
     frc::SmartDashboard::PutNumber("winch actual", winchEncoder.GetPosition());
 }

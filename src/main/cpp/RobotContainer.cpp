@@ -24,19 +24,19 @@ RobotContainer::RobotContainer()
 	climber->SetDefaultCommand(frc2::RunCommand(
 		[this]
 		{
-			if(controlStick->GetRawAxis(JOYSTICK::AXIS::Y)>0.1){
-			climber->ClimbControl((controlStick->GetRawAxis(JOYSTICK::AXIS::Y) / 50) + climber->GetAngle(), (climber->GetLength()));
-			// 50 means that it will adjust the angle to one degree per seccond at full speed on the joystick
+			if (controlStick->GetRawAxis(JOYSTICK::AXIS::Y) > 0.1)
+			{
+				climber->ClimbControl((controlStick->GetRawAxis(JOYSTICK::AXIS::Y) / 50) + climber->GetAngle(), (climber->GetLength()));
+				// 50 means that it will adjust the angle to one degree per seccond at full speed on the joystick
 			}
 		},
-	
 		{climber}));
-	
+
 	armExtend = new frc2::JoystickButton(controlStick, JOYSTICK::BUTTON::BUTTON_9);
 	armExtend->WhenPressed(new frc2::InstantCommand(
 		[this]
 		{
-			climber->ArmHorizontal();
+			climber->ClimbControl(80, 28); // 80 degrees, 28 inches
 		},
 		{climber}));
 
@@ -44,7 +44,7 @@ RobotContainer::RobotContainer()
 	swingAndClampBar->WhenPressed(new frc2::InstantCommand(
 		[this]
 		{
-			climber->SwingAndClamp();
+			climber->ClimbControl(1, 1); // 1 degree, 1 inch
 		},
 		{climber}));
 

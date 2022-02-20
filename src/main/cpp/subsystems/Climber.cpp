@@ -17,7 +17,7 @@ Climber::Climber()
     pivotPID.SetD(ClimbConstants::pivotClimbSetD);
     pivotPID.SetOutputRange(-1, 1);
     pivotEncoder.SetPositionConversionFactor(
-        ((360.0/(ClimbConstants::pivotConversionFactorOne * ClimbConstants::pivotConversionFactorTwo))));
+        ((360.0 / (ClimbConstants::pivotConversionFactorOne * ClimbConstants::pivotConversionFactorTwo))));
     // Makes it so that one unit into the motor makes one degree of rotation of the climb arm
 
     winchPID.SetP(ClimbConstants::winchSetP);
@@ -27,9 +27,8 @@ Climber::Climber()
 
     winch.SetSmartCurrentLimit(ClimbConstants::winchSmartCurrentLimet);
     winch.SetSecondaryCurrentLimit(ClimbConstants::winchSeccondaryCurrentLimet);
-    winchEncoder.SetPositionConversionFactor((1.4275 * M_PI) / 100.0); // not currect, but maby is
+    winchEncoder.SetPositionConversionFactor((1.4275 * M_PI) / 100.0); // I think this is right
 }
-
 
 int Climber::ClimbControl(double angleAdjust, double lengthAdjust)
 {
@@ -37,6 +36,7 @@ int Climber::ClimbControl(double angleAdjust, double lengthAdjust)
     seccondaryMove = false;
     lengthChanged = false;
     swingActivated = false;
+    seccondMovefinal = false;
 
     // lengthAdjust is the new length that we want to set the arms to
     //  makes sure length is not outside of limet
@@ -97,7 +97,7 @@ int Climber::ClimbControl(double angleAdjust, double lengthAdjust)
         lengthChanged = true;
     }
 
-    if ((angleAdjust <= 15 && angleAdjust >= 6) || (angleAdjust > 15 && angle < 6) || (angleAdjust < 6 && angle > 15))
+    if ((angleAdjust <= 15 && angleAdjust >= 6) || (angleAdjust > 15 && angle <= 15) || (angleAdjust < 6 && angle >= 6))
     {
         if (angleAdjust <= 15 && angleAdjust >= 6)
         {
@@ -115,17 +115,23 @@ int Climber::ClimbControl(double angleAdjust, double lengthAdjust)
                 lengthAdjust = 4;
                 lengthChanged = true;
                 seccondaryMove = true;
+
+                winchPID.SetReference(Climber::LengthToTurns(lengthAdjust), rev::CANSparkMaxLowLevel::ControlType::kPosition);
+                pivotPID.SetReference(angle, rev::CANSparkMaxLowLevel::ControlType::kPosition);
             }
         }
     }
 
-    length = lengthAdjust;
-    angle = angleAdjust;
-    winchPID.SetReference(Climber::LengthToTurns(length), rev::CANSparkMaxLowLevel::ControlType::kPosition);
-    pivotPID.SetReference(angle, rev::CANSparkMaxLowLevel::ControlType::kPosition);
-    return lengthChanged;
+    if (seccondaryMove == false)
+    {
+        length = lengthAdjust;
+        angle = angleAdjust;
+        winchPID.SetReference(Climber::LengthToTurns(length), rev::CANSparkMaxLowLevel::ControlType::kPosition);
+        pivotPID.SetReference(angle, rev::CANSparkMaxLowLevel::ControlType::kPosition);
+        return lengthChanged;
+    }
 }
-
+/*
 void Climber::ArmHorizontal(){
 
 
@@ -138,75 +144,76 @@ void Climber::ArmHorizontal(){
 }
 
 void Climber::SwingAndClamp(){ //arms should be on bar when we activate this function
+
+
     if(pivotEncoder.GetPosition()>30 && winchEncoder.GetPosition() > 26){
         Climber::ClimbControl(1,8);
         swingActivated = true;
     }
 }
-
+*/
 int Climber::LengthToTurns(double inchesToTurns)
 {
 
-constexpr double pi = 3.141592653589793;
+    constexpr double pi = 3.141592653589793;
 
-constexpr double d = 0.03;
-constexpr double l = 28;
+    constexpr double d = 0.03;
+    constexpr double l = 28;
 
-constexpr double d0 = 1.4275;
-constexpr double c0 = d0 * pi;
-constexpr double c1 = (d0 + 1 * d) * pi;
-constexpr double c2 = (d0 + 2 * d) * pi;
-constexpr double c3 = (d0 + 3 * d) * pi;
-constexpr double c4 = (d0 + 4 * d) * pi;
-constexpr double c5 = (d0 + 5 * d) * pi;
-constexpr double c6 = (d0 + 6 * d) * pi;
-constexpr double l1 = (l - c0);
-constexpr double l2 = (l1 - c1);
-constexpr double l3 = (l2 - c2);
-constexpr double l4 = (l3 - c3);
-constexpr double l5 = (l4 - c4);
-constexpr double l6 = (l5 - c5);
+    constexpr double d0 = 1.4275;
+    constexpr double c0 = d0 * pi;
+    constexpr double c1 = (d0 + 1 * d) * pi;
+    constexpr double c2 = (d0 + 2 * d) * pi;
+    constexpr double c3 = (d0 + 3 * d) * pi;
+    constexpr double c4 = (d0 + 4 * d) * pi;
+    constexpr double c5 = (d0 + 5 * d) * pi;
+    constexpr double c6 = (d0 + 6 * d) * pi;
+    constexpr double l1 = (l - c0);
+    constexpr double l2 = (l1 - c1);
+    constexpr double l3 = (l2 - c2);
+    constexpr double l4 = (l3 - c3);
+    constexpr double l5 = (l4 - c4);
+    constexpr double l6 = (l5 - c5);
 
-constexpr double f6 = ((1/c5)*l5);
-constexpr double f5 = ((1/c4)*(l4-l5)+f6);
-constexpr double f4 = ((1/c3)*(l3-l4)+f5);
-constexpr double f3 = ((1/c2)*(l2-l3)+f4);
-constexpr double f2 = ((1/c1)*(l1-l2)+f3);
-constexpr double f1 = ((1/c0)*(l-l1)+f2);
+    constexpr double f6 = ((1 / c5) * l5);
+    constexpr double f5 = ((1 / c4) * (l4 - l5) + f6);
+    constexpr double f4 = ((1 / c3) * (l3 - l4) + f5);
+    constexpr double f3 = ((1 / c2) * (l2 - l3) + f4);
+    constexpr double f2 = ((1 / c1) * (l1 - l2) + f3);
+    constexpr double f1 = ((1 / c0) * (l - l1) + f2);
 
-double maxLength = 28;
-double turns;
+    double maxLength = 28;
+    double turns;
 
-if(inchesToTurns<=l5){
-turns = ((1/c5)*inchesToTurns);
+    if (inchesToTurns <= l5)
+    {
+        turns = ((1 / c5) * inchesToTurns);
+    }
 
-}
+    if (l5 < inchesToTurns && inchesToTurns <= l4)
+    {
+        turns = ((1 / c4) * (inchesToTurns - l5) + f6);
+    }
 
-if(l5<inchesToTurns && inchesToTurns<=l4){
-turns = ((1/c4)*(inchesToTurns - l5) + f6);
+    if (l4 < inchesToTurns && inchesToTurns <= l3)
+    {
+        turns = ((1 / c3) * (inchesToTurns - l4) + f5);
+    }
 
-}
+    if (l3 < inchesToTurns && inchesToTurns <= l2)
+    {
+        turns = ((1 / c2) * (inchesToTurns - l3) + f4);
+    }
 
-if(l4<inchesToTurns && inchesToTurns<=l3){
-turns = ((1/c3)*(inchesToTurns - l4) + f5);
+    if (l2 < inchesToTurns && inchesToTurns <= l1)
+    {
+        turns = ((1 / c1) * (inchesToTurns - l2) + f3);
+    }
 
-}
-
-
-if(l3<inchesToTurns && inchesToTurns<=l2){
-turns = ((1/c2)*(inchesToTurns - l3) + f4);
-
-}
-
-if(l2<inchesToTurns && inchesToTurns<=l1){
-turns = ((1/c1)*(inchesToTurns - l2) + f3);
-
-}
-
-if(l1<inchesToTurns && inchesToTurns<=l){
-turns = ((1/c0)*(inchesToTurns - l1) + f2);
-
-}
+    if (l1 < inchesToTurns && inchesToTurns <= l)
+    {
+        turns = ((1 / c0) * (inchesToTurns - l1) + f2);
+    }
 
     return turns;
 }
@@ -224,20 +231,28 @@ int Climber::GetLength()
 void Climber::Periodic()
 {
     // This checks if we have a scedjuled seccond move once we have reached the angle we were going for
-    if (seccondaryMove = true && (abs(pivotEncoder.GetPosition() - targetAngle) < 1))
+    if (seccondaryMove == true && (abs(winchEncoder.GetPosition() - 4) < 1))
     {
-        winchPID.SetReference(Climber::LengthToTurns(targetLength), rev::CANSparkMaxLowLevel::ControlType::kPosition);
-        seccondaryMove = false;
+        pivotPID.SetReference(targetAngle, rev::CANSparkMaxLowLevel::ControlType::kPosition);
+        seccondMovefinal = true;
     }
+    if (seccondaryMove == true && seccondMovefinal == true && (abs(pivotEncoder.GetPosition() - targetAngle) < 1))
+    {
+        winchPID.SetReference(LengthToTurns(targetLength), rev::CANSparkMaxLowLevel::ControlType::kPosition);
 
-    if(horizontalActivated = true && (abs(pivotEncoder.GetPosition() - 1) < 1) && (abs(winchEncoder.GetPosition() - 8) < 1)){
-        Climber::ClimbControl(80, 28); //80 degrees, 28 inches
-        horizontalActivated = false;
+        seccondaryMove = false;
+        seccondMovefinal = false;
     }
-    if(swingActivated = true && (abs(pivotEncoder.GetPosition() - 1) < 1) && (abs(winchEncoder.GetPosition() - 8) < 1)){
-        Climber::ClimbControl(1, 1); // degree, 1 inch
-        horizontalActivated = false;
-    }
+    /*
+        if(horizontalActivated == true && (abs(pivotEncoder.GetPosition() - 1) < 1) && (abs(winchEncoder.GetPosition() - 8) < 1)){
+            Climber::ClimbControl(80, 28); //80 degrees, 28 inches
+            horizontalActivated = false;
+        }
+        if(swingActivated == true && (abs(pivotEncoder.GetPosition() - 1) < 1) && (abs(winchEncoder.GetPosition() - 8) < 1)){
+            Climber::ClimbControl(1, 1); // degree, 1 inch
+            horizontalActivated = false;
+        }
+        */
 }
 
 void Climber::InitDefaultCommand()

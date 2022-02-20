@@ -42,5 +42,5 @@ private:
   Climber *climber;
   Camera *camera;
   Joystick *driveStick, *controlStick;
-  frc2::JoystickButton *winchUp, *winchDown, *feedSwitch;
+  frc2::JoystickButton *winchUp, *winchDown, *feedSwitch, *armExtend, *swingAndClampBar;
 };

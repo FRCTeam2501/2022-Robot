@@ -27,6 +27,23 @@ RobotContainer::RobotContainer()
 			climber->ClimbControl((controlStick->GetRawAxis(JOYSTICK::AXIS::Y) / 50) + climber->GetAngle(), (climber->GetLength()));
 			// 50 means that it will adjust the angle to one degree per seccond at full speed on the joystick
 		},
+	
+		{climber}));
+	
+	armExtend = new frc2::JoystickButton(controlStick, JOYSTICK::BUTTON::BUTTON_9);
+	armExtend->WhenPressed(new frc2::InstantCommand(
+		[this]
+		{
+			climber->ArmHorizontal();
+		},
+		{climber}));
+
+	swingAndClampBar = new frc2::JoystickButton(controlStick, JOYSTICK::BUTTON::BUTTON_10);
+	swingAndClampBar->WhenPressed(new frc2::InstantCommand(
+		[this]
+		{
+			climber->SwingAndClamp();
+		},
 		{climber}));
 
 	winchUp = new frc2::JoystickButton(controlStick, JOYSTICK::BUTTON::BUTTON_7);

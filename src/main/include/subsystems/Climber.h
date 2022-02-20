@@ -60,6 +60,9 @@ public:
     
     //void WinchControl(double lengthAdjust);
 
+    void ArmHorizontal();
+    void SwingAndClamp();
+
     int ClimbControl(double angleAdjust, double lengthAdjust);
 
   int LengthToTurns(double inchesToTurns);
@@ -73,6 +76,14 @@ private:
     double angle;
     double angleAdjust;
     double targetAngle;
+
+
+
+
+    bool horizontalActivated = false; 
+    bool swingActivated = false;
+
+
 
     double length;
     double lengthAdjust;

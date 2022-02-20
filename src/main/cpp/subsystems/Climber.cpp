@@ -33,8 +33,10 @@ Climber::Climber()
 
 int Climber::ClimbControl(double angleAdjust, double lengthAdjust)
 {
+    horizontalActivated = false;
     seccondaryMove = false;
     lengthChanged = false;
+    swingActivated = false;
 
     // lengthAdjust is the new length that we want to set the arms to
     //  makes sure length is not outside of limet
@@ -124,6 +126,24 @@ int Climber::ClimbControl(double angleAdjust, double lengthAdjust)
     return lengthChanged;
 }
 
+void Climber::ArmHorizontal(){
+
+
+    if(pivotEncoder.GetPosition()<3 && winchEncoder.GetPosition() < 2){ //checks to see if arms are in right position for this command
+
+    Climber::ClimbControl(1,8); //angle, length
+    horizontalActivated = true; //needs to be after climbcontrol becasue climb control will set horizontalAcitvated to false
+
+    }
+}
+
+void Climber::SwingAndClamp(){ //arms should be on bar when we activate this function
+    if(pivotEncoder.GetPosition()>30 && winchEncoder.GetPosition() > 26){
+        Climber::ClimbControl(1,8);
+        swingActivated = true;
+    }
+}
+
 int Climber::LengthToTurns(double inchesToTurns)
 {
 
@@ -208,6 +228,15 @@ void Climber::Periodic()
     {
         winchPID.SetReference(Climber::LengthToTurns(targetLength), rev::CANSparkMaxLowLevel::ControlType::kPosition);
         seccondaryMove = false;
+    }
+
+    if(horizontalActivated = true && (abs(pivotEncoder.GetPosition() - 1) < 1) && (abs(winchEncoder.GetPosition() - 8) < 1)){
+        Climber::ClimbControl(80, 28); //80 degrees, 28 inches
+        horizontalActivated = false;
+    }
+    if(swingActivated = true && (abs(pivotEncoder.GetPosition() - 1) < 1) && (abs(winchEncoder.GetPosition() - 8) < 1)){
+        Climber::ClimbControl(1, 1); // degree, 1 inch
+        horizontalActivated = false;
     }
 }
 

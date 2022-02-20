@@ -24,8 +24,10 @@ RobotContainer::RobotContainer()
 	climber->SetDefaultCommand(frc2::RunCommand(
 		[this]
 		{
+			if(controlStick->GetRawAxis(JOYSTICK::AXIS::Y)>0.1){
 			climber->ClimbControl((controlStick->GetRawAxis(JOYSTICK::AXIS::Y) / 50) + climber->GetAngle(), (climber->GetLength()));
 			// 50 means that it will adjust the angle to one degree per seccond at full speed on the joystick
+			}
 		},
 	
 		{climber}));

@@ -108,7 +108,7 @@ int Climber::ClimbControl(double angleAdjust, double lengthAdjust)
         }
         else
         {
-            if (lengthAdjust < 4)
+            if (lengthAdjust < 4 || winchEncoder.GetPosition() < 4 || length < 4)
             {
                 targetLength = lengthAdjust;
                 targetAngle = angleAdjust;
@@ -116,7 +116,8 @@ int Climber::ClimbControl(double angleAdjust, double lengthAdjust)
                 lengthChanged = true;
                 seccondaryMove = true;
 
-                winchPID.SetReference(Climber::LengthToTurns(lengthAdjust), rev::CANSparkMaxLowLevel::ControlType::kPosition);
+                length = Climber::LengthToTurns(lengthAdjust);
+                winchPID.SetReference(length, rev::CANSparkMaxLowLevel::ControlType::kPosition);
                 pivotPID.SetReference(angle, rev::CANSparkMaxLowLevel::ControlType::kPosition);
             }
         }
@@ -233,12 +234,14 @@ void Climber::Periodic()
     // This checks if we have a scedjuled seccond move once we have reached the angle we were going for
     if (seccondaryMove == true && (abs(winchEncoder.GetPosition() - 4) < 1))
     {
-        pivotPID.SetReference(targetAngle, rev::CANSparkMaxLowLevel::ControlType::kPosition);
+        angle = targetAngle;
+        pivotPID.SetReference(angle, rev::CANSparkMaxLowLevel::ControlType::kPosition);
         seccondMovefinal = true;
     }
     if (seccondaryMove == true && seccondMovefinal == true && (abs(pivotEncoder.GetPosition() - targetAngle) < 1))
     {
-        winchPID.SetReference(LengthToTurns(targetLength), rev::CANSparkMaxLowLevel::ControlType::kPosition);
+        length = targetLength;
+        winchPID.SetReference(LengthToTurns(length), rev::CANSparkMaxLowLevel::ControlType::kPosition);
 
         seccondaryMove = false;
         seccondMovefinal = false;

@@ -27,6 +27,7 @@ using namespace frc;
 #include <frc2/command/RunCommand.h>
 #include "subsystems/Camera.h"
 #include "frc2/command/InstantCommand.h"
+#include "subsystems/Intake.h"
 
 class RobotContainer
 {
@@ -36,11 +37,16 @@ public:
 
   void Periodic();
 
+ // frc2::Command* GetAutoCommand();
+
 private:
+
+int liftPosition = 1;
   // The robot's subsystems and commands are defined here...
   DrivetrainDrive *drive;
   Climber *climber;
   Camera *camera;
+  Intake *intake;
   Joystick *driveStick, *controlStick;
-  frc2::JoystickButton *winchUp, *winchDown, *feedSwitch, *armExtend, *swingAndClampBar;
+  frc2::JoystickButton *winchUp, *winchDown, *feedSwitch, *armExtend, *swingAndClampBar, *rollerControl, *liftControl;
 };

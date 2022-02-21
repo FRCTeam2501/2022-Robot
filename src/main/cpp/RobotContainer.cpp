@@ -6,10 +6,11 @@
 
 RobotContainer::RobotContainer()
 {
+	intake = new Intake();
 	drive = new DrivetrainDrive();
-	driveStick = new Joystick(0);
+	driveStick = new Joystick(0);//usb port of 0
 	camera = new Camera();
-	controlStick = new Joystick(1);
+	controlStick = new Joystick(1);//usb port of 1
 	climber = new Climber();
 	drive->SetDefaultCommand(frc2::RunCommand(
 		[this]
@@ -63,13 +64,53 @@ RobotContainer::RobotContainer()
 		},
 		{climber}));
 
-	feedSwitch = new frc2::JoystickButton(controlStick, JOYSTICK::BUTTON::BUTTON_8);
+	feedSwitch = new frc2::JoystickButton(controlStick, JOYSTICK::BUTTON::BUTTON_12);
 	feedSwitch->WhenPressed(new frc2::InstantCommand(
 		[this]
 		{
 			camera->SwitchFeed();
 		},
 		{camera}));
+
+	rollerControl = new frc2::JoystickButton(driveStick, JOYSTICK::BUTTON::TRIGGER);
+	rollerControl->WhileHeld(new frc2::StartEndCommand(
+		[this]
+		{
+			if((driveStick->GetRawButton(2)) == true){
+				intake->RollerControl(-0.3);
+			}else{
+				intake->RollerControl(0.3);	
+			}
+
+		},
+		[this]
+		{
+			intake->RollerControl(0);
+		},
+		{intake}));
+		
+	
+	liftControl = new frc2::JoystickButton(driveStick, JOYSTICK::BUTTON::BUTTON_10);
+	liftControl->WhenPressed(new frc2::InstantCommand(
+		[this]
+		{
+		
+			switch (liftPosition)
+			{
+			case 1:
+			intake->LiftControl(2);//2 degrees
+			liftPosition = 2;
+				break;
+			case 2:
+			intake->LiftControl(30);//30 degrees
+			liftPosition = 1;
+				break;
+			default:
+				break;
+			}
+
+		},
+		{intake}));
 }
 
 RobotContainer::~RobotContainer()
@@ -79,6 +120,50 @@ RobotContainer::~RobotContainer()
 	delete controlStick;
 	delete climber;
 	delete camera;
+}
+
+frc2::Command* GetAutoCommand(){
+/*
+
+	autoCommand = new frc2::SequentialCommandGroup(
+				frc2::InstantCommand(
+					[this] {
+						intake->LiftControl(30);
+					},
+					{ intake }
+				),
+				frc2::WaitCommand(CONSTANTS::AUTO::SIMPLE_SHOOT::SPIN_UP_TIME),
+				frc2::InstantCommand(
+					[this] {
+						hopper->Set(CONSTANTS::HOPPER::ON);
+						hopper->TogglePin();
+					},
+					{ hopper }
+				),
+				frc2::WaitCommand(CONSTANTS::AUTO::SIMPLE_SHOOT::SHOOT_TIME),
+				frc2::InstantCommand(
+					[this] {
+						shooter->Set(CONSTANTS::SHOOTER::OFF_SPEED);
+						hopper->Set(CONSTANTS::HOPPER::OFF);
+						hopper->TogglePin();
+					},
+					{ shooter, hopper }
+				),
+				frc2::ParallelRaceGroup(
+					frc2::StartEndCommand(
+						[this] {
+							drive->ArcadeDrive(CONSTANTS::AUTO::SIMPLE_DRIVE::SPEED, 0.0);
+						},
+						[this] {
+							drive->Stop();
+						},
+						{ drive }
+					),
+					frc2::WaitCommand(CONSTANTS::AUTO::SIMPLE_DRIVE::TIME)
+				)
+			);
+			*/
+			
 }
 
 void RobotContainer::Periodic()

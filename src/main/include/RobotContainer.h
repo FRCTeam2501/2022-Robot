@@ -43,7 +43,7 @@ void Autonmous();
 private:
 
   int timeTracker = 0;
-  int timeLimet = 50;
+  int timeLimet = 0;
   int autoSwitch = 1;
 
 int liftPosition = 1;

@@ -141,7 +141,7 @@ void RobotContainer::Autonmous()
 			break;
 		case 2:
 			autoSwitch = 3;
-			timeLimet = 400;
+			timeLimet = 100;
 			drive->DriveControl(0.8, 0.8);
 
 			break;

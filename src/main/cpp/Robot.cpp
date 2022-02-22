@@ -55,6 +55,7 @@ void Robot::AutonomousInit() {
 void Robot::AutonomousPeriodic() {
 
   container->Autonmous();
+
 }
 
 void Robot::TeleopInit() {

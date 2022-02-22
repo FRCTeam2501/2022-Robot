@@ -7,11 +7,13 @@
 Climber::Climber() {
     extend = new ClimberExtend();
     rotate = new ClimberRotate();
+    pin = new ClimberPin();
 }
 
 Climber::~Climber() {
     delete extend;
     delete rotate;
+    delete pin;
 }
 
 units::meter_t Climber::GetExtension() {
@@ -31,6 +33,11 @@ bool Climber::SetAngle(units::degree_t angle) {
 }
 
 bool Climber::Set(units::meter_t extension, units::degree_t angle) {
+    if(!pin->Get()) {
+        std::cout << "Climber: halted (pin)\n";
+        return true;
+    }
+
     bool result = false;
 
     // Hard extension limits
@@ -170,6 +177,14 @@ bool Climber::Set(units::meter_t extension, units::degree_t angle) {
     return result;
 }
 
+void Climber::ExtendPin() {
+    pin->Close();
+}
+
+void Climber::RetractPin() {
+    pin->Open();
+}
+
 void Climber::Periodic() {
     frc::SmartDashboard::PutNumber("Climber extension setpoint",
             extend->Get().to<double>());
@@ -180,4 +195,12 @@ void Climber::Periodic() {
             extend->GetActual().to<double>());
     frc::SmartDashboard::PutNumber("Climber angle",
             rotate->GetActual().to<double>());
+
+    if(hasNextStep) {
+        if(rotate->GetActual() - rotate->Get()
+                < CONSTANTS::CLIMBER::STEP_TOLERANCE) {
+            extend->Set(nextStepExtension);
+            hasNextStep = false;
+        }
+    }
 }

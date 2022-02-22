@@ -14,4 +14,6 @@ class RobotContainer {
 
   public:
     RobotContainer();
+
+    void Init();
 };

@@ -2,6 +2,7 @@
 #include "frc2/command/SubsystemBase.h"
 #include "subsystems/climber/ClimberExtend.h"
 #include "subsystems/climber/ClimberRotate.h"
+#include "subsystems/climber/ClimberPin.h"
 
 
 namespace CONSTANTS::CLIMBER {
@@ -20,10 +21,10 @@ namespace CONSTANTS::CLIMBER {
      * of travel when between ANGLE_MINIMUM and ANGLE_MAXIMUM.
      */
     constexpr units::meter_t
-            BATTERY_BOX_EXTENSION_MINIMUM = 8_in;
+            BATTERY_BOX_EXTENSION_MINIMUM = 16_in;
     constexpr units::degree_t
             BATTERY_BOX_ANGLE_MAXIMUM = 15_deg,
-            BATTERY_BOX_ANGLE_MINIMUM = 5_deg;
+            BATTERY_BOX_ANGLE_MINIMUM = 2_deg;
 
     /*
      * Wall constraint
@@ -58,12 +59,17 @@ namespace CONSTANTS::CLIMBER {
             HOOK_WIDTH = 4_in,
             // Length from the rotation point to the top end of the arm
             ARM_FORWARD_LENGTH = 11_in;
+
+    // Next step tolerance
+    constexpr units::degree_t
+            STEP_TOLERANCE = 2.5_deg;
 }
 
 class Climber : public frc2::SubsystemBase {
   private:
     ClimberExtend *extend;
     ClimberRotate *rotate;
+    ClimberPin *pin;
     bool hasNextStep = false;
     units::meter_t nextStepExtension = 0_m;
 
@@ -80,4 +86,7 @@ class Climber : public frc2::SubsystemBase {
     bool SetAngle(units::degree_t angle);
 
     bool Set(units::meter_t extension, units::degree_t angle);
+
+    void ExtendPin();
+    void RetractPin();
 };

@@ -26,6 +26,10 @@ RobotContainer::RobotContainer() {
     ));
 }
 
+void RobotContainer::Init() {
+    climber->ExtendPin();
+}
+
 void RobotContainer::ConfigureButtonBindings() {
     frc2::JoystickButton *temp;
 

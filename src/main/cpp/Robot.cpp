@@ -20,7 +20,7 @@ void Robot::DisabledPeriodic() {
 }
 
 void Robot::AutonomousInit() {
-
+	container.Init();
 }
 
 void Robot::AutonomousPeriodic() {

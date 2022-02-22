@@ -11,6 +11,10 @@ namespace CONSTANTS {
                 CLIMBER_ROTATION_ID = 5,
                 CLIMBER_EXTEND_ID = 6;
     }
+    namespace SOLENOIDS {
+        constexpr int
+                CLIMBER_PIN_ID = 0;
+    }
     namespace CONTROLLERS::USB {
         constexpr int
                 DRIVE_STICK = 0,

@@ -37,8 +37,7 @@ constexpr int RearLeft = 5;
 
 
 
-constexpr int Power =6;
-constexpr int Updown = 7;
+
 
 constexpr int MotorL=8;
 constexpr int MotorA=9;

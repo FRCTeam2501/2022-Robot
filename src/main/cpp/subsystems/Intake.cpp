@@ -9,11 +9,25 @@ using namespace frc;
 void Intake::Periodic() {}
 
 Intake::Intake() {
-power = new rev::CANSparkMax(Constants::Power, rev::CANSparkMax::MotorType::kBrushless);
-updown = new rev::CANSparkMax(Constants::Updown, rev::CANSparkMax::MotorType::kBrushless);
+power = new rev::CANSparkMax(IntakeConstants::Power, rev::CANSparkMax::MotorType::kBrushless);
+updown = new rev::CANSparkMax(IntakeConstants::Updown, rev::CANSparkMax::MotorType::kBrushless);
 
-updown->GetForwardLimitSwitch(rev::SparkMaxLimitSwitch::Type::kNormallyOpen).EnableLimitSwitch(true);
-updown->GetReverseLimitSwitch(rev::SparkMaxLimitSwitch::Type::kNormallyOpen).EnableLimitSwitch(true);
+
+
+ updownPID.SetP(ClimbConstants::winchSetP);
+    updownPID.SetI(ClimbConstants::winchSetI);
+    updownPID.GetD(ClimbConstants::winchSetD);
+    updownPID.SetOutputRange(-1.0, 1.0);
+
+ powerPID.SetP(ClimbConstants::winchSetP);
+    powerPID.SetI(ClimbConstants::winchSetI);
+    powerPID.GetD(ClimbConstants::winchSetD);
+    powerPID.SetOutputRange(-1.0, 1.0);
+
+
+
+//updown->GetForwardLimitSwitch(rev::SparkMaxLimitSwitch::Type::kNormallyOpen).EnableLimitSwitch(true);
+//updown->GetReverseLimitSwitch(rev::SparkMaxLimitSwitch::Type::kNormallyOpen).EnableLimitSwitch(true);
 
 }
 

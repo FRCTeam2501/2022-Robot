@@ -12,7 +12,7 @@ namespace CONSTANTS::CLIMBER::ROTATION {
             SOFT_CURRENT_LIMIT = 80_A;
     constexpr units::scalar_t
             GEARBOX_RATIO = 100.0, // 100:1 planetary gearbox
-            PULLEY_RATIO = 122.0 / 65.0; // 122:65 pulley reduction
+            PULLEY_RATIO = 48.0 / 22.0; // 65:22 pulley reduction
     constexpr auto
             TURN_TO_DEGREE = 360_deg / (GEARBOX_RATIO * PULLEY_RATIO);
     namespace PID {

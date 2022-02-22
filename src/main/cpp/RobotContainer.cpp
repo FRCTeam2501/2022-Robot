@@ -136,7 +136,7 @@ void RobotContainer::Autonmous()
 		{
 		case 1:
 			autoSwitch = 2;
-			timeLimet = 200;
+			timeLimet = 100;
 			intake->LiftControl(30);
 			break;
 		case 2:
@@ -153,7 +153,7 @@ void RobotContainer::Autonmous()
 			break;
 		case 4:
 			autoSwitch = 5;
-			timeLimet = 400;
+			timeLimet = 300;
 			intake->RollerControl(0.3);
 
 			break;

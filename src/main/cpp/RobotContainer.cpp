@@ -166,7 +166,7 @@ void RobotContainer::Autonmous()
 			break;
 		case 6:
 			drive->DriveControl(0.0, 0.0);
-		break;
+			break;
 		default:
 			break;
 		}

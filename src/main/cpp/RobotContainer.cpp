@@ -4,64 +4,86 @@
 
 #include "RobotContainer.h"
 
+RobotContainer::RobotContainer()
+{
+	drive = new DrivetrainDrive();
+	Stick = new Joystick(0);
+	Stick2 = new Joystick(1);
+	intakem = new Intake();
+	climberm = new Climber();
 
-RobotContainer::RobotContainer()  {
-  drive = new DrivetrainDrive();
-  driveStick = new Joystick(0);
-  controlStick = new Joystick(1);
-  climber = new Climber();
- drive->SetDefaultCommand(frc2::RunCommand(
-		[this] {
-			//	remove the constants from the coppy pasted code
-			drive->ArcadeDrive(-1.0 * driveStick->GetRawAxis(
-        JOYSTICK::AXIS::Y), 0.6 * driveStick->GetRawAxis(JOYSTICK::AXIS::X));
+	drive->SetDefaultCommand(frc2::RunCommand(
+		[this]
+		{
+			drive->ArcadeDrive(Stick->GetRawAxis(JOYSTICK::AXIS::Y), Stick->GetRawAxis(JOYSTICK::AXIS::X));
 		},
-		{ drive }
-	));
-    
-	climber->SetDefaultCommand(frc2::RunCommand(
-		[this] {
-			climber->ControlPivot(controlStick->GetRawAxis(
-        JOYSTICK::AXIS::Y));
-		},
-		{ climber }
-	));
+		{drive}));
 
-	winchUp = new frc2::JoystickButton(controlStick, JOYSTICK::BUTTON::BUTTON_7);
-	winchUp->WhenPressed(new frc2::RunCommand(
-		[this] {
-			climber->WinchesUp(0.6);
-			
+{	up = new frc2::JoystickButton(Stick, JOYSTICK::BUTTON::BUTTON_4);
+	down = new frc2::JoystickButton(Stick, JOYSTICK::BUTTON::BUTTON_5);
+	in = new frc2::JoystickButton(Stick, JOYSTICK::BUTTON::BUTTON_6);
+	out = new frc2::JoystickButton(Stick, JOYSTICK::BUTTON::BUTTON_7);
+	off = new frc2::JoystickButton(Stick, JOYSTICK::BUTTON::BUTTON_8);
+
+	down->WhenPressed(new frc2::RunCommand(
+		[this]
+		{
+			intakem->UpDown(updownp);
 		},
-		{ climber }
-	));
-	winchDown = new frc2::JoystickButton(controlStick, JOYSTICK::BUTTON::BUTTON_11);
-	winchDown->WhenPressed(new frc2::RunCommand(
-		[this] {
-			climber->WinchesDown(-0.6);
+		{intakem}));
+	up->WhenPressed(new frc2::RunCommand(
+		[this]
+		{
+			intakem->UpDown(-updownp);
 		},
-		{ climber }
-	));
-	winchOff = new frc2::JoystickButton(controlStick, JOYSTICK::BUTTON::BUTTON_9);
-	winchOff->WhenPressed(new frc2::RunCommand(
-		[this] {
-			climber->WinchesOff(0.0);
+		{intakem}));
+	in->WhenPressed(new frc2::RunCommand(
+		[this]
+		{
+			intakem->Power(inp);
+		
 		},
-		{ climber }
-	)); 
+		{intakem}));
+	out->WhenPressed(new frc2::RunCommand(
+		[this]
+		{
+			intakem->Power(-outp);
+		
+		},
+		{intakem}));
+	off->WhenPressed(new frc2::RunCommand(
+		[this]
+		{
+			intakem->Power(0);
+		
+		},
+		{intakem}));
+
 
 
 }
+{	///*
+	one = new frc2::JoystickButton(Stick, JOYSTICK::BUTTON::BUTTON_9);
+	two = new frc2::JoystickButton(Stick, JOYSTICK::BUTTON::BUTTON_10);
 
-RobotContainer::~RobotContainer()  {
-  delete drive;
-  delete driveStick;
-  delete controlStick;
-  delete climber;
+one->WhenPressed(new frc2::RunCommand(
+		[this]
+		{ counter++;
+			climberm->clim(counter);
+		},
+		{climberm}));
+
+
+
+//*/
 }
-
-
-
-void RobotContainer::Periodic(){
-
 }
+RobotContainer::~RobotContainer()
+{
+	delete drive;
+	delete Stick;
+	delete intakem;
+	delete Stick2;
+	delete climberm;
+}
+void RobotContainer::Periodic() {}

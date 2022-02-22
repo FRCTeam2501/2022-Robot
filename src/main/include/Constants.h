@@ -7,6 +7,25 @@
 #include "units/current.h"
 
 
+
+
+
+constexpr double movment0 =0 ; //langth up 
+constexpr double movment1 =0 ; //langht 0
+constexpr double movment2 =0  ; //langth up so angal can be legal
+constexpr double movment3 =0 ; // angal out 
+constexpr double movment4 =0 ; // langth exsten all out 
+constexpr double movment5 =0 ; // angal to bar
+constexpr double movment6 =0 ; // lantht 0
+constexpr double movment7 =0 ; // angal 0 or limit swich
+							 // got to 2
+
+
+
+
+constexpr double updownp = 0.5;
+constexpr double inp = 0.5;
+constexpr int outp = 1;
 namespace Constants {
 
 
@@ -16,40 +35,21 @@ constexpr int FrontLeft = 1;
 constexpr int RearRight = 3;
 constexpr int RearLeft = 5;
 
-constexpr int winchRight = 6;
-constexpr int winchLeft = 7;
-constexpr int climbPivot = 8;
+
+
+constexpr int Power =6;
+constexpr int Updown = 7;
+
+constexpr int MotorL=8;
+constexpr int MotorA=9;
+
+
+
 
 
 namespace DRIVETRAIN {
-    /*
-		constexpr units::current::ampere_t
-					CURRENT_LIMIT = 60_A,
-					HARD_CURRENT_LIMIT = 100_A;
-		constexpr units::dimensionless::scalar_t
-					GEAR_RATIO = 11.0;
-		constexpr units::meter_t
-					WHEEL_DIAMETER = 8_in,
-					TRACK_WIDTH = 22_in,
-					WHEEL_CIR = (WHEEL_DIAMETER * 3.141592);
-		constexpr auto
-					TURN_TO_METER = WHEEL_CIR * GEAR_RATIO / units::angle::turn_t(1);
-		constexpr double
-			//	Constant scalars to the robot's drive speed.
-            
-					Y_SPEED = -1.0,
-					RZ_SPEED = 0.6
-                    */
+
 	}
     
 }
 
-/**
- * The Constants header provides a convenient place for teams to hold robot-wide
- * numerical or boolean constants.  This should not be used for any other
- * purpose.
- *
- * It is generally a good idea to place constants into subsystem- or
- * command-specific namespaces within this header, which can then be used where
- * they are needed.
- */

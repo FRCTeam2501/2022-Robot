@@ -1,43 +1,56 @@
 // Copyright (c) FIRST and other WPILib contributors.
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
+//done
 #include "subsystems/DrivetrainDrive.h"
 #include "Constants.h"
-using namespace frc;
+using namespace frc; 
 
-  void DrivetrainDrive::Periodic(){}
 
- 
-DrivetrainDrive::DrivetrainDrive()
-{
-  frontLeft = new rev::CANSparkMax(Constants::FrontLeft, rev::CANSparkMax::MotorType::kBrushless);
-  frontRight = new rev::CANSparkMax(Constants::FrontRight, rev::CANSparkMax::MotorType::kBrushless);
-  rearLeft = new rev::CANSparkMax(Constants::RearLeft, rev::CANSparkMax::MotorType::kBrushless);
-  rearRight = new rev::CANSparkMax(Constants::RearRight, rev::CANSparkMax::MotorType::kBrushless);
- 
-  LeftSide = new frc::MotorControllerGroup(*frontLeft, *rearLeft);
-  RightSide = new frc::MotorControllerGroup(*frontRight, *rearRight);
-  
-  drive = new DifferentialDrive(*LeftSide, *RightSide);
-  RightSide->SetInverted(true);
+
+void DrivetrainDrive::Periodic() {}
+
+DrivetrainDrive::DrivetrainDrive() {
+frontL = new rev::CANSparkMax(Constants::FrontLeft, rev::CANSparkMax::MotorType::kBrushless);
+frontR = new rev::CANSparkMax(Constants::FrontRight, rev::CANSparkMax::MotorType::kBrushless);
+rearL = new rev::CANSparkMax(Constants::RearLeft, rev::CANSparkMax::MotorType::kBrushless);
+rearR = new rev::CANSparkMax(Constants::RearRight, rev::CANSparkMax::MotorType::kBrushless);
+
+Winch = new rev::CANSparkMax(Constants::FrontLeft, rev::CANSparkMax::MotorType::kBrushless);
+
+Left = new frc::MotorControllerGroup(*frontL,*rearL);
+Right = new frc::MotorControllerGroup(*frontR,*rearR);
+
+drive = new DifferentialDrive(*Left,*Right);
 }
-DrivetrainDrive::~DrivetrainDrive()
-{
-  delete frontLeft;
-  delete frontRight;
-  delete rearLeft;
-  delete rearRight;
-  delete drive;
-  delete LeftSide;
-  delete RightSide;
+
+
+DrivetrainDrive::~DrivetrainDrive(){
+delete frontL;
+delete frontR;
+delete rearL;
+delete rearR;
+delete drive;
+delete Left;
+delete Right;
+delete Winch;
 }
-void DrivetrainDrive::ArcadeDrive(double x, double z){
-    
-    drive->ArcadeDrive(x, z);
+
+
+void DrivetrainDrive::ArcadeDrive(double x, double z) {
+drive->ArcadeDrive(x,z);
 }
-void DrivetrainDrive::InitDefaultCommand()
-{
-  
+
+
+void DrivetrainDrive::WinchB(double r){
+
+
 }
-// Put methods for controlling this subsystem
-// here. Call these from Commands.
+
+
+void DrivetrainDrive::InitDefaultCommaned(){
+
+}
+
+
+

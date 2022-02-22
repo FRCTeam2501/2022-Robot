@@ -46,6 +46,12 @@ DrivetrainDrive::~DrivetrainDrive()
   delete LeftSide;
   delete RightSide;
 }
+
+void DrivetrainDrive::DriveControl(double l, double r){
+ LeftSide->Set(l);
+RightSide->Set(r);
+}
+
 void DrivetrainDrive::ArcadeDrive(double x, double z){
     
   drive->ArcadeDrive(x, z);

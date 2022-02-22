@@ -37,9 +37,14 @@ public:
 
   void Periodic();
 
+void Autonmous();
  // frc2::Command* GetAutoCommand();
 
 private:
+
+  int timeTracker = 0;
+  int timeLimet = 50;
+  int autoSwitch = 1;
 
 int liftPosition = 1;
   // The robot's subsystems and commands are defined here...

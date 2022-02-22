@@ -26,6 +26,8 @@ class DrivetrainDrive : public frc2::SubsystemBase {
  DrivetrainDrive();
  ~DrivetrainDrive();
 
+
+  void DriveControl(double l, double r);
  void ArcadeDrive(double x, double z);
 
 	void Periodic();

@@ -52,7 +52,10 @@ void Robot::AutonomousInit() {
   
 }
 
-void Robot::AutonomousPeriodic() {}
+void Robot::AutonomousPeriodic() {
+
+  container->Autonmous();
+}
 
 void Robot::TeleopInit() {
   // This makes sure that the autonomous stops running when

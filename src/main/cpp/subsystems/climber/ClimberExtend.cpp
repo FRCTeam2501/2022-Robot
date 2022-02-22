@@ -35,8 +35,8 @@ void ClimberExtend::Set(units::meter_t distance) {
                 rev::CANSparkMaxLowLevel::ControlType::kPosition);
 }
 
-units::turn_t ClimberExtend::GetActual() {
-    return (units::turn_t) encoder.GetPosition();
+units::meter_t ClimberExtend::GetActual() {
+    return GetDistance((units::turn_t) encoder.GetPosition());
 }
 
 units::turn_t ClimberExtend::GetTurns(units::meter_t distance) {

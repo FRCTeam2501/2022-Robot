@@ -48,6 +48,6 @@ class ClimberExtend {
     units::meter_t Get();
     void Set(units::meter_t distance);
 
-    units::turn_t GetActual();
+    units::meter_t GetActual();
 };
 

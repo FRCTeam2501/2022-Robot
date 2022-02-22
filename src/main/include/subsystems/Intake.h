@@ -11,6 +11,16 @@ namespace IntakeConstants{
 constexpr int Power =6;
 constexpr int Updown = 7;
 
+constexpr double updownP = 0;
+constexpr double updownI = 0;
+constexpr double updownD = 0;
+
+constexpr double up = 0;
+constexpr double down = 0;
+constexpr double start = 0;
+
+constexpr double inp = 0.5;
+constexpr int outp = 1;
 
 }
 
@@ -34,13 +44,9 @@ void Power(double P);
  
  private:
  
- rev::CANSparkMax power{IntakeConstants::Power, rev::CANSparkMax::MotorType::kBrushless};
   rev::CANSparkMax updown{IntakeConstants::Updown, rev::CANSparkMax::MotorType::kBrushless};
-
-  rev::SparkMaxPIDController powerPID = power.GetPIDController();
   rev::SparkMaxPIDController updownPID = updown.GetPIDController();
-
-
+rev::CANSparkMax *power;
 void InitDefaultCommaned();
 
 };

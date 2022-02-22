@@ -27,7 +27,7 @@ void WinchB(double r);
   // declared private and exposed only through public methods.
 frc::DifferentialDrive *drive;
 frc::MotorControllerGroup *Left, *Right;
-rev::CANSparkMax *frontL, *frontR, *rearL, *rearR,*Winch;
+rev::CANSparkMax *frontL, *frontR, *rearL, *rearR;
 void InitDefaultCommaned();
 
 };

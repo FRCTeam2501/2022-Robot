@@ -23,9 +23,7 @@ constexpr double movment7 =0 ; // angal 0 or limit swich
 
 
 
-constexpr double updownp = 0.5;
-constexpr double inp = 0.5;
-constexpr int outp = 1;
+
 namespace Constants {
 
 

@@ -16,7 +16,6 @@ frontR = new rev::CANSparkMax(Constants::FrontRight, rev::CANSparkMax::MotorType
 rearL = new rev::CANSparkMax(Constants::RearLeft, rev::CANSparkMax::MotorType::kBrushless);
 rearR = new rev::CANSparkMax(Constants::RearRight, rev::CANSparkMax::MotorType::kBrushless);
 
-Winch = new rev::CANSparkMax(Constants::FrontLeft, rev::CANSparkMax::MotorType::kBrushless);
 
 Left = new frc::MotorControllerGroup(*frontL,*rearL);
 Right = new frc::MotorControllerGroup(*frontR,*rearR);
@@ -33,7 +32,7 @@ delete rearR;
 delete drive;
 delete Left;
 delete Right;
-delete Winch;
+
 }
 
 

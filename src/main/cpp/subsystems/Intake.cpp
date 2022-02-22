@@ -9,36 +9,24 @@ using namespace frc;
 void Intake::Periodic() {}
 
 Intake::Intake() {
-power = new rev::CANSparkMax(IntakeConstants::Power, rev::CANSparkMax::MotorType::kBrushless);
-updown = new rev::CANSparkMax(IntakeConstants::Updown, rev::CANSparkMax::MotorType::kBrushless);
+power = new rev::CANSparkMax(IntakeConstants::Power, rev::CANSparkMax::MotorType::kBrushed);
+//updown = new rev::CANSparkMax(IntakeConstants::Updown, rev::CANSparkMax::MotorType::kBrushless);
 
-
-
- updownPID.SetP(ClimbConstants::winchSetP);
-    updownPID.SetI(ClimbConstants::winchSetI);
-    updownPID.GetD(ClimbConstants::winchSetD);
+ updownPID.SetP(IntakeConstants::updownP);
+    updownPID.SetI(IntakeConstants::updownI);
+    updownPID.GetD(IntakeConstants::updownD);
     updownPID.SetOutputRange(-1.0, 1.0);
-
- powerPID.SetP(ClimbConstants::winchSetP);
-    powerPID.SetI(ClimbConstants::winchSetI);
-    powerPID.GetD(ClimbConstants::winchSetD);
-    powerPID.SetOutputRange(-1.0, 1.0);
-
-
-
-//updown->GetForwardLimitSwitch(rev::SparkMaxLimitSwitch::Type::kNormallyOpen).EnableLimitSwitch(true);
-//updown->GetReverseLimitSwitch(rev::SparkMaxLimitSwitch::Type::kNormallyOpen).EnableLimitSwitch(true);
 
 }
 
 Intake::~Intake() {
 delete power;
-delete updown;
+//delete updown;
    
 }
 
 void Intake::UpDown(double U){
-updown->Set(U);
+ updownPID.SetReference(U, rev::CANSparkMaxLowLevel::ControlType::kPosition);
 }
 void Intake::Power(double P){
 power->Set(P);

@@ -43,6 +43,6 @@ DrivetrainDrive *drive;
 Intake *intakem;
 Climber *climberm;
 Joystick *Stick,*Stick2;
-frc2::JoystickButton *up,*down,*in,*out,*off,*upC,*downC,*one,*two; //put button names here 
+frc2::JoystickButton *up,*down,*in,*out,*off,*upC,*downC,*one,*two,*off2; //put button names here 
   void ConfigureButtonBindings();
 };

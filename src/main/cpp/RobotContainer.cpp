@@ -24,30 +24,30 @@ RobotContainer::RobotContainer()
 	in = new frc2::JoystickButton(Stick, JOYSTICK::BUTTON::BUTTON_6);
 	out = new frc2::JoystickButton(Stick, JOYSTICK::BUTTON::BUTTON_7);
 	off = new frc2::JoystickButton(Stick, JOYSTICK::BUTTON::BUTTON_8);
-
+	off2 = new frc2::JoystickButton(Stick, JOYSTICK::BUTTON::BUTTON_9);
 	down->WhenPressed(new frc2::RunCommand(
 		[this]
 		{
-			intakem->UpDown(updownp);
+			intakem->UpDown(IntakeConstants::down);
 		},
 		{intakem}));
 	up->WhenPressed(new frc2::RunCommand(
 		[this]
 		{
-			intakem->UpDown(-updownp);
+			intakem->UpDown(IntakeConstants::up);
 		},
 		{intakem}));
 	in->WhenPressed(new frc2::RunCommand(
 		[this]
 		{
-			intakem->Power(inp);
+			intakem->Power(IntakeConstants::inp);
 		
 		},
 		{intakem}));
 	out->WhenPressed(new frc2::RunCommand(
 		[this]
 		{
-			intakem->Power(-outp);
+			intakem->Power(-IntakeConstants::outp);
 		
 		},
 		{intakem}));
@@ -58,7 +58,13 @@ RobotContainer::RobotContainer()
 		
 		},
 		{intakem}));
-
+	off2->WhenPressed(new frc2::RunCommand(
+		[this]
+		{
+			intakem->UpDown(IntakeConstants::start);
+		
+		},
+		{intakem}));
 
 
 }

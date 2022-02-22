@@ -46,6 +46,7 @@ void Power(double P);
  
   rev::CANSparkMax updown{IntakeConstants::Updown, rev::CANSparkMax::MotorType::kBrushless};
   rev::SparkMaxPIDController updownPID = updown.GetPIDController();
+  rev::SparkMaxRelativeEncoder pivotEncoder = updown.GetEncoder();
 rev::CANSparkMax *power;
 void InitDefaultCommaned();
 

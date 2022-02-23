@@ -7,10 +7,11 @@
 
 #include <math.h>
 #include "rev/SparkMaxLimitSwitch.h"
+#include "frc/smartdashboard/SmartDashboard.h"
 
 namespace IntakeConstants{
 
-constexpr double intakeLiftSetP = 0.0;
+constexpr double intakeLiftSetP = 1.2;
 constexpr double intakeLiftSetI = 0.0;
 constexpr double intakeLiftSetD = 0.0;
 
@@ -26,6 +27,7 @@ public:
 void RollerControl(double rollerSpeed);
 
 void LiftControl(double liftAngle);
+ void Periodic() override;
 
 private:
 

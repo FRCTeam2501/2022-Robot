@@ -28,13 +28,15 @@ DrivetrainDrive::DrivetrainDrive()
   rearRight->SetSmartCurrentLimit(Drivetrain::driveSmartCurrentLimet);
   rearRight->SetSecondaryCurrentLimit(Drivetrain::driveSeccondaryCurrentLimet);
   rearRight->SetIdleMode(rev::CANSparkMax::IdleMode::kCoast);
-
+frontLeft->SetInverted(false);
+frontRight->SetInverted(true);
 
   LeftSide = new frc::MotorControllerGroup(*frontLeft, *rearLeft);
   RightSide = new frc::MotorControllerGroup(*frontRight, *rearRight);
   
   drive = new DifferentialDrive(*LeftSide, *RightSide);
-  RightSide->SetInverted(true);
+  RightSide->SetInverted(false);
+
 }
 DrivetrainDrive::~DrivetrainDrive()
 {

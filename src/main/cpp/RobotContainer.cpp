@@ -78,11 +78,11 @@ RobotContainer::RobotContainer()
 		{
 			if ((driveStick->GetRawButton(2)) == true)
 			{
-				intake->RollerControl(-0.3);
+				intake->RollerControl(-6.0);
 			}
 			else
 			{
-				intake->RollerControl(0.3);
+				intake->RollerControl(0.8);
 			}
 		},
 		[this]
@@ -91,7 +91,7 @@ RobotContainer::RobotContainer()
 		},
 		{intake}));
 
-	liftControl = new frc2::JoystickButton(driveStick, JOYSTICK::BUTTON::BUTTON_10);
+	liftControl = new frc2::JoystickButton(driveStick, JOYSTICK::BUTTON::BUTTON_3);
 	liftControl->WhenPressed(new frc2::InstantCommand(
 		[this]
 		{
@@ -99,11 +99,11 @@ RobotContainer::RobotContainer()
 			{
 			case 1:
 				intake->LiftControl(2); // 2 degrees
-				liftPosition = 2;
+				liftPosition = 0.3;
 				break;
 			case 2:
-				intake->LiftControl(30); // 30 degrees
-				liftPosition = 1;
+				intake->LiftControl(10); // 30 degrees
+				liftPosition = 0.1;
 				break;
 			default:
 				break;

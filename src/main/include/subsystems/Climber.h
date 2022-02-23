@@ -28,9 +28,9 @@ namespace ClimbConstants
 
   constexpr double pi = 3.14159265358979;
 
-  constexpr int winch = 6;
+  constexpr int winch = 10;
 
-  constexpr int climbPivot = 8;
+  constexpr int climbPivot = 11;
 
   constexpr double pivotConversionFactorOne = 100;
   constexpr double pivotConversionFactorTwo = (122 / 65);

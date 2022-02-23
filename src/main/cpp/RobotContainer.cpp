@@ -12,19 +12,14 @@ RobotContainer::RobotContainer()
 	intakem = new Intake();
 	climberm = new Climber();
 
-	drive->SetDefaultCommand(frc2::RunCommand(
-		[this]
-		{
-			drive->ArcadeDrive(Stick->GetRawAxis(JOYSTICK::AXIS::Y), Stick->GetRawAxis(JOYSTICK::AXIS::X));
-		},
-		{drive}));
+
 
 {	up = new frc2::JoystickButton(Stick, JOYSTICK::BUTTON::BUTTON_4);
 	down = new frc2::JoystickButton(Stick, JOYSTICK::BUTTON::BUTTON_5);
 	in = new frc2::JoystickButton(Stick, JOYSTICK::BUTTON::BUTTON_6);
 	out = new frc2::JoystickButton(Stick, JOYSTICK::BUTTON::BUTTON_7);
 	off = new frc2::JoystickButton(Stick, JOYSTICK::BUTTON::BUTTON_8);
-	off2 = new frc2::JoystickButton(Stick, JOYSTICK::BUTTON::BUTTON_9);
+//	off2 = new frc2::JoystickButton(Stick, JOYSTICK::BUTTON::BUTTON_9);
 	down->WhenPressed(new frc2::RunCommand(
 		[this]
 		{
@@ -58,17 +53,31 @@ RobotContainer::RobotContainer()
 		
 		},
 		{intakem}));
-	off2->WhenPressed(new frc2::RunCommand(
+	/*off2->WhenPressed(new frc2::RunCommand(
 		[this]
 		{
 			intakem->UpDown(IntakeConstants::start);
 		
 		},
 		{intakem}));
-
-
+*/
 }
+
+
+	drive->SetDefaultCommand(frc2::RunCommand(
+		[this]
+		{
+			drive->ArcadeDrive(Stick->GetRawAxis(JOYSTICK::AXIS::Y), Stick->GetRawAxis(JOYSTICK::AXIS::X));
+		},
+		{drive}));
+
+		
+
+
+
 {	///*
+	
+	
 	one = new frc2::JoystickButton(Stick, JOYSTICK::BUTTON::BUTTON_9);
 	two = new frc2::JoystickButton(Stick, JOYSTICK::BUTTON::BUTTON_10);
 
@@ -83,6 +92,8 @@ one->WhenPressed(new frc2::RunCommand(
 
 //*/
 }
+
+
 }
 RobotContainer::~RobotContainer()
 {

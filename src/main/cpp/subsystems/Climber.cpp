@@ -9,6 +9,8 @@ Climber::Climber()
     pivotClimb.SetSecondaryCurrentLimit(ClimbConstants::pivotClimbSeccondaryCurrentLimet);
   //  pivotClimb.GetReverseLimitSwitch(rev::SparkMaxLimitSwitch::Type::kNormallyOpen).EnableLimitSwitch(true);
 
+    winchPin = new frc::Solenoid(frc::PneumaticsModuleType::CTREPCM,5);
+
     winch.SetInverted(true);
     pivotClimb.SetInverted(true);
 
@@ -28,6 +30,11 @@ Climber::Climber()
     winch.SetSmartCurrentLimit(ClimbConstants::winchSmartCurrentLimet);
     winch.SetSecondaryCurrentLimit(ClimbConstants::winchSeccondaryCurrentLimet);
     winchEncoder.SetPositionConversionFactor((1.4275 * M_PI) / 100.0); // I think this is right
+}
+
+Climber::~Climber(){
+
+    delete winchPin;
 }
 
 int Climber::ClimbControl(double angleAdjust, double lengthAdjust)
@@ -227,6 +234,18 @@ int Climber::GetAngle()
 int Climber::GetLength()
 {
     return length;
+}
+
+void Climber::PinOut() {
+    winchPin->Set(true);
+}
+
+void Climber::PinIn() {
+    winchPin->Set(false);
+}
+
+int Climber::PinStatus() {
+    return (winchPin->Get());
 }
 
 void Climber::Periodic()

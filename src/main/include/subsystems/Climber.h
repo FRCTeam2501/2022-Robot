@@ -7,6 +7,7 @@
 #include "Constants.h"
 #include <math.h>
 #include "rev/SparkMaxLimitSwitch.h"
+#include "frc/Solenoid.h"
 
 namespace ClimbConstants
 {
@@ -54,10 +55,14 @@ class Climber : public frc2::SubsystemBase
 {
 public:
   Climber();
-
+  ~Climber();
   // void AngleControl(double angle);
   int GetAngle();
   int GetLength();
+
+  void PinOut();
+  void PinIn();
+  int PinStatus();
 
   // void WinchControl(double lengthAdjust);
 
@@ -97,6 +102,6 @@ private:
   rev::SparkMaxPIDController pivotPID = pivotClimb.GetPIDController();
   rev::SparkMaxRelativeEncoder winchEncoder = winch.GetEncoder();
   rev::SparkMaxRelativeEncoder pivotEncoder = pivotClimb.GetEncoder();
-
+  frc::Solenoid *winchPin;
   void InitDefaultCommand();
 };

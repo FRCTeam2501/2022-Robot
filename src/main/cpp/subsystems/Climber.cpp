@@ -129,13 +129,17 @@ int Climber::ClimbControl(double angleAdjust, double lengthAdjust)
             }
         }
     }
-
+    frc::SmartDashboard::PutNumber("Climb Seccondary move", seccondaryMove);
     if (seccondaryMove == false)
     {
+
         length = lengthAdjust;
         angle = angleAdjust;
         winchPID.SetReference(Climber::LengthToTurns(length), rev::CANSparkMaxLowLevel::ControlType::kPosition);
         pivotPID.SetReference(angle, rev::CANSparkMaxLowLevel::ControlType::kPosition);
+        frc::SmartDashboard::PutNumber("Climb Target Length", length);
+        frc::SmartDashboard::PutNumber("Climb Fibbed Target Length", Climber::LengthToTurns(length));
+        frc::SmartDashboard::PutNumber("Climb Target angle", angle);
         return lengthChanged;
     }
 }
@@ -250,6 +254,9 @@ int Climber::PinStatus() {
 
 void Climber::Periodic()
 {
+
+    frc::SmartDashboard::PutNumber("Actual Climb length", winchEncoder.GetPosition());
+    frc::SmartDashboard::PutNumber("Actual Climb Target angle", pivotEncoder.GetPosition());
     // This checks if we have a scedjuled seccond move once we have reached the angle we were going for
     if (seccondaryMove == true && (abs(winchEncoder.GetPosition() - 4) < 0.5))
     {

@@ -8,6 +8,7 @@
 #include <math.h>
 #include "rev/SparkMaxLimitSwitch.h"
 #include "frc/Solenoid.h"
+#include "frc/smartdashboard/SmartDashboard.h"
 
 namespace ClimbConstants
 {

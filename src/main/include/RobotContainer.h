@@ -28,6 +28,7 @@ using namespace frc;
 #include "subsystems/Camera.h"
 #include "frc2/command/InstantCommand.h"
 #include "subsystems/Intake.h"
+#include "frc/smartdashboard/SmartDashboard.h"
 
 class RobotContainer
 {

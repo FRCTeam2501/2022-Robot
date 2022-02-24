@@ -80,14 +80,14 @@ public:
   // for methods that implement subsystem capabilities
 
 private:
-  double angle;
+  double angle = 0;
   double angleAdjust;
   double targetAngle;
 
   bool horizontalActivated;
   bool swingActivated;
 
-  double length;
+  double length = 0;
   double lengthAdjust;
   double targetLength;
 

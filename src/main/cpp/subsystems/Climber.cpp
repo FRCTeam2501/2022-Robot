@@ -1,6 +1,7 @@
 #include "subsystems/Climber.h"
 
 using namespace frc;
+using namespace std;
 
 Climber::Climber()
 {
@@ -44,7 +45,8 @@ int Climber::ClimbControl(double angleAdjust, double lengthAdjust)
     lengthChanged = false;
     swingActivated = false;
     seccondMovefinal = false;
-
+    cout<<"angleAdjust: "<<angleAdjust<<endl;
+    cout<<"LengthAdjust: "<<lengthAdjust<<endl;
     // lengthAdjust is the new length that we want to set the arms to
     //  makes sure length is not outside of limet
     if (length > ClimbConstants::maxLength)
@@ -78,15 +80,16 @@ int Climber::ClimbControl(double angleAdjust, double lengthAdjust)
     }
 
     // This makes shure that the angle adjustment does not move the climber outside of the limet
-    if (angleAdjust > ClimbConstants::maxAngle)
-    {
-        angleAdjust = (ClimbConstants::maxAngle);
-    }
-    if (angleAdjust < ClimbConstants::minAngle)
-    {
-        angleAdjust = ClimbConstants::minAngle;
-    }
-
+  //  if (angleAdjust > ClimbConstants::maxAngle)
+    //{
+  //      angleAdjust = (ClimbConstants::maxAngle);
+  //  }
+   // if (angleAdjust < ClimbConstants::minAngle)
+   // {
+  //      angleAdjust = ClimbConstants::minAngle;
+  //  }
+cout<<"angleAdjust: "<<angleAdjust<<endl;
+    cout<<"LengthAdjust: "<<lengthAdjust<<endl;
     if (angleAdjust > 1)
     {
         // checks new climber position to make shure that it is legal.
@@ -130,11 +133,16 @@ int Climber::ClimbControl(double angleAdjust, double lengthAdjust)
         }
     }
     frc::SmartDashboard::PutNumber("Climb Seccondary move", seccondaryMove);
+    cout<<"seccondaryMove: "<<seccondaryMove<<endl;
     if (seccondaryMove == false)
     {
-
+    cout<<"Actual set angleAdjust: "<<angleAdjust<<endl;
+    cout<<"Actual set LengthAdjust: "<<lengthAdjust<<endl;
         length = lengthAdjust;
         angle = angleAdjust;
+    
+    cout<<"angle: "<<angle<<endl;
+    cout<<"Length: "<<length<<endl;
         winchPID.SetReference(Climber::LengthToTurns(length), rev::CANSparkMaxLowLevel::ControlType::kPosition);
         pivotPID.SetReference(angle, rev::CANSparkMaxLowLevel::ControlType::kPosition);
         frc::SmartDashboard::PutNumber("Climb Target Length", length);

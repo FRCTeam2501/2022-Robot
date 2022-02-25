@@ -9,6 +9,7 @@
 #include "rev/SparkMaxLimitSwitch.h"
 #include "frc/Solenoid.h"
 #include "frc/smartdashboard/SmartDashboard.h"
+#include "iostream"
 
 namespace ClimbConstants
 {
@@ -43,7 +44,7 @@ namespace ClimbConstants
   constexpr double pivotClimbSmartCurrentLimet = 60.0;
   constexpr double pivotClimbSeccondaryCurrentLimet = 70.0;
 
-  constexpr double pivotClimbSetP = 2.0;
+  constexpr double pivotClimbSetP = 0.02;
   constexpr double pivotClimbSetI = 0.00;
   constexpr double pivotClimbSetD = 0.00;
   constexpr double winchSetP = 2.00;

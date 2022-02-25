@@ -59,8 +59,8 @@ public:
   Climber();
   ~Climber();
   // void AngleControl(double angle);
-  int GetAngle();
-  int GetLength();
+  double GetAngle();
+  double GetLength();
 
   void PinOut();
   void PinIn();
@@ -76,7 +76,7 @@ public:
 
   int ClimbControl(double angleAdjust, double lengthAdjust);
 
-  int LengthToTurns(double inchesToTurns);
+  double LengthToTurns(double inchesToTurns);
 
   void Periodic();
 
@@ -84,14 +84,15 @@ public:
   // for methods that implement subsystem capabilities
 
 private:
-  double angle = 0;
+  double angle = 1.0;
   double angleAdjust;
   double targetAngle;
+  double storeAngle;
 
   bool horizontalActivated;
   bool swingActivated;
 
-  double length = 0;
+  double length = 0.0;
   double lengthAdjust;
   double targetLength;
 

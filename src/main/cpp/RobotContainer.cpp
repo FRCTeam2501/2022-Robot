@@ -30,14 +30,29 @@ RobotContainer::RobotContainer()
 		{
 			if (abs(controlStick->GetRawAxis(JOYSTICK::AXIS::Y)) > 0.1)
 			{
-				cout<<"Y-Axis plus angle: "<<((controlStick->GetRawAxis(JOYSTICK::AXIS::Y) / 50) + climber->GetAngle())<<endl;
+			//	cout<<"Y-Axis plus angle: "<<((controlStick->GetRawAxis(JOYSTICK::AXIS::Y) / 50) + climber->GetAngle())<<endl;
+				cout<<"Get Angle: "<<(climber->GetAngle())<<endl;
 				cout<<"Get Length: "<<(climber->GetLength())<<endl;
+				angleAdd = ((controlStick->GetRawAxis(JOYSTICK::AXIS::Y) / 5) + climber->GetAngle());
+				lengthAdd = (climber->GetLength());
 				climber->ClimbControl(((controlStick->GetRawAxis(JOYSTICK::AXIS::Y) / 50) + climber->GetAngle()), (climber->GetLength()));
+				//climber->ClimbControl(angleAdd, lengthAdd);
 				// 50 means that it will adjust the angle to one degree per seccond at full speed on the joystick
 			}
 		},
 		{climber}));
 	
+	zeroEncoders = new frc2::JoystickButton(driveStick, JOYSTICK::BUTTON::BUTTON_5);
+	zeroEncoders->WhenPressed(new frc2::InstantCommand(
+		[this]
+		{
+			intake->SetLiftEncoder(0.0);
+			climber->ClimbPivotSetEncoder(0.0);
+			climber->ClimbWinchSetEncoder(0.0);
+			
+		},
+		{climber, intake}));
+
 	pinControl = new frc2::JoystickButton(controlStick, JOYSTICK::BUTTON::BUTTON_4);
 	pinControl->WhenPressed(new frc2::InstantCommand(
 		[this]
@@ -91,6 +106,8 @@ RobotContainer::RobotContainer()
 		},
 		{camera}));
 
+	
+
 	rollerControl = new frc2::JoystickButton(driveStick, JOYSTICK::BUTTON::TRIGGER);
 	rollerControl->WhileHeld(new frc2::StartEndCommand(
 		[this]
@@ -127,12 +144,12 @@ RobotContainer::RobotContainer()
 				liftPosition = 1;
 				break;
 			default:
-				break;
+				break; 
 			}
 		},
 		{intake}));
-}
 
+}
 RobotContainer::~RobotContainer()
 {
 	delete drive;
@@ -142,11 +159,6 @@ RobotContainer::~RobotContainer()
 	delete camera;
 }
 
-void RobotContainer::Init(){
-	intake->SetLiftEncoder(0.0);
-	climber->ClimbPivotSetEncoder(0.0);
-	climber->ClimbWinchSetEncoder(0.0);
-}
 
 void RobotContainer::Autonmous()
 {

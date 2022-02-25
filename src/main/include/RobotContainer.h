@@ -37,7 +37,7 @@ public:
   ~RobotContainer();
 
   void Periodic();
-  void Init();
+
 
 void Autonmous();
  // frc2::Command* GetAutoCommand();
@@ -47,6 +47,8 @@ private:
   int timeTracker = 0;
   int timeLimet = 0;
   int autoSwitch = 1;
+  double angleAdd = 0;
+  double lengthAdd = 0;
 
 int liftPosition = 1;
   // The robot's subsystems and commands are defined here...
@@ -55,5 +57,5 @@ int liftPosition = 1;
   Camera *camera;
   Intake *intake;
   Joystick *driveStick, *controlStick;
-  frc2::JoystickButton *winchUp, *winchDown, *feedSwitch, *armExtend, *swingAndClampBar, *rollerControl, *liftControl, *pinControl;
+  frc2::JoystickButton *winchUp, *winchDown, *feedSwitch, *armExtend, *swingAndClampBar, *rollerControl, *liftControl, *pinControl, *zeroEncoders;
 };

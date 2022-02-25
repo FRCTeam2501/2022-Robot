@@ -12,8 +12,8 @@ Climber::Climber()
 
   //  winchPin = new frc::Solenoid(frc::PneumaticsModuleType::CTREPCM,5);
 
-    winch.SetInverted(true);
-    pivotClimb.SetInverted(true);
+    winch.SetInverted(false);
+    pivotClimb.SetInverted(false);
 
     pivotPID.SetP(ClimbConstants::pivotClimbSetP);
     pivotPID.SetI(ClimbConstants::pivotClimbSetI);
@@ -30,7 +30,7 @@ Climber::Climber()
 
     winch.SetSmartCurrentLimit(ClimbConstants::winchSmartCurrentLimet);
     winch.SetSecondaryCurrentLimit(ClimbConstants::winchSeccondaryCurrentLimet);
-    winchEncoder.SetPositionConversionFactor((1.4275 * M_PI) / 100.0); // I think this is right
+    winchEncoder.SetPositionConversionFactor((1) / 100.0); // I think this is right
 }
 
 Climber::~Climber(){
@@ -46,8 +46,8 @@ int Climber::ClimbControl(double angleAdjust, double lengthAdjust)
     swingActivated = false;
     seccondMovefinal = false;
     cout<<"ClimbControl start"<<endl;
-    cout<<"angleAdjust 1: "<<angleAdjust<<endl;
-    cout<<"LengthAdjust 1: "<<lengthAdjust<<endl;
+   // cout<<"angleAdjust 1: "<<angleAdjust<<endl;
+   // cout<<"LengthAdjust 1: "<<lengthAdjust<<endl;
     // lengthAdjust is the new length that we want to set the arms to
     //  makes sure length is not outside of limet
     if (length > ClimbConstants::maxLength)
@@ -89,8 +89,8 @@ int Climber::ClimbControl(double angleAdjust, double lengthAdjust)
    // {
   //      angleAdjust = ClimbConstants::minAngle;
   //  }
-    cout<<"angleAdjust 2: "<<angleAdjust<<endl;
-    cout<<"LengthAdjust 2: "<<lengthAdjust<<endl;
+  //  cout<<"angleAdjust 2: "<<angleAdjust<<endl;
+  //  cout<<"LengthAdjust 2: "<<lengthAdjust<<endl;
     if (angleAdjust > 1)
     {
         // checks new climber position to make shure that it is legal.
@@ -101,8 +101,8 @@ int Climber::ClimbControl(double angleAdjust, double lengthAdjust)
             lengthChanged = true;
         }
     }
-     cout<<"angleAdjust 3: "<<angleAdjust<<endl;
-    cout<<"LengthAdjust 3: "<<lengthAdjust<<endl;
+   //  cout<<"angleAdjust 3: "<<angleAdjust<<endl;
+  //  cout<<"LengthAdjust 3: "<<lengthAdjust<<endl;
     // Checks if the sceleing is veing violated, if so, it will change the length to make it legal
     if (lengthAdjust > (((ClimbConstants::defaultScealing - ClimbConstants::rotationBigOffset * std::sin((angleAdjust * ClimbConstants::pi / (180)))) / std::cos((angleAdjust * ClimbConstants::pi / (180)))) - ClimbConstants::minExtension))
     {
@@ -111,7 +111,7 @@ int Climber::ClimbControl(double angleAdjust, double lengthAdjust)
     }
      cout<<"angleAdjust 4: "<<angleAdjust<<endl;
     cout<<"LengthAdjust 4: "<<lengthAdjust<<endl;
-
+/*
     if ((angleAdjust <= 15 && angleAdjust >= 6) || (angleAdjust > 15 && angle <= 15) || (angleAdjust < 6 && angle >= 6))
     {
         if (angleAdjust <= 15 && angleAdjust >= 6)
@@ -137,6 +137,7 @@ int Climber::ClimbControl(double angleAdjust, double lengthAdjust)
             }
         }
     }
+    */
     frc::SmartDashboard::PutNumber("Climb Seccondary move", seccondaryMove);
     cout<<"seccondaryMove: "<<seccondaryMove<<endl;
     if (seccondaryMove == false)
@@ -148,8 +149,11 @@ int Climber::ClimbControl(double angleAdjust, double lengthAdjust)
     
     cout<<"angle: "<<angle<<endl;
     cout<<"Length: "<<length<<endl;
+    storeAngle = angle;
+    cout<<"StoreAngle: "<<storeAngle<<endl;
         winchPID.SetReference(Climber::LengthToTurns(length), rev::CANSparkMaxLowLevel::ControlType::kPosition);
         pivotPID.SetReference(angle, rev::CANSparkMaxLowLevel::ControlType::kPosition);
+        cout<<"fibbed length: "<<Climber::LengthToTurns(length)<<endl;
         frc::SmartDashboard::PutNumber("Climb Target Length", length);
         frc::SmartDashboard::PutNumber("Climb Fibbed Target Length", Climber::LengthToTurns(length));
         frc::SmartDashboard::PutNumber("Climb Target angle", angle);
@@ -177,7 +181,7 @@ void Climber::SwingAndClamp(){ //arms should be on bar when we activate this fun
     }
 }
 */
-int Climber::LengthToTurns(double inchesToTurns)
+double Climber::LengthToTurns(double inchesToTurns)
 {
 
     constexpr double pi = 3.141592653589793;
@@ -243,12 +247,12 @@ int Climber::LengthToTurns(double inchesToTurns)
     return turns;
 }
 
-int Climber::GetAngle()
+double Climber::GetAngle()
 {
     return angle;
 }
 
-int Climber::GetLength()
+double Climber::GetLength()
 {
     return length;
 }

@@ -18,9 +18,6 @@ public:
 
     void SwitchFeed();
 
-    void Periodic();
-    void init();
-
 private:
     cs::UsbCamera *climbCamera, *intakeCamera;
     cs::MjpegServer *streamVideo;

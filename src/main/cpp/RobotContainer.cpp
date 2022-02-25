@@ -108,12 +108,14 @@ RobotContainer::RobotContainer()
 			switch (liftPosition)
 			{
 			case 1:
-				intake->LiftControl(2); // 2 degrees
-				liftPosition = 0.3;
+				//intake->SetP(0.03);
+				intake->LiftControl(0.0); // 2 degrees
+				liftPosition = 2;
 				break;
 			case 2:
-				intake->LiftControl(10); // 30 degrees
-				liftPosition = 0.1;
+				//intake->SetP(0.07);
+				intake->LiftControl(14); // 30 degrees
+				liftPosition = 1;
 				break;
 			default:
 				break;
@@ -164,7 +166,7 @@ void RobotContainer::Autonmous()
 		case 4:
 			autoSwitch = 5;
 			timeLimet = 300;
-			intake->RollerControl(0.3);
+			intake->RollerControl(0.5);
 
 			break;
 		case 5:

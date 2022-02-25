@@ -11,7 +11,7 @@
 
 namespace IntakeConstants{
 
-constexpr double intakeLiftSetP = 2.5;
+constexpr double intakeLiftSetP = 0.07;
 constexpr double intakeLiftSetI = 0.0;
 constexpr double intakeLiftSetD = 0.0;
 
@@ -28,6 +28,7 @@ void RollerControl(double rollerSpeed);
 
 void LiftControl(double liftAngle);
  void Periodic() override;
+ void SetP(double pValue);
 
 private:
 

@@ -18,13 +18,18 @@ Intake::Intake()
     intakeLiftPID.SetP(IntakeConstants::intakeLiftSetP);
     intakeLiftPID.SetI(IntakeConstants::intakeLiftSetI);
     intakeLiftPID.SetD(IntakeConstants::intakeLiftSetD);
-    intakeLiftPID.SetOutputRange(-1, 1);
-    intakeLiftEncoder.SetPositionConversionFactor(100);
-    intakeLift.SetInverted(true);
+    intakeLiftPID.SetOutputRange(-0.1, 1.0);
+    intakeLiftEncoder.SetPositionConversionFactor(1);
+    intakeLift.SetInverted(false);
 
     rollerMotor->SetSmartCurrentLimit(60);
     rollerMotor->SetSecondaryCurrentLimit(80);
 
+}
+
+void Intake::SetP(double pValue){
+ intakeLiftPID.SetP(pValue);
+ frc::SmartDashboard::PutNumber("Lift P valuel", pValue);
 }
 
 void Intake::RollerControl(double rollerSpeed){

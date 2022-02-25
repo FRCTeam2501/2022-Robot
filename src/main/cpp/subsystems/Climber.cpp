@@ -9,7 +9,7 @@ Climber::Climber()
     pivotClimb.SetSecondaryCurrentLimit(ClimbConstants::pivotClimbSeccondaryCurrentLimet);
   //  pivotClimb.GetReverseLimitSwitch(rev::SparkMaxLimitSwitch::Type::kNormallyOpen).EnableLimitSwitch(true);
 
-    winchPin = new frc::Solenoid(frc::PneumaticsModuleType::CTREPCM,5);
+  //  winchPin = new frc::Solenoid(frc::PneumaticsModuleType::CTREPCM,5);
 
     winch.SetInverted(true);
     pivotClimb.SetInverted(true);
@@ -249,12 +249,11 @@ void Climber::PinIn() {
 }
 
 int Climber::PinStatus() {
-    return (winchPin->Get());
+  //  return (winchPin->Get());
 }
 
 void Climber::Periodic()
 {
-
     frc::SmartDashboard::PutNumber("Actual Climb length", winchEncoder.GetPosition());
     frc::SmartDashboard::PutNumber("Actual Climb Target angle", pivotEncoder.GetPosition());
     // This checks if we have a scedjuled seccond move once we have reached the angle we were going for

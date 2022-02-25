@@ -45,8 +45,9 @@ int Climber::ClimbControl(double angleAdjust, double lengthAdjust)
     lengthChanged = false;
     swingActivated = false;
     seccondMovefinal = false;
-    cout<<"angleAdjust: "<<angleAdjust<<endl;
-    cout<<"LengthAdjust: "<<lengthAdjust<<endl;
+    cout<<"ClimbControl start"<<endl;
+    cout<<"angleAdjust 1: "<<angleAdjust<<endl;
+    cout<<"LengthAdjust 1: "<<lengthAdjust<<endl;
     // lengthAdjust is the new length that we want to set the arms to
     //  makes sure length is not outside of limet
     if (length > ClimbConstants::maxLength)
@@ -88,8 +89,8 @@ int Climber::ClimbControl(double angleAdjust, double lengthAdjust)
    // {
   //      angleAdjust = ClimbConstants::minAngle;
   //  }
-cout<<"angleAdjust: "<<angleAdjust<<endl;
-    cout<<"LengthAdjust: "<<lengthAdjust<<endl;
+    cout<<"angleAdjust 2: "<<angleAdjust<<endl;
+    cout<<"LengthAdjust 2: "<<lengthAdjust<<endl;
     if (angleAdjust > 1)
     {
         // checks new climber position to make shure that it is legal.
@@ -100,13 +101,17 @@ cout<<"angleAdjust: "<<angleAdjust<<endl;
             lengthChanged = true;
         }
     }
+     cout<<"angleAdjust 3: "<<angleAdjust<<endl;
+    cout<<"LengthAdjust 3: "<<lengthAdjust<<endl;
     // Checks if the sceleing is veing violated, if so, it will change the length to make it legal
     if (lengthAdjust > (((ClimbConstants::defaultScealing - ClimbConstants::rotationBigOffset * std::sin((angleAdjust * ClimbConstants::pi / (180)))) / std::cos((angleAdjust * ClimbConstants::pi / (180)))) - ClimbConstants::minExtension))
     {
         lengthAdjust = (((ClimbConstants::defaultScealing - ClimbConstants::rotationBigOffset * std::sin((angleAdjust * ClimbConstants::pi / (180)))) / std::cos((angleAdjust * ClimbConstants::pi / (180)))) - ClimbConstants::minExtension);
         lengthChanged = true;
     }
-
+     cout<<"angleAdjust 4: "<<angleAdjust<<endl;
+    cout<<"LengthAdjust 4: "<<lengthAdjust<<endl;
+    
     if ((angleAdjust <= 15 && angleAdjust >= 6) || (angleAdjust > 15 && angle <= 15) || (angleAdjust < 6 && angle >= 6))
     {
         if (angleAdjust <= 15 && angleAdjust >= 6)
@@ -262,8 +267,8 @@ int Climber::PinStatus() {
 
 void Climber::Periodic()
 {
-    frc::SmartDashboard::PutNumber("Actual Climb length", winchEncoder.GetPosition());
-    frc::SmartDashboard::PutNumber("Actual Climb Target angle", pivotEncoder.GetPosition());
+    frc::SmartDashboard::PutNumber("Winch Encoder: ", winchEncoder.GetPosition());
+    frc::SmartDashboard::PutNumber("Pivot Encoder: ", pivotEncoder.GetPosition());
     // This checks if we have a scedjuled seccond move once we have reached the angle we were going for
     if (seccondaryMove == true && (abs(winchEncoder.GetPosition() - 4) < 0.5))
     {

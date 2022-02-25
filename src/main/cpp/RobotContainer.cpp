@@ -3,6 +3,9 @@
 // the WPILib BSD license file in the root directory of this project.
 
 #include "RobotContainer.h"
+#include "iostream"
+
+using namespace std;
 
 RobotContainer::RobotContainer()
 {
@@ -27,6 +30,8 @@ RobotContainer::RobotContainer()
 		{
 			if (abs(controlStick->GetRawAxis(JOYSTICK::AXIS::Y)) > 0.1)
 			{
+				cout<<"Y-Axis plus angle: "<<((controlStick->GetRawAxis(JOYSTICK::AXIS::Y) / 50) + climber->GetAngle())<<endl;
+				cout<<"Get Length: "<<(climber->GetLength())<<endl;
 				climber->ClimbControl(((controlStick->GetRawAxis(JOYSTICK::AXIS::Y) / 50) + climber->GetAngle()), (climber->GetLength()));
 				// 50 means that it will adjust the angle to one degree per seccond at full speed on the joystick
 			}
@@ -48,6 +53,7 @@ RobotContainer::RobotContainer()
 		[this]
 		{
 			climber->ClimbControl(80, 28); // 80 degrees, 28 inches
+			cout<<"ClimbControl set to 80 deg, 28 in"<<endl;
 		},
 		{climber}));
 
@@ -56,6 +62,7 @@ RobotContainer::RobotContainer()
 		[this]
 		{
 			climber->ClimbControl(1, 1); // 1 degree, 1 inch
+			cout<<"ClimbControl set to 1 deg, 1 in"<<endl;
 		},
 		{climber}));
 
@@ -64,6 +71,7 @@ RobotContainer::RobotContainer()
 		[this]
 		{
 			climber->ClimbControl((climber->GetAngle()), ((climber->GetLength()) + 0.5));
+			cout<<"ClimbControl set to current angle, current length + 0.5"<<endl;
 		},
 		{climber}));
 	winchDown = new frc2::JoystickButton(controlStick, JOYSTICK::BUTTON::BUTTON_11);
@@ -71,6 +79,7 @@ RobotContainer::RobotContainer()
 		[this]
 		{
 			climber->ClimbControl((climber->GetAngle()), ((climber->GetLength()) - 0.5));
+			cout<<"ClimbControl set to current angle, current length - 0.5"<<endl;
 		},
 		{climber}));
 

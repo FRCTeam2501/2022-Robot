@@ -1,5 +1,6 @@
 #pragma once
 #include "frc/Joystick.h"
+#include "frc2/command/Command.h"
 #include "subsystems/Climber.h"
 #include "subsystems/Drivetrain.h"
 
@@ -16,4 +17,6 @@ class RobotContainer {
     RobotContainer();
 
     void Init();
+
+    frc2::Command* GetAutonomousCommand();
 };

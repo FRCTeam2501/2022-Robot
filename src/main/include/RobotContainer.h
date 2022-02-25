@@ -37,6 +37,7 @@ public:
   ~RobotContainer();
 
   void Periodic();
+  void Init();
 
 void Autonmous();
  // frc2::Command* GetAutoCommand();

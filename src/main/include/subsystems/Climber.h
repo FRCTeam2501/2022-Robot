@@ -71,6 +71,9 @@ public:
   void ArmHorizontal();
   void SwingAndClamp();
 
+  void ClimbPivotSetEncoder(double pivotSetEncoder);
+  void ClimbWinchSetEncoder(double winchSetEncoder);
+
   int ClimbControl(double angleAdjust, double lengthAdjust);
 
   int LengthToTurns(double inchesToTurns);

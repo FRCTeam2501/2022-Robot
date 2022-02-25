@@ -111,7 +111,7 @@ int Climber::ClimbControl(double angleAdjust, double lengthAdjust)
     }
      cout<<"angleAdjust 4: "<<angleAdjust<<endl;
     cout<<"LengthAdjust 4: "<<lengthAdjust<<endl;
-    
+
     if ((angleAdjust <= 15 && angleAdjust >= 6) || (angleAdjust > 15 && angle <= 15) || (angleAdjust < 6 && angle >= 6))
     {
         if (angleAdjust <= 15 && angleAdjust >= 6)
@@ -251,6 +251,13 @@ int Climber::GetAngle()
 int Climber::GetLength()
 {
     return length;
+}
+
+void Climber::ClimbPivotSetEncoder(double pivotSetEncoder){
+pivotEncoder.SetPosition(pivotSetEncoder);
+}
+void Climber::ClimbWinchSetEncoder(double winchSetEncoder){
+winchEncoder.SetPosition(winchSetEncoder);
 }
 
 void Climber::PinOut() {

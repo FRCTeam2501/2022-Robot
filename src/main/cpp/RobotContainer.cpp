@@ -142,6 +142,12 @@ RobotContainer::~RobotContainer()
 	delete camera;
 }
 
+void RobotContainer::Init(){
+	intake->SetLiftEncoder(0.0);
+	climber->ClimbPivotSetEncoder(0.0);
+	climber->ClimbWinchSetEncoder(0.0);
+}
+
 void RobotContainer::Autonmous()
 {
 

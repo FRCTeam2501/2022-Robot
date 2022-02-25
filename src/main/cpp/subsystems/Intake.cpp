@@ -50,6 +50,10 @@ frc::SmartDashboard::PutNumber("Lift target", liftAngle);
     intakeLiftPID.SetReference(liftAngle, rev::CANSparkMaxLowLevel::ControlType::kPosition);
 }
 
+void Intake::SetLiftEncoder(double intakeZero){
+    intakeLiftEncoder.SetPosition(intakeZero);
+}
+
 void Intake::Periodic(){
 
     frc::SmartDashboard::PutNumber("lift Actual", intakeLiftEncoder.GetPosition());

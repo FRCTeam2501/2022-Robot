@@ -29,6 +29,7 @@ void RollerControl(double rollerSpeed);
 void LiftControl(double liftAngle);
  void Periodic() override;
  void SetP(double pValue);
+ void SetLiftEncoder(double intakeZero);
 
 private:
 

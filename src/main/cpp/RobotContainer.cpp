@@ -31,17 +31,17 @@ RobotContainer::RobotContainer()
 			if (abs(controlStick->GetRawAxis(JOYSTICK::AXIS::Y)) > 0.1)
 			{
 			//	cout<<"Y-Axis plus angle: "<<((controlStick->GetRawAxis(JOYSTICK::AXIS::Y) / 50) + climber->GetAngle())<<endl;
-				cout<<"Get Angle: "<<(climber->GetAngle())<<endl;
-				cout<<"Get Length: "<<(climber->GetLength())<<endl;
-				angleAdd = ((controlStick->GetRawAxis(JOYSTICK::AXIS::Y) / 5) + climber->GetAngle());
-				lengthAdd = (climber->GetLength());
-				climber->ClimbControl(((controlStick->GetRawAxis(JOYSTICK::AXIS::Y) / 50) + climber->GetAngle()), (climber->GetLength()));
+				//cout<<"Get Angle: "<<(climber->GetAngle())<<endl;
+			//	cout<<"Get Length: "<<(climber->GetLength())<<endl;
+				//angleAdd = ((controlStick->GetRawAxis(JOYSTICK::AXIS::Y) / 5) + climber->GetAngle());
+				//lengthAdd = (climber->GetLength());
+				climber->HardAngle(controlStick->GetRawAxis(JOYSTICK::AXIS::Y));
 				//climber->ClimbControl(angleAdd, lengthAdd);
 				// 50 means that it will adjust the angle to one degree per seccond at full speed on the joystick
 			}
 		},
 		{climber}));
-	
+	/*
 	zeroEncoders = new frc2::JoystickButton(driveStick, JOYSTICK::BUTTON::BUTTON_5);
 	zeroEncoders->WhenPressed(new frc2::InstantCommand(
 		[this]
@@ -80,20 +80,21 @@ RobotContainer::RobotContainer()
 			cout<<"ClimbControl set to 1 deg, 1 in"<<endl;
 		},
 		{climber}));
-
+*/
 	winchUp = new frc2::JoystickButton(controlStick, JOYSTICK::BUTTON::BUTTON_9);
 	winchUp->WhenPressed(new frc2::InstantCommand(
 		[this]
 		{
-			climber->ClimbControl((climber->GetAngle()), ((climber->GetLength()) + 0.5));
+			climber->HardLength(0.5);
 			cout<<"ClimbControl set to current angle, current length + 0.5"<<endl;
 		},
 		{climber}));
+		
 	winchDown = new frc2::JoystickButton(controlStick, JOYSTICK::BUTTON::BUTTON_11);
 	winchDown->WhenPressed(new frc2::InstantCommand(
 		[this]
 		{
-			climber->ClimbControl((climber->GetAngle()), ((climber->GetLength()) - 0.5));
+			climber->HardLength(-0.5);
 			cout<<"ClimbControl set to current angle, current length - 0.5"<<endl;
 		},
 		{climber}));

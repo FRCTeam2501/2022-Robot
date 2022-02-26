@@ -4,6 +4,9 @@
 #include "frc2/command/RunCommand.h"
 #include "frc2/command/SequentialCommandGroup.h"
 #include "frc2/command/WaitCommand.h"
+#include "frc2/command/ParallelCommandGroup.h"
+#include "frc2/command/ParallelRaceGroup.h"
+#include "frc2/command/StartEndCommand.h"
 #include "Constants.h"
 
 
@@ -50,14 +53,16 @@ void RobotContainer::ConfigureButtonBindings() {
 
 frc2::Command* RobotContainer::GetAutonomousCommand() {
     return new frc2::SequentialCommandGroup(
-        frc2::InstantCommand{[this] {
-            drivetrain->ArcadeDrive(0.5, 0);
-        }, { drivetrain } },
-        frc2::WaitCommand{
-            1.0_s
-        },
-        frc2::InstantCommand{[this] {
-            drivetrain->ArcadeDrive(0, 0);
-        }, { drivetrain } }
+        frc2::StartEndCommand{
+            [this] {
+                drivetrain->ArcadeDrive(0.5, 0.0);
+            },
+            [this] {
+                drivetrain->ArcadeDrive(0.0, 0.0);
+            },
+            { drivetrain }
+        }.WithTimeout(
+            1_s
+        )
     );
 }

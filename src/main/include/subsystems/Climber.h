@@ -85,9 +85,6 @@ private:
 
     bool lengthChanged;
 
-    
-    
-
     rev::CANSparkMax winch{ClimbConstants::winch, rev::CANSparkMax::MotorType::kBrushless};
     rev::CANSparkMax pivotClimb{ClimbConstants::climbPivot, rev::CANSparkMax::MotorType::kBrushless};
     bool seccondaryMove;

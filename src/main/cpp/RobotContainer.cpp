@@ -41,18 +41,18 @@ RobotContainer::RobotContainer()
 			}
 		},
 		{climber}));
-	/*
+	
 	zeroEncoders = new frc2::JoystickButton(driveStick, JOYSTICK::BUTTON::BUTTON_5);
 	zeroEncoders->WhenPressed(new frc2::InstantCommand(
 		[this]
 		{
 			intake->SetLiftEncoder(0.0);
-			climber->ClimbPivotSetEncoder(0.0);
-			climber->ClimbWinchSetEncoder(0.0);
+			//climber->ClimbSetWinchEncoder(0.0);
+			//climber->ClimbSetPivotEncoder(0.0);
 			
 		},
 		{climber, intake}));
-
+/*
 	pinControl = new frc2::JoystickButton(controlStick, JOYSTICK::BUTTON::BUTTON_4);
 	pinControl->WhenPressed(new frc2::InstantCommand(
 		[this]
@@ -81,7 +81,7 @@ RobotContainer::RobotContainer()
 		},
 		{climber}));
 */
-	winchUp = new frc2::JoystickButton(controlStick, JOYSTICK::BUTTON::BUTTON_9);
+	winchUp = new frc2::JoystickButton(controlStick, JOYSTICK::BUTTON::TRIGGER);
 	winchUp->WhenPressed(new frc2::InstantCommand(
 		[this]
 		{
@@ -90,7 +90,7 @@ RobotContainer::RobotContainer()
 		},
 		{climber}));
 		
-	winchDown = new frc2::JoystickButton(controlStick, JOYSTICK::BUTTON::BUTTON_11);
+	winchDown = new frc2::JoystickButton(controlStick, JOYSTICK::BUTTON::THUMB);
 	winchDown->WhenPressed(new frc2::InstantCommand(
 		[this]
 		{
@@ -136,12 +136,12 @@ RobotContainer::RobotContainer()
 			{
 			case 1:
 				//intake->SetP(0.03);
-				intake->LiftControl(0.0); // 2 degrees
+				intake->LiftControl(2.5); // 2 degrees
 				liftPosition = 2;
 				break;
 			case 2:
 				//intake->SetP(0.07);
-				intake->LiftControl(-14); // 30 degrees
+				intake->LiftControl(-13); // 30 degrees
 				liftPosition = 1;
 				break;
 			default:
@@ -190,8 +190,9 @@ void RobotContainer::Autonmous()
 			break;
 		case 3:
 			autoSwitch = 4;
-			timeLimet = 90;
-			drive->DriveControl(-0.3, -0.3);
+			timeLimet = 70;
+			drive->ArcadeDrive(-0.75, 0.0);
+			//drive->DriveControl(-0.75, -0.75);
 			intake->RollerControl(0.0);
 
 			break;
@@ -199,7 +200,7 @@ void RobotContainer::Autonmous()
 			autoSwitch = 99;
 			timeLimet = 100;
 			drive->DriveControl(0.0, 0.0);
-			intake->LiftControl(-14);
+			//intake->LiftControl(-14);
 			break;
 		case 5:
 			autoSwitch = 6;

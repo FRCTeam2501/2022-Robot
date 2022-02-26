@@ -18,7 +18,7 @@ Intake::Intake()
     intakeLiftPID.SetP(IntakeConstants::intakeLiftSetP);
     intakeLiftPID.SetI(IntakeConstants::intakeLiftSetI);
     intakeLiftPID.SetD(IntakeConstants::intakeLiftSetD);
-    intakeLiftPID.SetOutputRange(-0.1, 1.0);
+    intakeLiftPID.SetOutputRange(-0.2, 1.0);
     intakeLiftEncoder.SetPositionConversionFactor(1);
     intakeLift.SetInverted(false);
 

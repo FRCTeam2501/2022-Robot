@@ -68,6 +68,9 @@ public:
 
     void Periodic() override;
 
+    void ClimbSetPivotEncoder(double pivotEncoderSet);
+    void ClimbSetWinchEncoder(double winchEncoderSet);
+
 private:
     double angle;
     double angleAdjust;
@@ -81,6 +84,9 @@ private:
     double floatTest;
 
     bool lengthChanged;
+
+    
+    
 
     rev::CANSparkMax winch{ClimbConstants::winch, rev::CANSparkMax::MotorType::kBrushless};
     rev::CANSparkMax pivotClimb{ClimbConstants::climbPivot, rev::CANSparkMax::MotorType::kBrushless};

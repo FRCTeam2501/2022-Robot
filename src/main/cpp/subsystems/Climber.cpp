@@ -5,7 +5,7 @@ using namespace frc;
 Climber::Climber()
 {
 
-    pivotClimb.GetForwardLimitSwitch(rev::SparkMaxLimitSwitch::Type::kNormallyOpen).EnableLimitSwitch(true);
+   // pivotClimb.GetForwardLimitSwitch(rev::SparkMaxLimitSwitch::Type::kNormallyOpen).EnableLimitSwitch(true);
     pivotClimb.SetSmartCurrentLimit(ClimbConstants::pivotClimbSmartCurrentLimet);
     pivotClimb.SetSecondaryCurrentLimit(ClimbConstants::pivotClimbSeccondaryCurrentLimet);
     pivotClimb.GetReverseLimitSwitch(rev::SparkMaxLimitSwitch::Type::kNormallyOpen).EnableLimitSwitch(true);
@@ -44,6 +44,13 @@ void Climber::HardAngle(double angleAdjust)
    // angle += angleTest;
     pivotPID.SetReference(angle, rev::CANSparkMaxLowLevel::ControlType::kPosition);
 }
+
+void Climber::ClimbSetPivotEncoder(double pivotEncoderSet){
+pivotEncoder.SetPosition(pivotEncoderSet);
+}
+ void Climber::ClimbSetWinchEncoder(double winchEncoderSet){
+winchEncoder.SetPosition(winchEncoderSet);
+ }
 
 int Climber::GetAngle()
 {

@@ -115,7 +115,7 @@ RobotContainer::RobotContainer()
 		{
 			if ((driveStick->GetRawButton(2)) == true)
 			{
-				intake->RollerControl(-6.0);
+				intake->RollerControl(-1.0);
 			}
 			else
 			{
@@ -141,7 +141,7 @@ RobotContainer::RobotContainer()
 				break;
 			case 2:
 				//intake->SetP(0.07);
-				intake->LiftControl(14); // 30 degrees
+				intake->LiftControl(-14); // 30 degrees
 				liftPosition = 1;
 				break;
 			default:
@@ -176,26 +176,30 @@ void RobotContainer::Autonmous()
 		{
 		case 1:
 			autoSwitch = 2;
-			timeLimet = 100;
-			intake->LiftControl(30);
+			timeLimet = 20;
+			intake->SetLiftEncoder(0.0);
+			intake->LiftControl(0.0);
+			climber->ClimbSetPivotEncoder(0.0);
+			climber->ClimbSetWinchEncoder(0.0);
 			break;
 		case 2:
 			autoSwitch = 3;
 			timeLimet = 100;
-			drive->DriveControl(0.8, 0.8);
+			intake->RollerControl(-0.8);
 
 			break;
 		case 3:
 			autoSwitch = 4;
-			timeLimet = 50;
-			drive->DriveControl(0.0, 0.0);
+			timeLimet = 90;
+			drive->DriveControl(-0.3, -0.3);
+			intake->RollerControl(0.0);
 
 			break;
 		case 4:
-			autoSwitch = 5;
-			timeLimet = 300;
-			intake->RollerControl(0.5);
-
+			autoSwitch = 99;
+			timeLimet = 100;
+			drive->DriveControl(0.0, 0.0);
+			intake->LiftControl(-14);
 			break;
 		case 5:
 			autoSwitch = 6;

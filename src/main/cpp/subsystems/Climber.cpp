@@ -80,17 +80,17 @@ int Climber::ClimbControl(double angleAdjust, double lengthAdjust)
         angle = ClimbConstants::minAngle;
     }
 
-    // This makes shure that the angle adjustment does not move the climber outside of the limet
-  //  if (angleAdjust > ClimbConstants::maxAngle)
-    //{
-  //      angleAdjust = (ClimbConstants::maxAngle);
-  //  }
-   // if (angleAdjust < ClimbConstants::minAngle)
-   // {
-  //      angleAdjust = ClimbConstants::minAngle;
-  //  }
-  //  cout<<"angleAdjust 2: "<<angleAdjust<<endl;
-  //  cout<<"LengthAdjust 2: "<<lengthAdjust<<endl;
+    
+    if (angleAdjust > ClimbConstants::maxAngle)
+    {
+        angleAdjust = (ClimbConstants::maxAngle);
+    }
+    if (angleAdjust < ClimbConstants::minAngle)
+    {
+        angleAdjust = ClimbConstants::minAngle;
+    }
+    cout<<"angleAdjust 2: "<<angleAdjust<<endl;
+    cout<<"LengthAdjust 2: "<<lengthAdjust<<endl;
     if (angleAdjust > 1)
     {
         // checks new climber position to make shure that it is legal.

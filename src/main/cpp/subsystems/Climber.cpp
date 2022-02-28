@@ -281,3 +281,7 @@ void Climber::Periodic()
         seccondMovefinal = false;
     }
 }
+
+void InitDefaultCommand()
+{
+}

@@ -42,16 +42,21 @@ RobotContainer::RobotContainer()
 		},
 		{climber}));
 	
-	zeroEncoders = new frc2::JoystickButton(driveStick, JOYSTICK::BUTTON::BUTTON_5);
+	zeroEncoders = new frc2::JoystickButton(driveStick, JOYSTICK::BUTTON::BUTTON_8);
 	zeroEncoders->WhenPressed(new frc2::InstantCommand(
 		[this]
 		{
 			intake->SetLiftEncoder(0.0);
-			climber->ClimbPivotSetEncoder(0.0);
-			climber->ClimbWinchSetEncoder(0.0);
+		},
+		{intake}));
+	minEcoders = new frc2::JoystickButton(driveStick, JOYSTICK::BUTTON::BUTTON_10);
+	minEcoders->WhenPressed(new frc2::InstantCommand(
+		[this]
+		{
+			intake->SetLiftEncoder(0.0);
 			
 		},
-		{climber, intake}));
+		{intake}));
 
 	pinControl = new frc2::JoystickButton(controlStick, JOYSTICK::BUTTON::BUTTON_4);
 	pinControl->WhenPressed(new frc2::InstantCommand(

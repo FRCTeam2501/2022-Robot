@@ -111,7 +111,7 @@ int Climber::ClimbControl(double angleAdjust, double lengthAdjust)
     }
      cout<<"angleAdjust 4: "<<angleAdjust<<endl;
     cout<<"LengthAdjust 4: "<<lengthAdjust<<endl;
-/*
+
     if ((angleAdjust <= 15 && angleAdjust >= 6) || (angleAdjust > 15 && angle <= 15) || (angleAdjust < 6 && angle >= 6))
     {
         if (angleAdjust <= 15 && angleAdjust >= 6)
@@ -137,7 +137,7 @@ int Climber::ClimbControl(double angleAdjust, double lengthAdjust)
             }
         }
     }
-    */
+    
     frc::SmartDashboard::PutNumber("Climb Seccondary move", seccondaryMove);
     cout<<"seccondaryMove: "<<seccondaryMove<<endl;
     if (seccondaryMove == false)

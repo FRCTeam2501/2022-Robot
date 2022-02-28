@@ -20,17 +20,20 @@ RobotContainer::RobotContainer()
 	drive->SetDefaultCommand(frc2::RunCommand(
 		[this]
 		{
-			if(driveStick->GetRawAxis(JOYSTICK::AXIS::R) > 0.5){
-				cout<<"Fast Drive Mode"<<endl;
-			drive->ArcadeDrive(-1.0 * driveStick->GetRawAxis(
-										  JOYSTICK::AXIS::Y),
-							   0.6 * driveStick->GetRawAxis(JOYSTICK::AXIS::X));
-			}else{
-				cout<<"Slow Drive Mode"<<endl;
-			
-			drive->ArcadeDrive(-0.5 * driveStick->GetRawAxis(
-										  JOYSTICK::AXIS::Y),
-							   0.3 * driveStick->GetRawAxis(JOYSTICK::AXIS::X));	
+			if (driveStick->GetRawAxis(JOYSTICK::AXIS::R) >= 0.0)
+			{
+				cout << "Fast Drive Mode" << endl;
+				drive->ArcadeDrive(-1.0 * driveStick->GetRawAxis(
+											  JOYSTICK::AXIS::Y),
+								   0.6 * driveStick->GetRawAxis(JOYSTICK::AXIS::X));
+			}
+			else
+			{
+				cout << "Slow Drive Mode" << endl;
+
+				drive->ArcadeDrive(-0.5 * driveStick->GetRawAxis(
+											  JOYSTICK::AXIS::Y),
+								   0.3 * driveStick->GetRawAxis(JOYSTICK::AXIS::X));
 			}
 		},
 		{drive}));

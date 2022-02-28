@@ -44,9 +44,6 @@ frc2::Command *Autonmous();
 
 private:
 
-  int timeTracker = 0;
-  int timeLimet = 0;
-  int autoSwitch = 1;
   double angleAdd = 0;
   double lengthAdd = 0;
 

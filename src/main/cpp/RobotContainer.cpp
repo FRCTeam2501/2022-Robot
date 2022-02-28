@@ -33,10 +33,10 @@ RobotContainer::RobotContainer()
 			if (abs(controlStick->GetRawAxis(JOYSTICK::AXIS::Y)) > 0.1)
 			{
 			//	cout<<"Y-Axis plus angle: "<<((controlStick->GetRawAxis(JOYSTICK::AXIS::Y) / 50) + climber->GetAngle())<<endl;
-				cout<<"Get Angle: "<<(climber->GetAngle())<<endl;
-				cout<<"Get Length: "<<(climber->GetLength())<<endl;
-				angleAdd = ((controlStick->GetRawAxis(JOYSTICK::AXIS::Y) / 5) + climber->GetAngle());
-				lengthAdd = (climber->GetLength());
+				//cout<<"Get Angle: "<<(climber->GetAngle())<<endl;
+				//cout<<"Get Length: "<<(climber->GetLength())<<endl;
+				//angleAdd = ((controlStick->GetRawAxis(JOYSTICK::AXIS::Y) / 5) + climber->GetAngle());
+				//lengthAdd = (climber->GetLength());
 				climber->ClimbControl(((controlStick->GetRawAxis(JOYSTICK::AXIS::Y) / 50) + climber->GetAngle()), (climber->GetLength()));
 				//climber->ClimbControl(angleAdd, lengthAdd);
 				// 50 means that it will adjust the angle to one degree per seccond at full speed on the joystick

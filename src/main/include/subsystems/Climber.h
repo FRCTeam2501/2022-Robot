@@ -64,7 +64,7 @@ public:
 
   void PinOut();
   void PinIn();
-  int PinStatus();
+  bool PinStatus();
 
   // void WinchControl(double lengthAdjust);
 

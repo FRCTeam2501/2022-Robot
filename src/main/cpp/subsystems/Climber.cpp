@@ -253,8 +253,8 @@ void Climber::PinIn() {
     winchPin->Set(false);
 }
 
-int Climber::PinStatus() {
-  //  return (winchPin->Get());
+bool Climber::PinStatus() {
+    return (winchPin->Get());
 }
 
 void Climber::Periodic()

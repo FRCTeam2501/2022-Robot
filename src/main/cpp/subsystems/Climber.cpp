@@ -112,22 +112,22 @@ int Climber::ClimbControl(double angleAdjust, double lengthAdjust)
     cout << "angleAdjust 4: " << angleAdjust << endl;
     cout << "LengthAdjust 4: " << lengthAdjust << endl;
 
-    if ((angleAdjust <= 15 && angleAdjust >= 6) || (angleAdjust > 15 && angle <= 15) || (angleAdjust < 6 && angle >= 6))
+    if ((angleAdjust <= ClimbConstants::batteryMaxAngle && angleAdjust >= ClimbConstants::batteryMinAngle) || (angleAdjust > ClimbConstants::batteryMaxAngle && angle <= ClimbConstants::batteryMaxAngle) || (angleAdjust < ClimbConstants::batteryMinAngle && angle >= ClimbConstants::batteryMinAngle))
     {
-        if (angleAdjust <= 15 && angleAdjust >= 6)
+        if (angleAdjust <= ClimbConstants::batteryMaxAngle && angleAdjust >= ClimbConstants::batteryMinAngle)
         {
-            if (lengthAdjust < 4)
+            if (lengthAdjust < ClimbConstants::batteryMinLength)
             {
-                lengthAdjust = 4;
+                lengthAdjust = ClimbConstants::batteryMinLength;
             }
         }
         else
         {
-            if (lengthAdjust < 4 || winchEncoder.GetPosition() < 4 || length < 4)
+            if (lengthAdjust < ClimbConstants::batteryMinLength || winchEncoder.GetPosition() < ClimbConstants::batteryMinLength || length < ClimbConstants::batteryMinLength)
             {
                 targetLength = lengthAdjust;
                 targetAngle = angleAdjust;
-                lengthAdjust = 4;
+                lengthAdjust = ClimbConstants::batteryMinLength;
                 lengthChanged = true;
                 seccondaryMove = true;
 

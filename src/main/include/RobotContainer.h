@@ -39,7 +39,7 @@ public:
   void Periodic();
 
 
-void Autonmous();
+frc2::Command *Autonmous();
  // frc2::Command* GetAutoCommand();
 
 private:

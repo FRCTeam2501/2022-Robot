@@ -48,13 +48,14 @@ void Robot::DisabledPeriodic() {}
  * RobotContainer} class.
  */
 void Robot::AutonomousInit() {
-  
+   m_autonomousCommand = container->Autonmous();
+  m_autonomousCommand->Schedule();
   
 }
 
 void Robot::AutonomousPeriodic() {
 
-  container->Autonmous();
+
 
 }
 

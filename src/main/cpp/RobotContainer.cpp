@@ -166,9 +166,6 @@ RobotContainer::~RobotContainer()
 	delete camera;
 }
 
-
-
-
 	frc2::Command *RobotContainer::Autonmous()
 {
 	return new frc2::SequentialCommandGroup(
@@ -177,8 +174,8 @@ RobotContainer::~RobotContainer()
 			[this]{
 			intake->SetLiftEncoder(0.0);
 			intake->LiftControl(0.0);
-			climber->ClimbSetPivotEncoder(0.0);
-			climber->ClimbSetWinchEncoder(0.0);
+			climber->ClimbPivotSetEncoder(0.0);
+			climber->ClimbWinchSetEncoder(0.0);
 
 			},
 			{intake, climber}
@@ -197,7 +194,7 @@ RobotContainer::~RobotContainer()
 		},
 		frc2::InstantCommand{
 			[this]{
-			drive->ArcadeDrive(-0.75, 0.0);
+			drive->ArcadeDrive(-0.6, 0.0);
 			intake->RollerControl(0.0);
 			},
 			{intake,drive}

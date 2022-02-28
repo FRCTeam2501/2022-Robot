@@ -4,6 +4,8 @@
 
 #include "RobotContainer.h"
 #include "iostream"
+#include "frc2/command/WaitCommand.h"
+#include "frc2/command/SequentialCommandGroup.h"
 
 using namespace std;
 
@@ -42,7 +44,7 @@ RobotContainer::RobotContainer()
 		},
 		{climber}));
 	
-	zeroEncoders = new frc2::JoystickButton(driveStick, JOYSTICK::BUTTON::BUTTON_5);
+	zeroEncoders = new frc2::JoystickButton(driveStick, JOYSTICK::BUTTON::BUTTON_10);
 	zeroEncoders->WhenPressed(new frc2::InstantCommand(
 		[this]
 		{
@@ -52,6 +54,19 @@ RobotContainer::RobotContainer()
 			
 		},
 		{climber, intake}));
+
+	negativeEncoders = new frc2::JoystickButton(driveStick, JOYSTICK::BUTTON::BUTTON_8);
+	negativeEncoders->WhenPressed(new frc2::InstantCommand(
+		[this]
+		{
+			intake->SetLiftEncoder(-14.0);
+			//climber->ClimbSetWinchEncoder(0.0);
+			//climber->ClimbSetPivotEncoder(0.0);
+			
+		},
+		{climber, intake}));
+
+
 /*
 	pinControl = new frc2::JoystickButton(controlStick, JOYSTICK::BUTTON::BUTTON_4);
 	pinControl->WhenPressed(new frc2::InstantCommand(
@@ -161,61 +176,52 @@ RobotContainer::~RobotContainer()
 }
 
 
-void RobotContainer::Autonmous()
+frc2::Command *RobotContainer::Autonmous()
 {
+	return new frc2::SequentialCommandGroup(
 
-	if (timeLimet > timeTracker)
-	{
-		timeTracker++;
-	}
-	else
-	{
-		timeTracker = 0;
-
-		switch (autoSwitch)
-		{
-		case 1:
-			autoSwitch = 2;
-			timeLimet = 20;
+		frc2::InstantCommand{
+			[this]{
 			intake->SetLiftEncoder(0.0);
 			intake->LiftControl(0.0);
 			climber->ClimbSetPivotEncoder(0.0);
 			climber->ClimbSetWinchEncoder(0.0);
-			break;
-		case 2:
-			autoSwitch = 3;
-			timeLimet = 100;
+
+			},
+			{intake, climber}
+		},
+		frc2::WaitCommand{
+			400_ms
+		},
+		frc2::InstantCommand{
+			[this]{
 			intake->RollerControl(-0.8);
-
-			break;
-		case 3:
-			autoSwitch = 4;
-			timeLimet = 70;
+			},
+			{intake}
+		},
+		frc2::WaitCommand{
+			2_s
+		},
+		frc2::InstantCommand{
+			[this]{
 			drive->ArcadeDrive(-0.75, 0.0);
-			//drive->DriveControl(-0.75, -0.75);
 			intake->RollerControl(0.0);
-
-			break;
-		case 4:
-			autoSwitch = 99;
-			timeLimet = 100;
-			drive->DriveControl(0.0, 0.0);
-			//intake->LiftControl(-14);
-			break;
-		case 5:
-			autoSwitch = 6;
-			timeLimet = 200;
-			intake->RollerControl(0.0);
-			drive->DriveControl(-0.5, -0.5);
-			intake->LiftControl(1);
-			break;
-		case 6:
-			drive->DriveControl(0.0, 0.0);
-			break;
-		default:
-			break;
+			},
+			{intake,drive}
+		},
+		frc2::WaitCommand{
+			1.3_s
+		},
+		frc2::InstantCommand{
+			[this]{
+			drive->ArcadeDrive(0.0, 0.0);
+			},
+			{intake,drive}
 		}
-	}
+
+
+	);
+
 }
 
 void RobotContainer::Periodic()

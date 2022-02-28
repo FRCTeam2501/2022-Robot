@@ -39,7 +39,7 @@ public:
   void Periodic();
 
 
-void Autonmous();
+frc2::Command *Autonmous();
  // frc2::Command* GetAutoCommand();
 
 private:
@@ -57,5 +57,5 @@ int liftPosition = 1;
   Camera *camera;
   Intake *intake;
   Joystick *driveStick, *controlStick;
-  frc2::JoystickButton *winchUp, *winchDown, *feedSwitch, *armExtend, *swingAndClampBar, *rollerControl, *liftControl, *pinControl, *zeroEncoders;
+  frc2::JoystickButton *winchUp, *winchDown, *feedSwitch, *armExtend, *swingAndClampBar, *rollerControl, *liftControl, *pinControl, *zeroEncoders, *negativeEncoders;
 };

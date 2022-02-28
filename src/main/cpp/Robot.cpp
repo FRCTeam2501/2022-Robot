@@ -49,12 +49,11 @@ void Robot::DisabledPeriodic() {}
  */
 void Robot::AutonomousInit() {
   
-  
+  m_autonomousCommand = container->Autonmous();
+  m_autonomousCommand->Schedule();
 }
 
 void Robot::AutonomousPeriodic() {
-
-  container->Autonmous();
 
 }
 

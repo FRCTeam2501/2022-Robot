@@ -160,27 +160,8 @@ int Climber::ClimbControl(double angleAdjust, double lengthAdjust)
         return lengthChanged;
     }
 }
-/*
-void Climber::ArmHorizontal(){
 
 
-    if(pivotEncoder.GetPosition()<3 && winchEncoder.GetPosition() < 2){ //checks to see if arms are in right position for this command
-
-    Climber::ClimbControl(1,8); //angle, length
-    horizontalActivated = true; //needs to be after climbcontrol becasue climb control will set horizontalAcitvated to false
-
-    }
-}
-
-void Climber::SwingAndClamp(){ //arms should be on bar when we activate this function
-
-
-    if(pivotEncoder.GetPosition()>30 && winchEncoder.GetPosition() > 26){
-        Climber::ClimbControl(1,8);
-        swingActivated = true;
-    }
-}
-*/
 double Climber::LengthToTurns(double inchesToTurns)
 {
 
@@ -281,7 +262,7 @@ void Climber::Periodic()
     frc::SmartDashboard::PutNumber("Winch Encoder: ", winchEncoder.GetPosition());
     frc::SmartDashboard::PutNumber("Pivot Encoder: ", pivotEncoder.GetPosition());
     // This checks if we have a scedjuled seccond move once we have reached the angle we were going for
-    if (seccondaryMove == true && (abs(winchEncoder.GetPosition() - 4) < 0.5))
+    if (seccondaryMove == true && seccondMovefinal == false && (abs(winchEncoder.GetPosition() - 4) < 0.5))
     {
         angle = targetAngle;
         pivotPID.SetReference(angle, rev::CANSparkMaxLowLevel::ControlType::kPosition);
@@ -295,18 +276,5 @@ void Climber::Periodic()
         seccondaryMove = false;
         seccondMovefinal = false;
     }
-    /*
-        if(horizontalActivated == true && (abs(pivotEncoder.GetPosition() - 1) < 1) && (abs(winchEncoder.GetPosition() - 8) < 1)){
-            Climber::ClimbControl(80, 28); //80 degrees, 28 inches
-            horizontalActivated = false;
-        }
-        if(swingActivated == true && (abs(pivotEncoder.GetPosition() - 1) < 1) && (abs(winchEncoder.GetPosition() - 8) < 1)){
-            Climber::ClimbControl(1, 1); // degree, 1 inch
-            horizontalActivated = false;
-        }
-        */
-}
-
-void Climber::InitDefaultCommand()
-{
+    
 }

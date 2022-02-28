@@ -141,13 +141,12 @@ RobotContainer::RobotContainer()
 			switch (liftPosition)
 			{
 			case 1:
-				//intake->SetP(0.03);
-				intake->LiftControl(0.0); // 2 degrees
+				intake->LiftControl(2.9); 
 				liftPosition = 2;
 				break;
 			case 2:
-				//intake->SetP(0.07);
-				intake->LiftControl(14); // 30 degrees
+				
+				intake->LiftControl(-13); 
 				liftPosition = 1;
 				break;
 			default:
@@ -173,7 +172,7 @@ RobotContainer::~RobotContainer()
 		frc2::InstantCommand{
 			[this]{
 			intake->SetLiftEncoder(0.0);
-			intake->LiftControl(0.0);
+			intake->LiftControl(2.9);
 			climber->ClimbPivotSetEncoder(0.0);
 			climber->ClimbWinchSetEncoder(0.0);
 

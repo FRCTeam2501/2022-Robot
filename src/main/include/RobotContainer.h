@@ -47,7 +47,7 @@ private:
   double angleAdd = 0;
   double lengthAdd = 0;
 
-int liftPosition = 1;
+int liftPosition = 2;
   // The robot's subsystems and commands are defined here...
   DrivetrainDrive *drive;
   Climber *climber;

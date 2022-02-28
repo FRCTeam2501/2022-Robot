@@ -59,7 +59,7 @@ RobotContainer::RobotContainer()
 	negativeEncoders->WhenPressed(new frc2::InstantCommand(
 		[this]
 		{
-			intake->SetLiftEncoder(-14.0);
+			intake->SetLiftEncoder(-13.0);
 			//climber->ClimbSetWinchEncoder(0.0);
 			//climber->ClimbSetPivotEncoder(0.0);
 			

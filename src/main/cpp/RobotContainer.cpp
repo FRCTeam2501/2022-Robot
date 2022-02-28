@@ -32,18 +32,18 @@ RobotContainer::RobotContainer()
 		{
 			if (abs(controlStick->GetRawAxis(JOYSTICK::AXIS::Y)) > 0.1)
 			{
-			//	cout<<"Y-Axis plus angle: "<<((controlStick->GetRawAxis(JOYSTICK::AXIS::Y) / 50) + climber->GetAngle())<<endl;
-				//cout<<"Get Angle: "<<(climber->GetAngle())<<endl;
-				//cout<<"Get Length: "<<(climber->GetLength())<<endl;
-				//angleAdd = ((controlStick->GetRawAxis(JOYSTICK::AXIS::Y) / 5) + climber->GetAngle());
-				//lengthAdd = (climber->GetLength());
+				//	cout<<"Y-Axis plus angle: "<<((controlStick->GetRawAxis(JOYSTICK::AXIS::Y) / 50) + climber->GetAngle())<<endl;
+				// cout<<"Get Angle: "<<(climber->GetAngle())<<endl;
+				// cout<<"Get Length: "<<(climber->GetLength())<<endl;
+				// angleAdd = ((controlStick->GetRawAxis(JOYSTICK::AXIS::Y) / 5) + climber->GetAngle());
+				// lengthAdd = (climber->GetLength());
 				climber->ClimbControl(((controlStick->GetRawAxis(JOYSTICK::AXIS::Y) / 50) + climber->GetAngle()), (climber->GetLength()));
-				//climber->ClimbControl(angleAdd, lengthAdd);
-				// 50 means that it will adjust the angle to one degree per seccond at full speed on the joystick
+				// climber->ClimbControl(angleAdd, lengthAdd);
+				//  50 means that it will adjust the angle to one degree per seccond at full speed on the joystick
 			}
 		},
 		{climber}));
-	
+
 	zeroEncoders = new frc2::JoystickButton(driveStick, JOYSTICK::BUTTON::BUTTON_8);
 	zeroEncoders->WhenPressed(new frc2::InstantCommand(
 		[this]
@@ -56,7 +56,6 @@ RobotContainer::RobotContainer()
 		[this]
 		{
 			intake->SetLiftEncoder(0.0);
-			
 		},
 		{intake}));
 
@@ -64,8 +63,9 @@ RobotContainer::RobotContainer()
 	pinControl->WhenPressed(new frc2::InstantCommand(
 		[this]
 		{
-			if(climber->PinStatus() == true){
-			climber->PinOut(); //removes pin
+			if (climber->PinStatus() == true)
+			{
+				climber->PinOut(); // removes pin
 			}
 		},
 		{climber}));
@@ -75,7 +75,7 @@ RobotContainer::RobotContainer()
 		[this]
 		{
 			climber->ClimbControl(80, 28); // 80 degrees, 28 inches
-			cout<<"ClimbControl set to 80 deg, 28 in"<<endl;
+			cout << "ClimbControl set to 80 deg, 28 in" << endl;
 		},
 		{climber}));
 
@@ -84,7 +84,7 @@ RobotContainer::RobotContainer()
 		[this]
 		{
 			climber->ClimbControl(1, 1); // 1 degree, 1 inch
-			cout<<"ClimbControl set to 1 deg, 1 in"<<endl;
+			cout << "ClimbControl set to 1 deg, 1 in" << endl;
 		},
 		{climber}));
 
@@ -93,7 +93,7 @@ RobotContainer::RobotContainer()
 		[this]
 		{
 			climber->ClimbControl((climber->GetAngle()), ((climber->GetLength()) + 0.5));
-			cout<<"ClimbControl set to current angle, current length + 0.5"<<endl;
+			cout << "ClimbControl set to current angle, current length + 0.5" << endl;
 		},
 		{climber}));
 	winchDown = new frc2::JoystickButton(controlStick, JOYSTICK::BUTTON::BUTTON_11);
@@ -101,7 +101,7 @@ RobotContainer::RobotContainer()
 		[this]
 		{
 			climber->ClimbControl((climber->GetAngle()), ((climber->GetLength()) - 0.5));
-			cout<<"ClimbControl set to current angle, current length - 0.5"<<endl;
+			cout << "ClimbControl set to current angle, current length - 0.5" << endl;
 		},
 		{climber}));
 
@@ -112,8 +112,6 @@ RobotContainer::RobotContainer()
 			camera->SwitchFeed();
 		},
 		{camera}));
-
-	
 
 	rollerControl = new frc2::JoystickButton(driveStick, JOYSTICK::BUTTON::TRIGGER);
 	rollerControl->WhileHeld(new frc2::StartEndCommand(
@@ -141,20 +139,19 @@ RobotContainer::RobotContainer()
 			switch (liftPosition)
 			{
 			case 1:
-				intake->LiftControl(2.9); 
+				intake->LiftControl(2.9);
 				liftPosition = 2;
 				break;
 			case 2:
-				
-				intake->LiftControl(-13); 
+
+				intake->LiftControl(-13);
 				liftPosition = 1;
 				break;
 			default:
-				break; 
+				break;
 			}
 		},
 		{intake}));
-
 }
 RobotContainer::~RobotContainer()
 {
@@ -165,54 +162,47 @@ RobotContainer::~RobotContainer()
 	delete camera;
 }
 
-	frc2::Command *RobotContainer::Autonmous()
+frc2::Command *RobotContainer::Autonmous()
 {
 	return new frc2::SequentialCommandGroup(
 
 		frc2::InstantCommand{
-			[this]{
-			intake->SetLiftEncoder(0.0);
-			intake->LiftControl(2.9);
-			climber->ClimbPivotSetEncoder(0.0);
-			climber->ClimbWinchSetEncoder(0.0);
-
+			[this]
+			{
+				intake->SetLiftEncoder(0.0);
+				intake->LiftControl(2.9);
+				climber->ClimbPivotSetEncoder(0.0);
+				climber->ClimbWinchSetEncoder(0.0);
 			},
-			{intake, climber}
-		},
+			{intake, climber}},
 		frc2::WaitCommand{
-			400_ms
-		},
+			400_ms},
 		frc2::InstantCommand{
-			[this]{
-			intake->RollerControl(-0.8);
+			[this]
+			{
+				intake->RollerControl(-0.8);
 			},
-			{intake}
-		},
+			{intake}},
 		frc2::WaitCommand{
-			2_s
-		},
+			2_s},
 		frc2::InstantCommand{
-			[this]{
-			drive->ArcadeDrive(-0.6, 0.0);
-			intake->RollerControl(0.0);
+			[this]
+			{
+				drive->ArcadeDrive(-0.6, 0.0);
+				intake->RollerControl(0.0);
 			},
-			{intake,drive}
-		},
+			{intake, drive}},
 		frc2::WaitCommand{
-			1.3_s
-		},
+			1.3_s},
 		frc2::InstantCommand{
-			[this]{
-			drive->ArcadeDrive(0.0, 0.0);
+			[this]
+			{
+				drive->ArcadeDrive(0.0, 0.0);
 			},
-			{intake,drive}
-		}
-
+			{intake, drive}}
 
 	);
-
 }
-
 
 void RobotContainer::Periodic()
 {

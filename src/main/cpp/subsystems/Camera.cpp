@@ -17,8 +17,8 @@ Camera::Camera()
     streamVideo->SetResolution(Cameras::with, Cameras::height);
     streamVideo->SetFPS(Cameras::fps);
 
-streamVideo->SetSource(*climbCamera);
-currentFeed = 2;
+    streamVideo->SetSource(*climbCamera);
+    currentFeed = 2;
 }
 
 Camera::~Camera()
@@ -46,5 +46,3 @@ void Camera::SwitchFeed()
         break;
     }
 }
-
-

@@ -38,16 +38,14 @@ public:
 
   void Periodic();
 
-
-frc2::Command *Autonmous();
- // frc2::Command* GetAutoCommand();
+  frc2::Command *Autonmous();
+  // frc2::Command* GetAutoCommand();
 
 private:
-
   double angleAdd = 0;
   double lengthAdd = 0;
 
-int liftPosition = 2;
+  int liftPosition = 2;
   // The robot's subsystems and commands are defined here...
   DrivetrainDrive *drive;
   Climber *climber;

@@ -5,12 +5,12 @@ using namespace std;
 
 Climber::Climber()
 {
-    //pivotClimb.GetForwardLimitSwitch(rev::SparkMaxLimitSwitch::Type::kNormallyOpen).EnableLimitSwitch(true);
+    // pivotClimb.GetForwardLimitSwitch(rev::SparkMaxLimitSwitch::Type::kNormallyOpen).EnableLimitSwitch(true);
     pivotClimb.SetSmartCurrentLimit(ClimbConstants::pivotClimbSmartCurrentLimet);
     pivotClimb.SetSecondaryCurrentLimit(ClimbConstants::pivotClimbSeccondaryCurrentLimet);
-  //  pivotClimb.GetReverseLimitSwitch(rev::SparkMaxLimitSwitch::Type::kNormallyOpen).EnableLimitSwitch(true);
+    //  pivotClimb.GetReverseLimitSwitch(rev::SparkMaxLimitSwitch::Type::kNormallyOpen).EnableLimitSwitch(true);
 
-  //  winchPin = new frc::Solenoid(frc::PneumaticsModuleType::CTREPCM,5);
+    //  winchPin = new frc::Solenoid(frc::PneumaticsModuleType::CTREPCM,5);
 
     winch.SetInverted(false);
     pivotClimb.SetInverted(false);
@@ -33,7 +33,8 @@ Climber::Climber()
     winchEncoder.SetPositionConversionFactor((1) / 100.0); // I think this is right
 }
 
-Climber::~Climber(){
+Climber::~Climber()
+{
 
     delete winchPin;
 }
@@ -45,9 +46,9 @@ int Climber::ClimbControl(double angleAdjust, double lengthAdjust)
     lengthChanged = false;
     swingActivated = false;
     seccondMovefinal = false;
-    cout<<"ClimbControl start"<<endl;
-   // cout<<"angleAdjust 1: "<<angleAdjust<<endl;
-   // cout<<"LengthAdjust 1: "<<lengthAdjust<<endl;
+    cout << "ClimbControl start" << endl;
+    // cout<<"angleAdjust 1: "<<angleAdjust<<endl;
+    // cout<<"LengthAdjust 1: "<<lengthAdjust<<endl;
     // lengthAdjust is the new length that we want to set the arms to
     //  makes sure length is not outside of limet
     if (length > ClimbConstants::maxLength)
@@ -80,7 +81,6 @@ int Climber::ClimbControl(double angleAdjust, double lengthAdjust)
         angle = ClimbConstants::minAngle;
     }
 
-    
     if (angleAdjust > ClimbConstants::maxAngle)
     {
         angleAdjust = (ClimbConstants::maxAngle);
@@ -89,8 +89,8 @@ int Climber::ClimbControl(double angleAdjust, double lengthAdjust)
     {
         angleAdjust = ClimbConstants::minAngle;
     }
-    cout<<"angleAdjust 2: "<<angleAdjust<<endl;
-    cout<<"LengthAdjust 2: "<<lengthAdjust<<endl;
+    cout << "angleAdjust 2: " << angleAdjust << endl;
+    cout << "LengthAdjust 2: " << lengthAdjust << endl;
     if (angleAdjust > 1)
     {
         // checks new climber position to make shure that it is legal.
@@ -101,16 +101,16 @@ int Climber::ClimbControl(double angleAdjust, double lengthAdjust)
             lengthChanged = true;
         }
     }
-   //  cout<<"angleAdjust 3: "<<angleAdjust<<endl;
-  //  cout<<"LengthAdjust 3: "<<lengthAdjust<<endl;
+    //  cout<<"angleAdjust 3: "<<angleAdjust<<endl;
+    //  cout<<"LengthAdjust 3: "<<lengthAdjust<<endl;
     // Checks if the sceleing is veing violated, if so, it will change the length to make it legal
     if (lengthAdjust > (((ClimbConstants::defaultScealing - ClimbConstants::rotationBigOffset * std::sin((angleAdjust * ClimbConstants::pi / (180)))) / std::cos((angleAdjust * ClimbConstants::pi / (180)))) - ClimbConstants::minExtension))
     {
         lengthAdjust = (((ClimbConstants::defaultScealing - ClimbConstants::rotationBigOffset * std::sin((angleAdjust * ClimbConstants::pi / (180)))) / std::cos((angleAdjust * ClimbConstants::pi / (180)))) - ClimbConstants::minExtension);
         lengthChanged = true;
     }
-     cout<<"angleAdjust 4: "<<angleAdjust<<endl;
-    cout<<"LengthAdjust 4: "<<lengthAdjust<<endl;
+    cout << "angleAdjust 4: " << angleAdjust << endl;
+    cout << "LengthAdjust 4: " << lengthAdjust << endl;
 
     if ((angleAdjust <= 15 && angleAdjust >= 6) || (angleAdjust > 15 && angle <= 15) || (angleAdjust < 6 && angle >= 6))
     {
@@ -137,30 +137,29 @@ int Climber::ClimbControl(double angleAdjust, double lengthAdjust)
             }
         }
     }
-    
+
     frc::SmartDashboard::PutNumber("Climb Seccondary move", seccondaryMove);
-    cout<<"seccondaryMove: "<<seccondaryMove<<endl;
+    cout << "seccondaryMove: " << seccondaryMove << endl;
     if (seccondaryMove == false)
     {
-    cout<<"Actual set angleAdjust: "<<angleAdjust<<endl;
-    cout<<"Actual set LengthAdjust: "<<lengthAdjust<<endl;
+        cout << "Actual set angleAdjust: " << angleAdjust << endl;
+        cout << "Actual set LengthAdjust: " << lengthAdjust << endl;
         length = lengthAdjust;
         angle = angleAdjust;
-    
-    cout<<"angle: "<<angle<<endl;
-    cout<<"Length: "<<length<<endl;
-    storeAngle = angle;
-    cout<<"StoreAngle: "<<storeAngle<<endl;
+
+        cout << "angle: " << angle << endl;
+        cout << "Length: " << length << endl;
+        storeAngle = angle;
+        cout << "StoreAngle: " << storeAngle << endl;
         winchPID.SetReference(Climber::LengthToTurns(length), rev::CANSparkMaxLowLevel::ControlType::kPosition);
         pivotPID.SetReference(angle, rev::CANSparkMaxLowLevel::ControlType::kPosition);
-        cout<<"fibbed length: "<<Climber::LengthToTurns(length)<<endl;
+        cout << "fibbed length: " << Climber::LengthToTurns(length) << endl;
         frc::SmartDashboard::PutNumber("Climb Target Length", length);
         frc::SmartDashboard::PutNumber("Climb Fibbed Target Length", Climber::LengthToTurns(length));
         frc::SmartDashboard::PutNumber("Climb Target angle", angle);
         return lengthChanged;
     }
 }
-
 
 double Climber::LengthToTurns(double inchesToTurns)
 {
@@ -238,22 +237,27 @@ double Climber::GetLength()
     return length;
 }
 
-void Climber::ClimbPivotSetEncoder(double pivotSetEncoder){
-pivotEncoder.SetPosition(pivotSetEncoder);
+void Climber::ClimbPivotSetEncoder(double pivotSetEncoder)
+{
+    pivotEncoder.SetPosition(pivotSetEncoder);
 }
-void Climber::ClimbWinchSetEncoder(double winchSetEncoder){
-winchEncoder.SetPosition(winchSetEncoder);
+void Climber::ClimbWinchSetEncoder(double winchSetEncoder)
+{
+    winchEncoder.SetPosition(winchSetEncoder);
 }
 
-void Climber::PinOut() {
+void Climber::PinOut()
+{
     winchPin->Set(true);
 }
 
-void Climber::PinIn() {
+void Climber::PinIn()
+{
     winchPin->Set(false);
 }
 
-bool Climber::PinStatus() {
+bool Climber::PinStatus()
+{
     return (winchPin->Get());
 }
 
@@ -276,5 +280,4 @@ void Climber::Periodic()
         seccondaryMove = false;
         seccondMovefinal = false;
     }
-    
 }

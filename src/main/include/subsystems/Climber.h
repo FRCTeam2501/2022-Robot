@@ -109,5 +109,4 @@ private:
   rev::SparkMaxRelativeEncoder winchEncoder = winch.GetEncoder();
   rev::SparkMaxRelativeEncoder pivotEncoder = pivotClimb.GetEncoder();
   frc::Solenoid *winchPin;
- 
 };

@@ -33,19 +33,22 @@ Climber::Climber()
     winchEncoder.SetPositionConversionFactor((1) / 100.0); // I think this is right
 }
 
-Climber::~Climber()
-{
 
-    delete winchPin;
+
+void Climber::DislodgeWrench(){
+
+    winchPID.SetReference(Climber::LengthToTurns(Climber::GetLength() - 1.5), rev::CANSparkMaxLowLevel::ControlType::kPosition);
+    wrenchDislodged = true;
 }
 
 int Climber::ClimbControl(double angleAdjust, double lengthAdjust)
 {
+    if(wrenchDislodged = true){
     horizontalActivated = false;
     seccondaryMove = false;
     lengthChanged = false;
     swingActivated = false;
-    seccondMovefinal = false;
+    thirdMove = false;
     cout << "ClimbControl start" << endl;
     // cout<<"angleAdjust 1: "<<angleAdjust<<endl;
     // cout<<"LengthAdjust 1: "<<lengthAdjust<<endl;
@@ -157,8 +160,9 @@ int Climber::ClimbControl(double angleAdjust, double lengthAdjust)
         frc::SmartDashboard::PutNumber("Climb Target Length", length);
         frc::SmartDashboard::PutNumber("Climb Fibbed Target Length", Climber::LengthToTurns(length));
         frc::SmartDashboard::PutNumber("Climb Target angle", angle);
-        return lengthChanged;
     }
+    }
+    return lengthChanged;
 }
 
 double Climber::LengthToTurns(double inchesToTurns)
@@ -246,39 +250,24 @@ void Climber::ClimbWinchSetEncoder(double winchSetEncoder)
     winchEncoder.SetPosition(winchSetEncoder);
 }
 
-void Climber::PinOut()
-{
-    winchPin->Set(true);
-}
-
-void Climber::PinIn()
-{
-    winchPin->Set(false);
-}
-
-bool Climber::PinStatus()
-{
-    return (winchPin->Get());
-}
-
 void Climber::Periodic()
 {
     frc::SmartDashboard::PutNumber("Winch Encoder: ", winchEncoder.GetPosition());
     frc::SmartDashboard::PutNumber("Pivot Encoder: ", pivotEncoder.GetPosition());
     // This checks if we have a scedjuled seccond move once we have reached the angle we were going for
-    if (seccondaryMove == true && seccondMovefinal == false && (abs(winchEncoder.GetPosition() - 4) < 0.5))
+    if (seccondaryMove == true && thirdMove == false && (abs(winchEncoder.GetPosition() - 4) < 0.5))
     {
         angle = targetAngle;
         pivotPID.SetReference(angle, rev::CANSparkMaxLowLevel::ControlType::kPosition);
-        seccondMovefinal = true;
+        thirdMove = true;
     }
-    if (seccondaryMove == true && seccondMovefinal == true && (abs(pivotEncoder.GetPosition() - targetAngle) < 1))
+    if (seccondaryMove == true && thirdMove == true && (abs(pivotEncoder.GetPosition() - targetAngle) < 1))
     {
         length = targetLength;
         winchPID.SetReference(LengthToTurns(length), rev::CANSparkMaxLowLevel::ControlType::kPosition);
 
         seccondaryMove = false;
-        seccondMovefinal = false;
+        thirdMove = false;
     }
 }
 

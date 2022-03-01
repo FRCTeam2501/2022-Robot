@@ -61,7 +61,7 @@ class Climber : public frc2::SubsystemBase
 {
 public:
   Climber();
-  ~Climber();
+  
   // void AngleControl(double angle);
   double GetAngle();
   double GetLength();
@@ -69,6 +69,8 @@ public:
   void PinOut();
   void PinIn();
   bool PinStatus();
+
+  void DislodgeWrench();
 
   // void WinchControl(double lengthAdjust);
 
@@ -96,14 +98,16 @@ private:
   bool horizontalActivated;
   bool swingActivated;
 
+  bool wrenchDislodged = false;
+
   double length = 0.0;
   double lengthAdjust;
   double targetLength;
 
   bool lengthChanged;
 
-  bool seccondaryMove;
-  bool seccondMovefinal;
+  bool seccondaryMove = false;
+  bool thirdMove = false;
 
   rev::CANSparkMax winch{ClimbConstants::winch, rev::CANSparkMax::MotorType::kBrushless};
   rev::CANSparkMax pivotClimb{ClimbConstants::climbPivot, rev::CANSparkMax::MotorType::kBrushless};

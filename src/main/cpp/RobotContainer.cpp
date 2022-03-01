@@ -70,17 +70,6 @@ RobotContainer::RobotContainer()
 		},
 		{intake}));
 
-	pinControl = new frc2::JoystickButton(controlStick, JOYSTICK::BUTTON::BUTTON_4);
-	pinControl->WhenPressed(new frc2::InstantCommand(
-		[this]
-		{
-			if (climber->PinStatus() == true)
-			{
-				climber->PinOut(); // removes pin
-			}
-		},
-		{climber}));
-
 	armExtend = new frc2::JoystickButton(controlStick, JOYSTICK::BUTTON::BUTTON_6);
 	armExtend->WhenPressed(new frc2::InstantCommand(
 		[this]

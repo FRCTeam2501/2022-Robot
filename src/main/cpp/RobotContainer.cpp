@@ -66,7 +66,7 @@ RobotContainer::RobotContainer()
 	minEcoders->WhenPressed(new frc2::InstantCommand(
 		[this]
 		{
-			intake->SetLiftEncoder(0.0);
+			intake->SetLiftEncoder(-13.0);
 		},
 		{intake}));
 

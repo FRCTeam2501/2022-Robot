@@ -98,7 +98,9 @@ private:
   bool horizontalActivated;
   bool swingActivated;
 
+  bool dislodgingWrench = false;
   bool wrenchDislodged = false;
+  double dislodgeTarget;
 
   double length = 0.0;
   double lengthAdjust;

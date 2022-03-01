@@ -52,5 +52,6 @@ private:
   Camera *camera;
   Intake *intake;
   Joystick *driveStick, *controlStick;
-  frc2::JoystickButton *winchUp, *winchDown, *feedSwitch, *armExtend, *swingAndClampBar, *rollerControl, *liftControl, *zeroEncoders, *minEcoders;
+  frc2::JoystickButton *winchUp, *winchDown, *feedSwitch, *armExtend, *swingAndClampBar, 
+  *rollerControl, *liftControl, *zeroEncoders, *minEcoders, *disclodgedWrench;
 };

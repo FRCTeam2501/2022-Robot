@@ -55,6 +55,14 @@ RobotContainer::RobotContainer()
 		},
 		{climber}));
 
+	disclodgedWrench = new frc2::JoystickButton(controlStick, JOYSTICK::BUTTON::BUTTON_8);
+	disclodgedWrench->WhenPressed(new frc2::InstantCommand(
+		[this]
+		{
+			climber->DislodgeWrench();
+		},
+		{climber}));
+
 	zeroEncoders = new frc2::JoystickButton(driveStick, JOYSTICK::BUTTON::BUTTON_8);
 	zeroEncoders->WhenPressed(new frc2::InstantCommand(
 		[this]

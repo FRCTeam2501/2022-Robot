@@ -36,7 +36,7 @@ Climber::Climber()
 
 
 void Climber::DislodgeWrench(){
-    length = (winchEncoder.GetPosition() - 1.5);
+    length = (winchEncoder.GetPosition() - 0.25);
     winchPID.SetReference(length, rev::CANSparkMaxLowLevel::ControlType::kPosition);
     dislodgingWrench = true;
     wrenchDislodged = true;
@@ -44,7 +44,8 @@ void Climber::DislodgeWrench(){
 
 int Climber::ClimbControl(double angleAdjust, double lengthAdjust)
 {
-    if(wrenchDislodged = true){
+    dislodgingWrench = false;
+    if(wrenchDislodged == true){
     horizontalActivated = false;
     seccondaryMove = false;
     lengthChanged = false;
@@ -100,6 +101,7 @@ int Climber::ClimbControl(double angleAdjust, double lengthAdjust)
         // checks new climber position to make shure that it is legal.
         if (lengthAdjust < (ClimbConstants::defaultClimbLength - (((ClimbConstants::pivotToFrameDist + ClimbConstants::maxDistFromFrame) - ClimbConstants::rotationOffset * std::cos((angleAdjust * ClimbConstants::pi / (180)))) / (std::sin((angleAdjust * ClimbConstants::pi / (180)))))))
         {
+            cout<<"wall Hit"<<endl;
             // if the length is not legal, set it to the legal length.
             lengthAdjust = (ClimbConstants::defaultClimbLength - (((ClimbConstants::pivotToFrameDist + ClimbConstants::maxDistFromFrame) - ClimbConstants::rotationOffset * std::cos((angleAdjust * ClimbConstants::pi / (180)))) / (std::sin((angleAdjust * ClimbConstants::pi / (180))))));
             lengthChanged = true;
@@ -112,6 +114,7 @@ int Climber::ClimbControl(double angleAdjust, double lengthAdjust)
     {
         lengthAdjust = (((ClimbConstants::defaultScealing - ClimbConstants::rotationBigOffset * std::sin((angleAdjust * ClimbConstants::pi / (180)))) / std::cos((angleAdjust * ClimbConstants::pi / (180)))) - ClimbConstants::minExtension);
         lengthChanged = true;
+        cout<<"Roof hit"<<endl;
     }
   //  cout << "angleAdjust 4: " << angleAdjust << endl;
    // cout << "LengthAdjust 4: " << lengthAdjust << endl;
@@ -138,11 +141,11 @@ int Climber::ClimbControl(double angleAdjust, double lengthAdjust)
         //cout << "Length: " << length << endl;
         storeAngle = angle;
        // cout << "StoreAngle: " << storeAngle << endl;
+       cout<<"Main Set: "<<endl;
         winchPID.SetReference(Climber::LengthToTurns(length), rev::CANSparkMaxLowLevel::ControlType::kPosition);
         pivotPID.SetReference(angle, rev::CANSparkMaxLowLevel::ControlType::kPosition);
        // cout << "fibbed length: " << Climber::LengthToTurns(length) << endl;
         
-    
     }
     return lengthChanged;
 }
@@ -209,6 +212,7 @@ double Climber::LengthToTurns(double inchesToTurns)
     {
         turns = ((1.0 / c0) * (inchesToTurns - l1) + f2);
     }
+    cout<<"Length TO turns: "<<turns<<endl;
 
     return turns;
 }
@@ -235,18 +239,21 @@ void Climber::ClimbWinchSetEncoder(double winchSetEncoder)
 void Climber::Periodic()
 {
     frc::SmartDashboard::PutNumber("Climb Target Length", length);
-    frc::SmartDashboard::PutNumber("Climb Fibbed Target Length", Climber::LengthToTurns(length));
+  //  frc::SmartDashboard::PutNumber("Climb Fibbed Target Length", Climber::LengthToTurns(length));
     frc::SmartDashboard::PutNumber("Climb Target angle", angle);
     frc::SmartDashboard::PutNumber("Seccond Move: ", seccondaryMove);
     frc::SmartDashboard::PutNumber("Winch Encoder: ", winchEncoder.GetPosition());
     frc::SmartDashboard::PutNumber("Pivot Encoder: ", pivotEncoder.GetPosition());
+    frc::SmartDashboard::PutNumber("Wrnech Disclodged: ", wrenchDislodged);
     // This checks if we have a scedjuled seccond move once we have reached the angle we were going for
    
-    if(dislodgingWrench = true && abs(winchEncoder.GetPosition() - dislodgeTarget)<0.25 ){
-        length = (dislodgeTarget + 1.5);
+    if(dislodgingWrench == true && abs(winchEncoder.GetPosition() - dislodgeTarget)<0.25 ){
+        length = (dislodgeTarget + 0.25);
         winchPID.SetReference(length, rev::CANSparkMaxLowLevel::ControlType::kPosition);
         dislodgingWrench = false;
+        cout<<"Wrench Return"<<endl;
     }
+    
 }
 
 void InitDefaultCommand()

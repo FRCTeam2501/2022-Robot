@@ -60,6 +60,7 @@ RobotContainer::RobotContainer()
 	disclodgedWrench->WhenPressed(new frc2::InstantCommand(
 		[this]
 		{
+			cout<<"disclodge wrench: "<<endl;
 			climber->DislodgeWrench();
 		},
 		{climber}));
@@ -128,7 +129,7 @@ RobotContainer::RobotContainer()
 		{
 			if ((driveStick->GetRawButton(2)) == true)
 			{
-				intake->RollerControl(-6.0);
+				intake->RollerControl(-0.8);
 			}
 			else
 			{

@@ -44,7 +44,7 @@ void Climber::DislodgeWrench(){
 
 int Climber::ClimbControl(double angleAdjust, double lengthAdjust)
 {
-    if(wrenchDislodged = true){
+    if(wrenchDislodged == true){
     horizontalActivated = false;
     seccondaryMove = false;
     lengthChanged = false;
@@ -280,8 +280,8 @@ void Climber::Periodic()
         seccondaryMove = false;
         thirdMove = false;
     }
-    if(dislodgingWrench = true && abs(winchEncoder.GetPosition() - dislodgeTarget)<0.25 ){
-        length = (dislodgeTarget + 1.5);
+    if(dislodgingWrench == true && abs(winchEncoder.GetPosition() - dislodgeTarget)<0.25 ){
+        length = (dislodgeTarget + 0.5);
         winchPID.SetReference(length, rev::CANSparkMaxLowLevel::ControlType::kPosition);
         dislodgingWrench = false;
     }

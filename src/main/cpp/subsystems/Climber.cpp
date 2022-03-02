@@ -18,7 +18,7 @@ Climber::Climber()
     pivotPID.SetP(ClimbConstants::pivotClimbSetP);
     pivotPID.SetI(ClimbConstants::pivotClimbSetI);
     pivotPID.SetD(ClimbConstants::pivotClimbSetD);
-    pivotPID.SetOutputRange(-1, 1);
+    pivotPID.SetOutputRange(-1.0, 1.0);
     pivotEncoder.SetPositionConversionFactor(
         ((360.0 / (ClimbConstants::pivotConversionFactorOne * ClimbConstants::pivotConversionFactorTwo))));
     // Makes it so that one unit into the motor makes one degree of rotation of the climb arm
@@ -30,7 +30,7 @@ Climber::Climber()
 
     winch.SetSmartCurrentLimit(ClimbConstants::winchSmartCurrentLimet);
     winch.SetSecondaryCurrentLimit(ClimbConstants::winchSeccondaryCurrentLimet);
-    winchEncoder.SetPositionConversionFactor(1 / 100.0); // I think this is right
+    winchEncoder.SetPositionConversionFactor(1.0 / 100.0); // I think this is right
 }
 
 
@@ -177,10 +177,10 @@ double Climber::LengthToTurns(double inchesToTurns)
 
     constexpr double pi = 3.141592653589793;
 
-    constexpr double d = 0.03;
+    constexpr double d = 0.05;
     constexpr double l = 28;
 
-    constexpr double d0 = 1.4275;
+    constexpr double d0 = 1.7887;
     constexpr double c0 = d0 * pi;
     constexpr double c1 = (d0 + 1.0 * d) * pi;
     constexpr double c2 = (d0 + 2.0 * d) * pi;

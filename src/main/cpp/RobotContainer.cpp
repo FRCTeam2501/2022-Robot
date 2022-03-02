@@ -195,15 +195,18 @@ frc2::Command *RobotContainer::Autonmous()
 			{intake}},
 		frc2::WaitCommand{
 			2_s},
-		frc2::InstantCommand{
-			[this]
-			{
-				drive->ArcadeDrive(-0.6, 0.0);
-				intake->RollerControl(0.0);
-			},
-			{intake, drive}},
-		frc2::WaitCommand{
-			1.3_s},
+		 frc2::StartEndCommand{
+            [this] {
+                drive->ArcadeDrive(0.6, 0.0);
+            },
+            [this] {
+                drive->ArcadeDrive(0.0, 0.0);
+            },
+            { drive }
+        }.WithTimeout(
+            1.5_s
+        ),
+		
 		frc2::InstantCommand{
 			[this]
 			{

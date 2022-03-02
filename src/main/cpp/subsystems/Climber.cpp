@@ -37,8 +37,8 @@ Climber::Climber()
 
 void Climber::DislodgeWrench(){
     //length = (winchEncoder.GetPosition() - 0.5);
-    disclodgeTarget = (winchEncoder.GetPosition() - 0.5);
-    winchPID.SetReference(disclodgeTarget, rev::CANSparkMaxLowLevel::ControlType::kPosition);
+    dislodgeTarget = (winchEncoder.GetPosition() - 0.5);
+    winchPID.SetReference(dislodgeTarget, rev::CANSparkMaxLowLevel::ControlType::kPosition);
     dislodgingWrench = true;
     wrenchDislodged = true;
 }

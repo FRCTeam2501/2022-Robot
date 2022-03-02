@@ -6,6 +6,7 @@
 #include "iostream"
 #include "frc2/command/WaitCommand.h"
 #include "frc2/command/SequentialCommandGroup.h"
+#include "frc2/command/ParallelCommandGroup.h"
 
 using namespace std;
 
@@ -195,17 +196,32 @@ frc2::Command *RobotContainer::Autonmous()
 			{intake}},
 		frc2::WaitCommand{
 			2_s},
+
+		frc2::RunCommand{
+			[this]{
+				drive->ArcadeDrive(-0.6,0.0);
+				intake->RollerControl(0.0);
+			},
+			{intake, drive}
+		}.WithTimeout(
+			1.5_s
+		),
+
+
+			/*
 		 frc2::StartEndCommand{
             [this] {
-                drive->ArcadeDrive(0.6, 0.0);
+                drive->ArcadeDrive(-0.6, 0.0);
+				intake->RollerControl(0.0);
             },
             [this] {
                 drive->ArcadeDrive(0.0, 0.0);
+				cout<<"auto stoped"<<endl;
             },
-            { drive }
+            { drive, intake }
         }.WithTimeout(
             1.5_s
-        ),
+        ), */
 		
 		frc2::InstantCommand{
 			[this]

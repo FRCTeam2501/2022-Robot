@@ -116,44 +116,19 @@ int Climber::ClimbControl(double angleAdjust, double lengthAdjust)
   //  cout << "angleAdjust 4: " << angleAdjust << endl;
    // cout << "LengthAdjust 4: " << lengthAdjust << endl;
 
-    if ((angleAdjust <= ClimbConstants::batteryMaxAngle && angleAdjust >= ClimbConstants::batteryMinAngle)
-            || (angleAdjust > ClimbConstants::batteryMaxAngle && angle <= ClimbConstants::batteryMaxAngle)
-            || (angleAdjust < ClimbConstants::batteryMinAngle && angle >= ClimbConstants::batteryMinAngle))
+    if (angleAdjust <= ClimbConstants::batteryMaxAngle && angleAdjust >= ClimbConstants::batteryMinAngle)
     {
-        cout<<"Battery Acitvated: ";
-        if (angleAdjust <= ClimbConstants::batteryMaxAngle && angleAdjust >= ClimbConstants::batteryMinAngle)
+        cout<<"a";
+        if (lengthAdjust < ClimbConstants::batteryMinLength)
         {
-            cout<<"a";
-            if (lengthAdjust < ClimbConstants::batteryMinLength)
-            {
-                lengthAdjust = ClimbConstants::batteryMinLength;
-                cout<<"b";
-            }
+            lengthAdjust = ClimbConstants::batteryMinLength;
+            cout<<"b";
         }
-        else
-        {
-            cout<<"c";
-            if (lengthAdjust < ClimbConstants::batteryMinLength ||  length < ClimbConstants::batteryMinLength)
-            {
-                cout<<"d";
-                targetLength = lengthAdjust;
-                targetAngle = angleAdjust;
-                lengthAdjust = ClimbConstants::batteryMinLength;
-                lengthChanged = true;
-                seccondaryMove = true;
-
-                length = lengthAdjust;
-                winchPID.SetReference(Climber::LengthToTurns(length), rev::CANSparkMaxLowLevel::ControlType::kPosition);
-                pivotPID.SetReference(angle, rev::CANSparkMaxLowLevel::ControlType::kPosition);
-            }
-        }
-        cout<<endl;
     }
 
     frc::SmartDashboard::PutNumber("Climb Seccondary move", seccondaryMove);
   //  cout << "seccondaryMove: " << seccondaryMove << endl;
-    if (seccondaryMove == false)
-    {
+    
        // cout << "Actual set angleAdjust: " << angleAdjust << endl;
        // cout << "Actual set LengthAdjust: " << lengthAdjust << endl;
         length = lengthAdjust;
@@ -167,7 +142,7 @@ int Climber::ClimbControl(double angleAdjust, double lengthAdjust)
         pivotPID.SetReference(angle, rev::CANSparkMaxLowLevel::ControlType::kPosition);
        // cout << "fibbed length: " << Climber::LengthToTurns(length) << endl;
         
-    }
+    
     }
     return lengthChanged;
 }
@@ -266,20 +241,7 @@ void Climber::Periodic()
     frc::SmartDashboard::PutNumber("Winch Encoder: ", winchEncoder.GetPosition());
     frc::SmartDashboard::PutNumber("Pivot Encoder: ", pivotEncoder.GetPosition());
     // This checks if we have a scedjuled seccond move once we have reached the angle we were going for
-    if (seccondaryMove == true && thirdMove == false && (abs(winchEncoder.GetPosition() - 4) < 0.5))
-    {
-        angle = targetAngle;
-        pivotPID.SetReference(angle, rev::CANSparkMaxLowLevel::ControlType::kPosition);
-        thirdMove = true;
-    }
-    if (seccondaryMove == true && thirdMove == true && (abs(pivotEncoder.GetPosition() - targetAngle) < 1))
-    {
-        length = targetLength;
-        winchPID.SetReference(LengthToTurns(length), rev::CANSparkMaxLowLevel::ControlType::kPosition);
-
-        seccondaryMove = false;
-        thirdMove = false;
-    }
+   
     if(dislodgingWrench = true && abs(winchEncoder.GetPosition() - dislodgeTarget)<0.25 ){
         length = (dislodgeTarget + 1.5);
         winchPID.SetReference(length, rev::CANSparkMaxLowLevel::ControlType::kPosition);

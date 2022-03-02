@@ -36,8 +36,9 @@ Climber::Climber()
 
 
 void Climber::DislodgeWrench(){
-    length = (winchEncoder.GetPosition() - 1.5);
-    winchPID.SetReference(length, rev::CANSparkMaxLowLevel::ControlType::kPosition);
+    //length = (winchEncoder.GetPosition() - 0.5);
+    disclodgeTarget = (winchEncoder.GetPosition() - 0.5);
+    winchPID.SetReference(disclodgeTarget, rev::CANSparkMaxLowLevel::ControlType::kPosition);
     dislodgingWrench = true;
     wrenchDislodged = true;
 }
@@ -281,8 +282,8 @@ void Climber::Periodic()
         thirdMove = false;
     }
     if(dislodgingWrench == true && abs(winchEncoder.GetPosition() - dislodgeTarget)<0.25 ){
-        length = (dislodgeTarget + 0.5);
-        winchPID.SetReference(length, rev::CANSparkMaxLowLevel::ControlType::kPosition);
+        //length = (dislodgeTarget + 0.5);
+        winchPID.SetReference((dislodgeTarget + 0.5), rev::CANSparkMaxLowLevel::ControlType::kPosition);
         dislodgingWrench = false;
     }
 }

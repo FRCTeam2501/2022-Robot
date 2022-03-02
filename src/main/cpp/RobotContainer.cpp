@@ -20,16 +20,16 @@ RobotContainer::RobotContainer()
 	drive->SetDefaultCommand(frc2::RunCommand(
 		[this]
 		{
-			if (driveStick->GetRawAxis(JOYSTICK::AXIS::R) >= 0.0)
+			if (driveStick->GetRawAxis(JOYSTICK::AXIS::Z) <= 0.0)
 			{
-				cout << "Fast Drive Mode" << endl;
+			//	cout << "Fast Drive Mode" << endl;
 				drive->ArcadeDrive(-1.0 * driveStick->GetRawAxis(
 											  JOYSTICK::AXIS::Y),
 								   0.6 * driveStick->GetRawAxis(JOYSTICK::AXIS::X));
 			}
 			else
 			{
-				cout << "Slow Drive Mode" << endl;
+			//	cout << "Slow Drive Mode" << endl;
 
 				drive->ArcadeDrive(-0.5 * driveStick->GetRawAxis(
 											  JOYSTICK::AXIS::Y),
@@ -48,7 +48,8 @@ RobotContainer::RobotContainer()
 				// cout<<"Get Length: "<<(climber->GetLength())<<endl;
 				// angleAdd = ((controlStick->GetRawAxis(JOYSTICK::AXIS::Y) / 5) + climber->GetAngle());
 				// lengthAdd = (climber->GetLength());
-				climber->ClimbControl(((controlStick->GetRawAxis(JOYSTICK::AXIS::Y) / 50) + climber->GetAngle()), (climber->GetLength()));
+				climber->ClimbControl(((controlStick->GetRawAxis(JOYSTICK::AXIS::Y) / 1) + climber->GetAngle()), (climber->GetLength()));
+				cout<<"imput angle: "<<((controlStick->GetRawAxis(JOYSTICK::AXIS::Y) / 50) + climber->GetAngle())<<endl;
 				// climber->ClimbControl(angleAdd, lengthAdd);
 				//  50 means that it will adjust the angle to one degree per seccond at full speed on the joystick
 			}

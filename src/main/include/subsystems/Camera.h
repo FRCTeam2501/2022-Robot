@@ -5,9 +5,9 @@
 
 namespace Cameras
 {
-    constexpr int with = 300;
-    constexpr int height = 200;
-    constexpr int fps = 25;
+    constexpr int with = 360;
+    constexpr int height = 240;
+    constexpr int fps = 15;
 }
 
 class Camera : public frc2::SubsystemBase

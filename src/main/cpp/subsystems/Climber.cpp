@@ -12,8 +12,8 @@ Climber::Climber()
 
     //  winchPin = new frc::Solenoid(frc::PneumaticsModuleType::CTREPCM,5);
 
-    winch.SetInverted(false);
-    pivotClimb.SetInverted(false);
+    winch.SetInverted(true);
+    pivotClimb.SetInverted(true);
 
     pivotPID.SetP(ClimbConstants::pivotClimbSetP);
     pivotPID.SetI(ClimbConstants::pivotClimbSetI);
@@ -30,7 +30,7 @@ Climber::Climber()
 
     winch.SetSmartCurrentLimit(ClimbConstants::winchSmartCurrentLimet);
     winch.SetSecondaryCurrentLimit(ClimbConstants::winchSeccondaryCurrentLimet);
-    winchEncoder.SetPositionConversionFactor((1) / 100.0); // I think this is right
+    winchEncoder.SetPositionConversionFactor(1 / 100.0); // I think this is right
 }
 
 
@@ -51,8 +51,8 @@ int Climber::ClimbControl(double angleAdjust, double lengthAdjust)
     swingActivated = false;
     thirdMove = false;
     cout << "ClimbControl start" << endl;
-    // cout<<"angleAdjust 1: "<<angleAdjust<<endl;
-    // cout<<"LengthAdjust 1: "<<lengthAdjust<<endl;
+    cout<<"angleAdjust 1: "<<angleAdjust<<endl;
+    cout<<"LengthAdjust 1: "<<lengthAdjust<<endl;
     // lengthAdjust is the new length that we want to set the arms to
     //  makes sure length is not outside of limet
     if (length > ClimbConstants::maxLength)
@@ -93,8 +93,8 @@ int Climber::ClimbControl(double angleAdjust, double lengthAdjust)
     {
         angleAdjust = ClimbConstants::minAngle;
     }
-    cout << "angleAdjust 2: " << angleAdjust << endl;
-    cout << "LengthAdjust 2: " << lengthAdjust << endl;
+   // cout << "angleAdjust 2: " << angleAdjust << endl;
+   // cout << "LengthAdjust 2: " << lengthAdjust << endl;
     if (angleAdjust > 1)
     {
         // checks new climber position to make shure that it is legal.
@@ -113,22 +113,29 @@ int Climber::ClimbControl(double angleAdjust, double lengthAdjust)
         lengthAdjust = (((ClimbConstants::defaultScealing - ClimbConstants::rotationBigOffset * std::sin((angleAdjust * ClimbConstants::pi / (180)))) / std::cos((angleAdjust * ClimbConstants::pi / (180)))) - ClimbConstants::minExtension);
         lengthChanged = true;
     }
-    cout << "angleAdjust 4: " << angleAdjust << endl;
-    cout << "LengthAdjust 4: " << lengthAdjust << endl;
+  //  cout << "angleAdjust 4: " << angleAdjust << endl;
+   // cout << "LengthAdjust 4: " << lengthAdjust << endl;
 
-    if ((angleAdjust <= ClimbConstants::batteryMaxAngle && angleAdjust >= ClimbConstants::batteryMinAngle) || (angleAdjust > ClimbConstants::batteryMaxAngle && angle <= ClimbConstants::batteryMaxAngle) || (angleAdjust < ClimbConstants::batteryMinAngle && angle >= ClimbConstants::batteryMinAngle))
+    if ((angleAdjust <= ClimbConstants::batteryMaxAngle && angleAdjust >= ClimbConstants::batteryMinAngle)
+            || (angleAdjust > ClimbConstants::batteryMaxAngle && angle <= ClimbConstants::batteryMaxAngle)
+            || (angleAdjust < ClimbConstants::batteryMinAngle && angle >= ClimbConstants::batteryMinAngle))
     {
+        cout<<"Battery Acitvated: ";
         if (angleAdjust <= ClimbConstants::batteryMaxAngle && angleAdjust >= ClimbConstants::batteryMinAngle)
         {
+            cout<<"a";
             if (lengthAdjust < ClimbConstants::batteryMinLength)
             {
                 lengthAdjust = ClimbConstants::batteryMinLength;
+                cout<<"b";
             }
         }
         else
         {
-            if (lengthAdjust < ClimbConstants::batteryMinLength || winchEncoder.GetPosition() < ClimbConstants::batteryMinLength || length < ClimbConstants::batteryMinLength)
+            cout<<"c";
+            if (lengthAdjust < ClimbConstants::batteryMinLength ||  length < ClimbConstants::batteryMinLength)
             {
+                cout<<"d";
                 targetLength = lengthAdjust;
                 targetAngle = angleAdjust;
                 lengthAdjust = ClimbConstants::batteryMinLength;
@@ -140,27 +147,26 @@ int Climber::ClimbControl(double angleAdjust, double lengthAdjust)
                 pivotPID.SetReference(angle, rev::CANSparkMaxLowLevel::ControlType::kPosition);
             }
         }
+        cout<<endl;
     }
 
     frc::SmartDashboard::PutNumber("Climb Seccondary move", seccondaryMove);
-    cout << "seccondaryMove: " << seccondaryMove << endl;
+  //  cout << "seccondaryMove: " << seccondaryMove << endl;
     if (seccondaryMove == false)
     {
-        cout << "Actual set angleAdjust: " << angleAdjust << endl;
-        cout << "Actual set LengthAdjust: " << lengthAdjust << endl;
+       // cout << "Actual set angleAdjust: " << angleAdjust << endl;
+       // cout << "Actual set LengthAdjust: " << lengthAdjust << endl;
         length = lengthAdjust;
         angle = angleAdjust;
 
-        cout << "angle: " << angle << endl;
-        cout << "Length: " << length << endl;
+       // cout << "angle: " << angle << endl;
+        //cout << "Length: " << length << endl;
         storeAngle = angle;
-        cout << "StoreAngle: " << storeAngle << endl;
+       // cout << "StoreAngle: " << storeAngle << endl;
         winchPID.SetReference(Climber::LengthToTurns(length), rev::CANSparkMaxLowLevel::ControlType::kPosition);
         pivotPID.SetReference(angle, rev::CANSparkMaxLowLevel::ControlType::kPosition);
-        cout << "fibbed length: " << Climber::LengthToTurns(length) << endl;
-        frc::SmartDashboard::PutNumber("Climb Target Length", length);
-        frc::SmartDashboard::PutNumber("Climb Fibbed Target Length", Climber::LengthToTurns(length));
-        frc::SmartDashboard::PutNumber("Climb Target angle", angle);
+       // cout << "fibbed length: " << Climber::LengthToTurns(length) << endl;
+        
     }
     }
     return lengthChanged;
@@ -176,12 +182,12 @@ double Climber::LengthToTurns(double inchesToTurns)
 
     constexpr double d0 = 1.4275;
     constexpr double c0 = d0 * pi;
-    constexpr double c1 = (d0 + 1 * d) * pi;
-    constexpr double c2 = (d0 + 2 * d) * pi;
-    constexpr double c3 = (d0 + 3 * d) * pi;
-    constexpr double c4 = (d0 + 4 * d) * pi;
-    constexpr double c5 = (d0 + 5 * d) * pi;
-    constexpr double c6 = (d0 + 6 * d) * pi;
+    constexpr double c1 = (d0 + 1.0 * d) * pi;
+    constexpr double c2 = (d0 + 2.0 * d) * pi;
+    constexpr double c3 = (d0 + 3.0 * d) * pi;
+    constexpr double c4 = (d0 + 4.0 * d) * pi;
+    constexpr double c5 = (d0 + 5.0 * d) * pi;
+    constexpr double c6 = (d0 + 6.0 * d) * pi;
     constexpr double l1 = (l - c0);
     constexpr double l2 = (l1 - c1);
     constexpr double l3 = (l2 - c2);
@@ -189,44 +195,44 @@ double Climber::LengthToTurns(double inchesToTurns)
     constexpr double l5 = (l4 - c4);
     constexpr double l6 = (l5 - c5);
 
-    constexpr double f6 = ((1 / c5) * l5);
-    constexpr double f5 = ((1 / c4) * (l4 - l5) + f6);
-    constexpr double f4 = ((1 / c3) * (l3 - l4) + f5);
-    constexpr double f3 = ((1 / c2) * (l2 - l3) + f4);
-    constexpr double f2 = ((1 / c1) * (l1 - l2) + f3);
-    constexpr double f1 = ((1 / c0) * (l - l1) + f2);
+    constexpr double f6 = ((1.0 / c5) * l5);
+    constexpr double f5 = ((1.0 / c4) * (l4 - l5) + f6);
+    constexpr double f4 = ((1.0 / c3) * (l3 - l4) + f5);
+    constexpr double f3 = ((1.0 / c2) * (l2 - l3) + f4);
+    constexpr double f2 = ((1.0 / c1) * (l1 - l2) + f3);
+    constexpr double f1 = ((1.0 / c0) * (l - l1) + f2);
 
     double maxLength = 28;
     double turns;
 
     if (inchesToTurns <= l5)
     {
-        turns = ((1 / c5) * inchesToTurns);
+        turns = ((1.0 / c5) * inchesToTurns);
     }
 
     if (l5 < inchesToTurns && inchesToTurns <= l4)
     {
-        turns = ((1 / c4) * (inchesToTurns - l5) + f6);
+        turns = ((1.0 / c4) * (inchesToTurns - l5) + f6);
     }
 
     if (l4 < inchesToTurns && inchesToTurns <= l3)
     {
-        turns = ((1 / c3) * (inchesToTurns - l4) + f5);
+        turns = ((1.0 / c3) * (inchesToTurns - l4) + f5);
     }
 
     if (l3 < inchesToTurns && inchesToTurns <= l2)
     {
-        turns = ((1 / c2) * (inchesToTurns - l3) + f4);
+        turns = ((1.0 / c2) * (inchesToTurns - l3) + f4);
     }
 
     if (l2 < inchesToTurns && inchesToTurns <= l1)
     {
-        turns = ((1 / c1) * (inchesToTurns - l2) + f3);
+        turns = ((1.0 / c1) * (inchesToTurns - l2) + f3);
     }
 
     if (l1 < inchesToTurns && inchesToTurns <= l)
     {
-        turns = ((1 / c0) * (inchesToTurns - l1) + f2);
+        turns = ((1.0 / c0) * (inchesToTurns - l1) + f2);
     }
 
     return turns;
@@ -253,6 +259,10 @@ void Climber::ClimbWinchSetEncoder(double winchSetEncoder)
 
 void Climber::Periodic()
 {
+    frc::SmartDashboard::PutNumber("Climb Target Length", length);
+    frc::SmartDashboard::PutNumber("Climb Fibbed Target Length", Climber::LengthToTurns(length));
+    frc::SmartDashboard::PutNumber("Climb Target angle", angle);
+    frc::SmartDashboard::PutNumber("Seccond Move: ", seccondaryMove);
     frc::SmartDashboard::PutNumber("Winch Encoder: ", winchEncoder.GetPosition());
     frc::SmartDashboard::PutNumber("Pivot Encoder: ", pivotEncoder.GetPosition());
     // This checks if we have a scedjuled seccond move once we have reached the angle we were going for

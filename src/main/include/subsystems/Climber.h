@@ -39,8 +39,8 @@ namespace ClimbConstants
 
   constexpr int climbPivot = 11;
 
-  constexpr double pivotConversionFactorOne = 100;
-  constexpr double pivotConversionFactorTwo = (122 / 65);
+  constexpr double pivotConversionFactorOne = 100.0;
+  constexpr double pivotConversionFactorTwo = 2;//(122.0 / 65.0);
 
   constexpr double winchSmartCurrentLimet = 60.0;
   constexpr double winchSeccondaryCurrentLimet = 70.0;

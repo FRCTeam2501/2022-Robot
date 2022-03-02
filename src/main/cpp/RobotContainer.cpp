@@ -32,7 +32,7 @@ RobotContainer::RobotContainer()
 			{
 			//	cout << "Slow Drive Mode" << endl;
 
-				drive->ArcadeDrive(-0.5 * driveStick->GetRawAxis(
+				drive->ArcadeDrive(-0.4 * driveStick->GetRawAxis(
 											  JOYSTICK::AXIS::Y),
 								   0.3 * driveStick->GetRawAxis(JOYSTICK::AXIS::X));
 			}
@@ -44,15 +44,17 @@ RobotContainer::RobotContainer()
 		{
 			if (abs(controlStick->GetRawAxis(JOYSTICK::AXIS::Y)) > 0.1)
 			{
-				//	cout<<"Y-Axis plus angle: "<<((controlStick->GetRawAxis(JOYSTICK::AXIS::Y) / 50) + climber->GetAngle())<<endl;
-				// cout<<"Get Angle: "<<(climber->GetAngle())<<endl;
-				// cout<<"Get Length: "<<(climber->GetLength())<<endl;
-				// angleAdd = ((controlStick->GetRawAxis(JOYSTICK::AXIS::Y) / 5) + climber->GetAngle());
-				// lengthAdd = (climber->GetLength());
+				
+			if (controlStick->GetRawAxis(JOYSTICK::AXIS::Z) <= 0.0)
+			{
+			//	cout << "Fast Drive Mode" << endl;
+				climber->ClimbControl(((controlStick->GetRawAxis(JOYSTICK::AXIS::Y) * 2) + climber->GetAngle()), (climber->GetLength()));
+			}
+			else
+			{
+			//	cout << "Slow Drive Mode" << endl;
 				climber->ClimbControl(((controlStick->GetRawAxis(JOYSTICK::AXIS::Y) / 1) + climber->GetAngle()), (climber->GetLength()));
-				cout<<"imput angle: "<<((controlStick->GetRawAxis(JOYSTICK::AXIS::Y) / 50) + climber->GetAngle())<<endl;
-				// climber->ClimbControl(angleAdd, lengthAdd);
-				//  50 means that it will adjust the angle to one degree per seccond at full speed on the joystick
+			}
 			}
 		},
 		{climber}));
@@ -123,24 +125,29 @@ RobotContainer::RobotContainer()
 		},
 		{camera}));
 
-	rollerControl = new frc2::JoystickButton(driveStick, JOYSTICK::BUTTON::TRIGGER);
-	rollerControl->WhileHeld(new frc2::StartEndCommand(
+	rollerIn = new frc2::JoystickButton(driveStick, JOYSTICK::BUTTON::TRIGGER);
+	rollerIn->WhileHeld(new frc2::StartEndCommand(
 		[this]
 		{
-			if ((driveStick->GetRawButton(2)) == true)
-			{
-				intake->RollerControl(-6.0);
-			}
-			else
-			{
-				intake->RollerControl(0.8);
-			}
+			intake->RollerControl(0.8);
 		},
 		[this]
 		{
 			intake->RollerControl(0);
 		},
 		{intake}));
+	rollerOut = new frc2::JoystickButton(driveStick, JOYSTICK::BUTTON::THUMB);
+	rollerOut->WhileHeld(new frc2::StartEndCommand(
+		[this]
+		{
+			intake->RollerControl(-0.8);
+		},
+		[this]
+		{
+			intake->RollerControl(0);
+		},
+		{intake}));
+	
 
 	liftControl = new frc2::JoystickButton(driveStick, JOYSTICK::BUTTON::BUTTON_3);
 	liftControl->WhenPressed(new frc2::InstantCommand(
@@ -160,6 +167,14 @@ RobotContainer::RobotContainer()
 			default:
 				break;
 			}
+		},
+		{intake}));
+	
+	liftMid = new frc2::JoystickButton(driveStick, JOYSTICK::BUTTON::BUTTON_4);
+	liftMid->WhenPressed(new frc2::InstantCommand(
+		[this]
+		{
+			intake->LiftControl(6);
 		},
 		{intake}));
 }
@@ -204,7 +219,7 @@ frc2::Command *RobotContainer::Autonmous()
 			},
 			{intake, drive}
 		}.WithTimeout(
-			1.5_s
+			1.0_s
 		),
 
 
@@ -236,3 +251,16 @@ frc2::Command *RobotContainer::Autonmous()
 void RobotContainer::Periodic()
 {
 }
+
+
+
+/*
+
+Notes to get done:
+fix roller controls
+make fast and slow mode for winch extend and retract
+adjust buttons for driver stick lower buttons
+
+
+*/
+

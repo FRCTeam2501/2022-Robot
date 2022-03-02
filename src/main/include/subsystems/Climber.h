@@ -24,11 +24,11 @@ namespace ClimbConstants
   constexpr double maxAngle = 80;
   constexpr double minAngle = 0;
   constexpr double maxLength = 28;
-  constexpr double minLength = 0;
+  constexpr double minLength = -6;
 
-  constexpr double batteryMinAngle = 6.0;
-  constexpr double batteryMaxAngle = 15.0;
-  constexpr double batteryMinLength = 4.0;
+  constexpr double batteryMinAngle = 4.0;
+  constexpr double batteryMaxAngle = 32.0;
+  constexpr double batteryMinLength = 7.5;
 
   constexpr double defaultScealing = 25;
   constexpr double minExtension = 8;

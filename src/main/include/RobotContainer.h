@@ -53,5 +53,6 @@ private:
   Intake *intake;
   Joystick *driveStick, *controlStick;
   frc2::JoystickButton *winchUp, *winchDown, *feedSwitch, *armExtend, *swingAndClampBar, 
-  *rollerControl, *liftControl, *zeroEncoders, *minEcoders, *disclodgedWrench;
+  *rollerControl, *liftControl, *zeroEncoders, *minEcoders, *disclodgedWrench, *rollerIn, *rollerOut,
+  *liftMid;
 };

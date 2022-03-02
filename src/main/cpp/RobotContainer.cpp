@@ -221,22 +221,6 @@ frc2::Command *RobotContainer::Autonmous()
 		}.WithTimeout(
 			1.0_s
 		),
-
-
-			/*
-		 frc2::StartEndCommand{
-            [this] {
-                drive->ArcadeDrive(-0.6, 0.0);
-				intake->RollerControl(0.0);
-            },
-            [this] {
-                drive->ArcadeDrive(0.0, 0.0);
-				cout<<"auto stoped"<<endl;
-            },
-            { drive, intake }
-        }.WithTimeout(
-            1.5_s
-        ), */
 		
 		frc2::InstantCommand{
 			[this]
@@ -251,8 +235,6 @@ frc2::Command *RobotContainer::Autonmous()
 void RobotContainer::Periodic()
 {
 }
-
-
 
 /*
 

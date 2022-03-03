@@ -74,7 +74,7 @@ RobotContainer::RobotContainer()
 			intake->SetLiftEncoder(0.0);
 		},
 		{intake}));
-	minEcoders = new frc2::JoystickButton(driveStick, JOYSTICK::BUTTON::BUTTON_10);
+	minEcoders = new frc2::JoystickButton(driveStick, JOYSTICK::BUTTON::BUTTON_7);
 	minEcoders->WhenPressed(new frc2::InstantCommand(
 		[this]
 		{
@@ -91,7 +91,7 @@ RobotContainer::RobotContainer()
 		},
 		{climber}));
 
-	swingAndClampBar = new frc2::JoystickButton(controlStick, JOYSTICK::BUTTON::BUTTON_10);
+	swingAndClampBar = new frc2::JoystickButton(controlStick, JOYSTICK::BUTTON::BUTTON_5);
 	swingAndClampBar->WhenPressed(new frc2::InstantCommand(
 		[this]
 		{
@@ -100,7 +100,7 @@ RobotContainer::RobotContainer()
 		},
 		{climber}));
 
-	winchUp = new frc2::JoystickButton(controlStick, JOYSTICK::BUTTON::BUTTON_9);
+	winchUp = new frc2::JoystickButton(controlStick, JOYSTICK::BUTTON::TRIGGER);
 	winchUp->WhenPressed(new frc2::InstantCommand(
 		[this]
 		{
@@ -108,7 +108,7 @@ RobotContainer::RobotContainer()
 			cout << "ClimbControl set to current angle, current length + 0.5" << endl;
 		},
 		{climber}));
-	winchDown = new frc2::JoystickButton(controlStick, JOYSTICK::BUTTON::BUTTON_11);
+	winchDown = new frc2::JoystickButton(controlStick, JOYSTICK::BUTTON::THUMB);
 	winchDown->WhenPressed(new frc2::InstantCommand(
 		[this]
 		{

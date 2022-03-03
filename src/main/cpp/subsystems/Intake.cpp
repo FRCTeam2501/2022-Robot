@@ -8,8 +8,8 @@ Intake::Intake()
     rollerMotor = new rev::CANSparkMax(16, rev::CANSparkMax::MotorType::kBrushed);
 
     //  intakeLift.GetForwardLimitSwitch(rev::SparkMaxLimitSwitch::Type::kNormallyOpen).EnableLimitSwitch(true);
-    intakeLift.SetSmartCurrentLimit(60);
-    intakeLift.SetSecondaryCurrentLimit(80);
+    intakeLift.SetSmartCurrentLimit(40);
+    intakeLift.SetSecondaryCurrentLimit(50);
     //  intakeLift.GetReverseLimitSwitch(rev::SparkMaxLimitSwitch::Type::kNormallyOpen).EnableLimitSwitch(true);
 
     intakeLiftPID.SetP(IntakeConstants::intakeLiftSetP);

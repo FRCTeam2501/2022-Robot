@@ -220,7 +220,7 @@ frc2::Command *RobotContainer::Autonmous()
 			},
 			{intake, drive}
 		}.WithTimeout(
-			1.0_s
+			1.2_s
 		),
 		
 		frc2::InstantCommand{

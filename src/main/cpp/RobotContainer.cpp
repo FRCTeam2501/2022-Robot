@@ -137,7 +137,7 @@ RobotContainer::RobotContainer()
 			intake->RollerControl(0);
 		},
 		{intake}));
-	rollerOut = new frc2::JoystickButton(driveStick, JOYSTICK::BUTTON::THUMB);
+	rollerOut = new frc2::JoystickButton(driveStick, JOYSTICK::BUTTON::BUTTON_11);
 	rollerOut->WhileHeld(new frc2::StartEndCommand(
 		[this]
 		{
@@ -175,7 +175,7 @@ RobotContainer::RobotContainer()
 	liftMid->WhenPressed(new frc2::InstantCommand(
 		[this]
 		{
-			intake->LiftControl(-2);
+			intake->LiftControl(-3);
 		},
 		{intake}));
 }

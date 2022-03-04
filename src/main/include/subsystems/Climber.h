@@ -22,11 +22,11 @@ namespace ClimbConstants
   constexpr double maxDistFromFrame = 12;
 
   constexpr double maxAngle = 80;
-  constexpr double minAngle = 0;
-  constexpr double maxLength = 28;
+  constexpr double minAngle = -1;
+  constexpr double maxLength = 27;
   constexpr double minLength = -6;
 
-  constexpr double batteryMinAngle = 4.0;
+  constexpr double batteryMinAngle = 3.0;
   constexpr double batteryMaxAngle = 32.0;
   constexpr double batteryMinLength = 8.5;
 
@@ -48,7 +48,7 @@ namespace ClimbConstants
   constexpr double pivotClimbSmartCurrentLimet = 60.0;
   constexpr double pivotClimbSeccondaryCurrentLimet = 70.0;
 
-  constexpr double pivotClimbSetP = 0.05;
+  constexpr double pivotClimbSetP = 0.07;
   constexpr double pivotClimbSetI = 0.000;
   constexpr double pivotClimbSetD = 0.00;
   constexpr double winchSetP = 2.00;
@@ -88,6 +88,8 @@ public:
 
   // It's desirable that everything possible under private except
   // for methods that implement subsystem capabilities
+
+
 
 private:
   double angle = 0.0;

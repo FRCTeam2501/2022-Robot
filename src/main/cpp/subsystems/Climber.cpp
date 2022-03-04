@@ -33,8 +33,6 @@ Climber::Climber()
     winchEncoder.SetPositionConversionFactor(1.0 / 100.0); // I think this is right
 }
 
-
-
 void Climber::DislodgeWrench(){
     //length = (winchEncoder.GetPosition() - 0.5);
     dislodgeTarget = (winchEncoder.GetPosition() - 0.5);

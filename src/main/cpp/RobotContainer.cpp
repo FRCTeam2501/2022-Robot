@@ -32,9 +32,9 @@ RobotContainer::RobotContainer()
 			{
 			//	cout << "Slow Drive Mode" << endl;
 
-				drive->ArcadeDrive(-0.4 * driveStick->GetRawAxis(
+				drive->ArcadeDrive(-0.6 * driveStick->GetRawAxis(
 											  JOYSTICK::AXIS::Y),
-								   0.3 * driveStick->GetRawAxis(JOYSTICK::AXIS::X));
+								   0.45 * driveStick->GetRawAxis(JOYSTICK::AXIS::X));
 			}
 		},
 		{drive}));
@@ -77,7 +77,7 @@ RobotContainer::RobotContainer()
 	armExtend->WhenPressed(new frc2::InstantCommand(
 		[this]
 		{
-			climber->ClimbControl(80, 28); // 80 degrees, 28 inches
+			climber->ClimbControl(80, 27); // 80 degrees, 28 inches
 			cout << "ClimbControl set to 80 deg, 28 in" << endl;
 		},
 		{climber}));
@@ -86,7 +86,7 @@ RobotContainer::RobotContainer()
 	swingAndClampBar->WhenPressed(new frc2::InstantCommand(
 		[this]
 		{
-			climber->ClimbControl(1, 1); // 1 degree, 1 inch
+			climber->ClimbControl(0, 1); // 1 degree, 1 inch
 			cout << "ClimbControl set to 1 deg, 1 in" << endl;
 		},
 		{climber}));

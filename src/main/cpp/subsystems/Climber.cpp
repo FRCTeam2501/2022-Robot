@@ -267,7 +267,7 @@ void Climber::Periodic()
     frc::SmartDashboard::PutNumber("Winch Encoder: ", winchEncoder.GetPosition());
     frc::SmartDashboard::PutNumber("Pivot Encoder: ", pivotEncoder.GetPosition());
     // This checks if we have a scedjuled seccond move once we have reached the angle we were going for
-    if (seccondaryMove == true && thirdMove == false && (abs(winchEncoder.GetPosition() - 4) < 0.5))
+    if (seccondaryMove == true && thirdMove == false && (abs(winchEncoder.GetPosition() - Climber::LengthToTurns(ClimbConstants::batteryMinLength)) < 0.25))
     {
         angle = targetAngle;
         pivotPID.SetReference(angle, rev::CANSparkMaxLowLevel::ControlType::kPosition);

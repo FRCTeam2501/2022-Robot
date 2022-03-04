@@ -14,7 +14,7 @@
 namespace ClimbConstants
 {
 
-  constexpr double rotationBigOffset = 4.5;
+  constexpr double rotationBigOffset = 7.0;
   // rotationBigOffset is the horisontal distance bretween the top left of the hook and the actual rotation point
   constexpr double rotationOffset = 3;
   constexpr double defaultClimbLength = 40;
@@ -28,9 +28,9 @@ namespace ClimbConstants
 
   constexpr double batteryMinAngle = 4.0;
   constexpr double batteryMaxAngle = 32.0;
-  constexpr double batteryMinLength = 7.5;
+  constexpr double batteryMinLength = 8.5;
 
-  constexpr double defaultScealing = 25;
+  constexpr double defaultScealing = 21;
   constexpr double minExtension = 8;
 
   constexpr double pi = 3.14159265358979;
@@ -48,8 +48,8 @@ namespace ClimbConstants
   constexpr double pivotClimbSmartCurrentLimet = 60.0;
   constexpr double pivotClimbSeccondaryCurrentLimet = 70.0;
 
-  constexpr double pivotClimbSetP = 0.04;
-  constexpr double pivotClimbSetI = 0.001;
+  constexpr double pivotClimbSetP = 0.05;
+  constexpr double pivotClimbSetI = 0.000;
   constexpr double pivotClimbSetD = 0.00;
   constexpr double winchSetP = 2.00;
   constexpr double winchSetI = 0.00;
@@ -90,7 +90,7 @@ public:
   // for methods that implement subsystem capabilities
 
 private:
-  double angle = 1.0;
+  double angle = 0.0;
   double angleAdjust;
   double targetAngle;
   double storeAngle;

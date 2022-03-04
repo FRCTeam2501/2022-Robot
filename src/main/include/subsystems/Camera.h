@@ -2,6 +2,7 @@
 #include "frc2/command/SubsystemBase.h"
 #include <frc/shuffleboard/Shuffleboard.h>
 #include "cscore_oo.h"
+#include <cameraserver/CameraServer.h>
 
 namespace Cameras
 {
@@ -21,6 +22,7 @@ public:
 private:
     cs::UsbCamera *climbCamera, *intakeCamera;
     cs::MjpegServer *streamVideo;
+   // cs::HttpCamera::ConnectionStrategy::
 
     int currentFeed;
 };

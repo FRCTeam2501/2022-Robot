@@ -44,17 +44,8 @@ RobotContainer::RobotContainer()
 		{
 			if (abs(controlStick->GetRawAxis(JOYSTICK::AXIS::Y)) > 0.1)
 			{
-				
-			if (controlStick->GetRawAxis(JOYSTICK::AXIS::Z) <= 0.0)
-			{
-			//	cout << "Fast Drive Mode" << endl;
-				climber->ClimbControl(((controlStick->GetRawAxis(JOYSTICK::AXIS::Y) * 2) + climber->GetAngle()), (climber->GetLength()));
-			}
-			else
-			{
 			//	cout << "Slow Drive Mode" << endl;
 				climber->ClimbControl(((controlStick->GetRawAxis(JOYSTICK::AXIS::Y) / 1) + climber->GetAngle()), (climber->GetLength()));
-			}
 			}
 		},
 		{climber}));
@@ -104,16 +95,26 @@ RobotContainer::RobotContainer()
 	winchUp->WhenPressed(new frc2::InstantCommand(
 		[this]
 		{
-			climber->ClimbControl((climber->GetAngle()), ((climber->GetLength()) + 0.5));
-			cout << "ClimbControl set to current angle, current length + 0.5" << endl;
+			if (controlStick->GetRawAxis(JOYSTICK::AXIS::Z) <= 0.0)
+			{
+				climber->ClimbControl((climber->GetAngle()), ((climber->GetLength()) + 2.5));
+			//cout << "ClimbControl set to current angle, current length + 0.5" << endl;
+			}else{
+				climber->ClimbControl((climber->GetAngle()), ((climber->GetLength()) + 0.5));
+			}
 		},
 		{climber}));
 	winchDown = new frc2::JoystickButton(controlStick, JOYSTICK::BUTTON::THUMB);
 	winchDown->WhenPressed(new frc2::InstantCommand(
 		[this]
 		{
-			climber->ClimbControl((climber->GetAngle()), ((climber->GetLength()) - 0.5));
-			cout << "ClimbControl set to current angle, current length - 0.5" << endl;
+			if (controlStick->GetRawAxis(JOYSTICK::AXIS::Z) <= 0.0)
+			{
+				climber->ClimbControl((climber->GetAngle()), ((climber->GetLength()) - 2.5));
+			//cout << "ClimbControl set to current angle, current length - 0.5" << endl;
+			}else{
+				climber->ClimbControl((climber->GetAngle()), ((climber->GetLength()) - 0.5));
+			}
 		},
 		{climber}));
 
@@ -174,7 +175,7 @@ RobotContainer::RobotContainer()
 	liftMid->WhenPressed(new frc2::InstantCommand(
 		[this]
 		{
-			intake->LiftControl(6);
+			intake->LiftControl(-2);
 		},
 		{intake}));
 }

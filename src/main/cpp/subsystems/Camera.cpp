@@ -19,6 +19,7 @@ Camera::Camera()
 
     streamVideo->SetSource(*climbCamera);
     currentFeed = 2;
+    frc::CameraServer::StartAutomaticCapture();
 }
 
 Camera::~Camera()

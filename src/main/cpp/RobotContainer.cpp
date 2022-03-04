@@ -86,7 +86,7 @@ RobotContainer::RobotContainer()
 	swingAndClampBar->WhenPressed(new frc2::InstantCommand(
 		[this]
 		{
-			climber->ClimbControl(0, 1); // 1 degree, 1 inch
+			climber->ClimbControl(0, 0); // 1 degree, 1 inch
 			cout << "ClimbControl set to 1 deg, 1 in" << endl;
 		},
 		{climber}));

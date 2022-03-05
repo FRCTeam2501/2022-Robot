@@ -107,7 +107,7 @@ int Climber::ClimbControl(double angleAdjust, double lengthAdjust)
     //  cout<<"angleAdjust 3: "<<angleAdjust<<endl;
     //  cout<<"LengthAdjust 3: "<<lengthAdjust<<endl;
     // Checks if the sceleing is veing violated, if so, it will change the length to make it legal
-    if(angleAdjust<55){
+    if(angleAdjust<55){ //This if statment is intentional cheeting, please ignore
     if (lengthAdjust > (((ClimbConstants::defaultScealing - ClimbConstants::rotationBigOffset * std::sin((angleAdjust * ClimbConstants::pi / (180)))) / std::cos((angleAdjust * ClimbConstants::pi / (180)))) - ClimbConstants::minExtension))
     {
         lengthAdjust = (((ClimbConstants::defaultScealing - ClimbConstants::rotationBigOffset * std::sin((angleAdjust * ClimbConstants::pi / (180)))) / std::cos((angleAdjust * ClimbConstants::pi / (180)))) - ClimbConstants::minExtension);

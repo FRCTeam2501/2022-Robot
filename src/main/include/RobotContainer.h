@@ -33,27 +33,29 @@ using namespace frc;
 class RobotContainer
 {
 public:
+//These RobotContainer functions are the constructor and the destructor
+//They will bassicly construct the pointer objects and delete them when we are done with them
   RobotContainer();
   ~RobotContainer();
 
   void Periodic();
-
+//The periodic function is the function that will run ever 20 ms run of the code
   frc2::Command *Autonmous();
-  // frc2::Command* GetAutoCommand();
-
+  //This is the auto command
 private:
-  double angleAdd = 0;
-  double lengthAdd = 0;
 
-  bool driveReverse = false;
-
+//These values are for keeping track of difrent values for the robot container
+  int driveReverse = 1;
   int liftPosition = 2;
-  // The robot's subsystems and commands are defined here...
+
+//This is where we make a pointer object to creat a new class from each subsystem to interact with that subsystem
   DrivetrainDrive *drive;
   Climber *climber;
   Camera *camera;
   Intake *intake;
+  //We make he joystick pointers
   Joystick *driveStick, *controlStick;
+  //We create the bottons on the joysticks
   frc2::JoystickButton *winchUp, *winchDown, *feedSwitch, *armExtend, *swingAndClampBar, 
   *rollerControl, *liftControl, *zeroEncoders, *minEcoders, *disclodgedWrench, *rollerIn, *rollerOut,
   *liftMid, *reverseDrivetrain;

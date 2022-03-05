@@ -22,7 +22,7 @@ namespace ClimbConstants
   constexpr double maxDistFromFrame = 12;
 
   constexpr double maxAngle = 80;
-  constexpr double minAngle = -1;
+  constexpr double minAngle = -4;
   constexpr double maxLength = 27;
   constexpr double minLength = -6;
 

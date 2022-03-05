@@ -260,6 +260,10 @@ void Climber::ClimbWinchSetEncoder(double winchSetEncoder)
 
 void Climber::Periodic()
 {
+    double tgtOverActual = (angle / pivotEncoder.GetPosition());
+
+
+    frc::SmartDashboard::PutNumber("Pivact vs pivtgt: ", tgtOverActual);
     frc::SmartDashboard::PutNumber("Climb Target Length", length);
     frc::SmartDashboard::PutNumber("Climb Fibbed Target Length", Climber::LengthToTurns(length));
     frc::SmartDashboard::PutNumber("Climb Target angle", angle);

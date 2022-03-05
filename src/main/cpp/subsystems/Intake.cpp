@@ -4,7 +4,7 @@ using namespace frc;
 
 Intake::Intake()
 {
-
+//I realise that this is a pointer and should have a destructor but I just realised that coming home from duluth so I wont fix it
     rollerMotor = new rev::CANSparkMax(16, rev::CANSparkMax::MotorType::kBrushed);
 
     //  intakeLift.GetForwardLimitSwitch(rev::SparkMaxLimitSwitch::Type::kNormallyOpen).EnableLimitSwitch(true);

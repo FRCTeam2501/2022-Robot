@@ -9,10 +9,13 @@
 
 Robot::Robot()
 {
+  //we create a new pointer of an object of the RobotContainer class, almost all of this code should already be here
+  //Except for the autnmous stuff
   container = new RobotContainer();
 }
 Robot::~Robot()
 {
+  //we delete the container
   delete container;
 }
 
@@ -48,6 +51,8 @@ void Robot::DisabledPeriodic() {}
  */
 void Robot::AutonomousInit()
 {
+  //This is probably the only stuff you have to do in the robot.cpp
+  //it will make an autnmous command and then schedule that command
   m_autonomousCommand = container->Autonmous();
   m_autonomousCommand->Schedule();
 }

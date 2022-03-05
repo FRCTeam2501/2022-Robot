@@ -24,17 +24,17 @@ RobotContainer::RobotContainer()
 			if (driveStick->GetRawAxis(JOYSTICK::AXIS::Z) <= 0.0)
 			{
 			//	cout << "Fast Drive Mode" << endl;
-				drive->ArcadeDrive(-1.0 * driveStick->GetRawAxis(
+				drive->ArcadeDrive(driveReverse * -1.0 * driveStick->GetRawAxis(
 											  JOYSTICK::AXIS::Y),
-								   0.6 * driveStick->GetRawAxis(JOYSTICK::AXIS::X));
+								  driveReverse * 0.6 * driveStick->GetRawAxis(JOYSTICK::AXIS::X));
 			}
 			else
 			{
 			//	cout << "Slow Drive Mode" << endl;
 
-				drive->ArcadeDrive(-0.6 * driveStick->GetRawAxis(
+				drive->ArcadeDrive(driveReverse * -0.6 * driveStick->GetRawAxis(
 											  JOYSTICK::AXIS::Y),
-								   0.45 * driveStick->GetRawAxis(JOYSTICK::AXIS::X));
+								   driveReverse * 0.45 * driveStick->GetRawAxis(JOYSTICK::AXIS::X));
 			}
 		},
 		{drive}));
@@ -55,6 +55,18 @@ RobotContainer::RobotContainer()
 		[this]
 		{
 			climber->DislodgeWrench();
+		},
+		{climber}));
+
+	reverseDrivetrain = new frc2::JoystickButton(driveStick, JOYSTICK::BUTTON::BUTTON_10);
+	reverseDrivetrain->WhenPressed(new frc2::InstantCommand(
+		[this]
+		{
+			if(driveReverse){
+				driveReverse = false;
+			}else{
+				driveReverse = true;
+			}
 		},
 		{climber}));
 

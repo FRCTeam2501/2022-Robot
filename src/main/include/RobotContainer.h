@@ -45,6 +45,8 @@ private:
   double angleAdd = 0;
   double lengthAdd = 0;
 
+  bool driveReverse = false;
+
   int liftPosition = 2;
   // The robot's subsystems and commands are defined here...
   DrivetrainDrive *drive;
@@ -54,5 +56,5 @@ private:
   Joystick *driveStick, *controlStick;
   frc2::JoystickButton *winchUp, *winchDown, *feedSwitch, *armExtend, *swingAndClampBar, 
   *rollerControl, *liftControl, *zeroEncoders, *minEcoders, *disclodgedWrench, *rollerIn, *rollerOut,
-  *liftMid;
+  *liftMid, *reverseDrivetrain;
 };

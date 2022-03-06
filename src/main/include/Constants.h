@@ -9,11 +9,9 @@ namespace CONSTANTS {
                 LEFT_REAR_ID = 3,
                 RIGHT_REAR_ID = 4,
                 CLIMBER_ROTATION_ID = 5,
-                CLIMBER_EXTEND_ID = 6;
-    }
-    namespace SOLENOIDS {
-        constexpr int
-                CLIMBER_PIN_ID = 0;
+                CLIMBER_EXTEND_ID = 6,
+                INTAKE_ROTATION_ID = 13,
+                INTAKE_MOTOR_ID = 16;
     }
     namespace CONTROLLERS::USB {
         constexpr int

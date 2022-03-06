@@ -53,16 +53,19 @@ void RobotContainer::ConfigureButtonBindings() {
 
 frc2::Command* RobotContainer::GetAutonomousCommand() {
     return new frc2::SequentialCommandGroup(
-        frc2::StartEndCommand{
+        frc2::RunCommand{
             [this] {
                 drivetrain->ArcadeDrive(0.5, 0.0);
-            },
-            [this] {
-                drivetrain->ArcadeDrive(0.0, 0.0);
             },
             { drivetrain }
         }.WithTimeout(
             1_s
-        )
+        ),
+        frc2::InstantCommand{
+            [this] {
+                drivetrain->ArcadeDrive(0.0, 0.0);
+            },
+            { drivetrain }
+        }
     );
 }

@@ -6,14 +6,14 @@
 
 
 class RobotContainer {
-  private:
+private:
     Drivetrain *drivetrain;
     Climber *climber;
     frc::Joystick *driveStick, *controlStick;
 
     void ConfigureButtonBindings();
 
-  public:
+public:
     RobotContainer();
 
     void Init();

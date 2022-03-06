@@ -7,10 +7,10 @@
 
 
 class Robot : public frc::TimedRobot {
-  private:
+private:
     RobotContainer container;
 
-  public:
+public:
     void RobotInit() override;
     void RobotPeriodic() override;
     void DisabledInit() override;

@@ -4,18 +4,8 @@
 #include "units/math.h"
 
 
-Climber::Climber() {
-    extend = new ClimberExtend();
-    rotate = new ClimberRotate();
-}
-
-Climber::~Climber() {
-    delete extend;
-    delete rotate;
-}
-
 units::meter_t Climber::GetExtension() {
-    return extend->Get();
+    return extend.Get();
 }
 
 bool Climber::SetExtension(units::meter_t extension) {
@@ -23,7 +13,7 @@ bool Climber::SetExtension(units::meter_t extension) {
 }
 
 units::degree_t Climber::GetAngle() {
-    return rotate->Get();
+    return rotate.Get();
 }
 
 bool Climber::SetAngle(units::degree_t angle) {
@@ -165,26 +155,26 @@ bool Climber::Set(units::meter_t extension, units::degree_t angle) {
         result = true;
     }
 
-    extend->Set(extension);
-    rotate->Set(angle);
+    extend.Set(extension);
+    rotate.Set(angle);
     return result;
 }
 
 void Climber::Periodic() {
     frc::SmartDashboard::PutNumber("Climber extension setpoint",
-            extend->Get().to<double>());
+            extend.Get().to<double>());
     frc::SmartDashboard::PutNumber("Climber angle setpoint",
-            rotate->Get().to<double>());
+            rotate.Get().to<double>());
 
     frc::SmartDashboard::PutNumber("Climber extension",
-            extend->GetActual().to<double>());
+            extend.GetActual().to<double>());
     frc::SmartDashboard::PutNumber("Climber angle",
-            rotate->GetActual().to<double>());
+            rotate.GetActual().to<double>());
 
     if(hasNextStep) {
-        if(rotate->GetActual() - rotate->Get()
+        if(rotate.GetActual() - rotate.Get()
                 < CONSTANTS::CLIMBER::STEP_TOLERANCE) {
-            extend->Set(nextStepExtension);
+            extend.Set(nextStepExtension);
             hasNextStep = false;
         }
     }

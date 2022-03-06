@@ -2,8 +2,10 @@
 
 
 Intake::Intake() {
-    motor.SetSmartCurrentLimit(CONSTANTS::INTAKE::MOTOR::HARD_CURRENT_LIMIT.to<double>());
-    motor.SetSecondaryCurrentLimit(CONSTANTS::INTAKE::MOTOR::SOFT_CURRENT_LIMIT.to<double>());
+    motor.SetSmartCurrentLimit(
+            CONSTANTS::INTAKE::MOTOR::HARD_CURRENT_LIMIT.to<double>());
+    motor.SetSecondaryCurrentLimit(
+            CONSTANTS::INTAKE::MOTOR::SOFT_CURRENT_LIMIT.to<double>());
     motor.SetIdleMode(rev::CANSparkMax::IdleMode::kBrake);
     motor.SetInverted(true);
 }

@@ -11,7 +11,8 @@ namespace CONSTANTS::INTAKE::MOTOR {
 
 class Intake : public frc2::SubsystemBase {
 private:
-    rev::CANSparkMax motor{CONSTANTS::MOTORS::CAN::INTAKE_MOTOR_ID, rev::CANSparkMax::MotorType::kBrushed};
+    rev::CANSparkMax motor{CONSTANTS::MOTORS::CAN::INTAKE_MOTOR_ID,
+            rev::CANSparkMax::MotorType::kBrushed};
     IntakeRotate rotation;
 
 public:

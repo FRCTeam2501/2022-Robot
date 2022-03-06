@@ -8,6 +8,7 @@
 #include "units/current.h"
 #include "units/dimensionless.h"
 #include "units/length.h"
+#include "Constants.h"
 
 
 namespace CONSTANTS::DRIVETRAIN {
@@ -28,21 +29,33 @@ namespace CONSTANTS::DRIVETRAIN {
 
 
 class Drivetrain : public frc2::SubsystemBase {
-  private:
+private:
     // Individual speed controllers
-    rev::CANSparkMax *leftFront, *rightFront, *leftRear, *rightRear;
+    rev::CANSparkMax
+        leftFront{CONSTANTS::MOTORS::CAN::LEFT_FRONT_ID,
+                rev::CANSparkMax::MotorType::kBrushless},
+        rightFront{CONSTANTS::MOTORS::CAN::RIGHT_FRONT_ID,
+                rev::CANSparkMax::MotorType::kBrushless},
+        leftRear{CONSTANTS::MOTORS::CAN::LEFT_REAR_ID,
+                rev::CANSparkMax::MotorType::kBrushless},
+        rightRear{CONSTANTS::MOTORS::CAN::RIGHT_REAR_ID,
+                rev::CANSparkMax::MotorType::kBrushless};
+    rev::SparkMaxRelativeEncoder
+            leftFrontEncoder = leftFront.GetEncoder(),
+            rightFrontEncoder = rightFront.GetEncoder(),
+            leftRearEncoder = leftRear.GetEncoder(),
+            rightRearEncoder = rightRear.GetEncoder();
     // Groups of speed controllers
-    frc::MotorControllerGroup *left, *right;
+    frc::MotorControllerGroup
+            left{leftFront, leftRear},
+            right{rightFront, rightRear};
     // Differential drivetrain object
-    frc::DifferentialDrive *drive;
+    frc::DifferentialDrive drive{left, right};
 
     // State variable to indicate if the drivetrain is inverted
-    bool *isInverted;
+    bool isInverted = false;
 
-  public:
-    Drivetrain();
-    ~Drivetrain();
-
+public:
     void ArcadeDrive(double xSpeed, double zRotation);
 
     bool IsInverted();

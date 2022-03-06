@@ -32,7 +32,7 @@ void ClimberExtend::Set(units::meter_t distance) {
 
     // Update the PID controller
     pid.SetReference(GetTurns(distance).to<double>(),
-                rev::CANSparkMaxLowLevel::ControlType::kPosition);
+            rev::CANSparkMaxLowLevel::ControlType::kPosition);
 }
 
 units::meter_t ClimberExtend::GetActual() {

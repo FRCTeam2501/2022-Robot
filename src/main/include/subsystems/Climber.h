@@ -66,15 +66,12 @@ namespace CONSTANTS::CLIMBER {
 
 class Climber : public frc2::SubsystemBase {
 private:
-    ClimberExtend *extend;
-    ClimberRotate *rotate;
+    ClimberExtend extend;
+    ClimberRotate rotate;
     bool hasNextStep = false;
     units::meter_t nextStepExtension = 0_m;
 
 public:
-    Climber();
-    ~Climber();
-
     void Periodic() override;
 
     units::meter_t GetExtension();

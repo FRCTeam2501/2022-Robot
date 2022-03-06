@@ -5,12 +5,15 @@
 #include "subsystems/climber/Climber.h"
 #include "subsystems/intake/Intake.h"
 #include "subsystems/Drivetrain.h"
+#include "subsystems/Vision.h"
 
 
 class RobotContainer {
 private:
     Drivetrain drivetrain;
     Climber climber;
+    Intake intake;
+    Vision vision;
     frc::Joystick driveStick{CONSTANTS::CONTROLLERS::USB::DRIVE_STICK},
             controlStick{CONSTANTS::CONTROLLERS::USB::CONTROL_STICK};
 

@@ -18,8 +18,12 @@ namespace CONSTANTS {
                 DRIVE_STICK = 0,
                 CONTROL_STICK = 1;
     }
-    namespace CONTROLLERS::BUTTONS::DRIVE_STICK {
+    namespace CONTROLLERS::BUTTONS::DRIVE {
         constexpr int
                 REVERSE_DRIVETRAIN = 1;
+    }
+    namespace CONTROLLERS::BUTTONS::CONTROL {
+        constexpr int
+                CLIMBER_DISLODGE_WRENCH = 8;
     }
 }

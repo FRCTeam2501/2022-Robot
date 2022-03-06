@@ -6,9 +6,10 @@
 #include "RobotContainer.h"
 
 
-class Robot : public frc::TimedRobot {
+class TylerBot : public frc::TimedRobot {
 private:
     RobotContainer container;
+    frc2::Command *autoCommand = nullptr;
 
 public:
     void RobotInit() override;

@@ -7,11 +7,11 @@
 namespace CONSTANTS::CLIMBER {
     // Hard limits
     constexpr units::meter_t
-            EXTENSION_MAXIMUM = 3_ft + 1_in,
-            EXTENSION_MINIMUM = 0_in;
+            EXTENSION_MAXIMUM = 2_ft + 4_in,
+            EXTENSION_MINIMUM = -1 * 0.5_in;
     constexpr units::degree_t
-            ANGLE_MAXIMUM = 90_deg,
-            ANGLE_MINIMUM = 0_deg;
+            ANGLE_MAXIMUM = 80_deg,
+            ANGLE_MINIMUM = -1 * 4.0_deg;
 
     /*
      * Battery box constraint
@@ -20,10 +20,10 @@ namespace CONSTANTS::CLIMBER {
      * of travel when between ANGLE_MINIMUM and ANGLE_MAXIMUM.
      */
     constexpr units::meter_t
-            BATTERY_BOX_EXTENSION_MINIMUM = 16_in;
+            BATTERY_BOX_EXTENSION_MINIMUM = 8.5_in;
     constexpr units::degree_t
-            BATTERY_BOX_ANGLE_MAXIMUM = 15_deg,
-            BATTERY_BOX_ANGLE_MINIMUM = 2_deg;
+            BATTERY_BOX_ANGLE_MAXIMUM = 32_deg,
+            BATTERY_BOX_ANGLE_MINIMUM = 3_deg;
 
     /*
      * Wall constraint
@@ -36,13 +36,13 @@ namespace CONSTANTS::CLIMBER {
             // Max extension past the frame (G107 & R105)
             FRAME_EXTENSION_MAXIMUM = 16_in,
             // Safety margin from the limits
-            SAFETY_MARGIN = 6_in,
+            SAFETY_MARGIN = 4_in,
             // Offset of arm from rotation point
             ARM_OFFSET = 2.5_in,
             // Width of the arn
             ARM_WIDTH = 1_in,
             // Length from the rotation point to the bottom end of the arm
-            ARM_BACKWARD_LENGTH = 35_in;
+            ARM_BACKWARD_LENGTH = 40_in;
 
     /*
      * Ceiling constraint

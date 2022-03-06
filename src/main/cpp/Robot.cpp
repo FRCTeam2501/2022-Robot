@@ -3,44 +3,50 @@
 #include <frc2/command/CommandScheduler.h>
 
 
-void Robot::RobotInit() {
+void TylerBot::RobotInit() {
 
 }
 
-void Robot::RobotPeriodic() {
+void TylerBot::RobotPeriodic() {
   	frc2::CommandScheduler::GetInstance().Run();
 }
 
-void Robot::DisabledInit() {
+void TylerBot::DisabledInit() {
 
 }
 
-void Robot::DisabledPeriodic() {
+void TylerBot::DisabledPeriodic() {
 
 }
 
-void Robot::AutonomousInit() {
+void TylerBot::AutonomousInit() {
+	autoCommand = container.GetAutonomousCommand();
+	if (autoCommand != nullptr) {
+		autoCommand->Schedule();
+	}
+}
+
+void TylerBot::AutonomousPeriodic() {
 
 }
 
-void Robot::AutonomousPeriodic() {
+void TylerBot::TeleopInit() {
+	if (autoCommand != nullptr) {
+		autoCommand->Cancel();
+		autoCommand = nullptr;
+	}
+}
+
+void TylerBot::TeleopPeriodic() {
 
 }
 
-void Robot::TeleopInit() {
-
-}
-
-void Robot::TeleopPeriodic() {
-
-}
-
-void Robot::TestPeriodic() {
+void TylerBot::TestPeriodic() {
 
 }
 
 #ifndef RUNNING_FRC_TESTS
 int main() {
-	return frc::StartRobot<Robot>();
+	return frc::StartRobot<TylerBot>();
 }
 #endif

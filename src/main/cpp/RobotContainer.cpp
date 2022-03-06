@@ -7,28 +7,17 @@
 #include "frc2/command/ParallelCommandGroup.h"
 #include "frc2/command/ParallelRaceGroup.h"
 #include "frc2/command/StartEndCommand.h"
-#include "Constants.h"
 
 
 RobotContainer::RobotContainer() {
-    driveStick = new frc::Joystick(
-            CONSTANTS::CONTROLLERS::USB::DRIVE_STICK);
-    controlStick = new frc::Joystick(
-            CONSTANTS::CONTROLLERS::USB::CONTROL_STICK);
-
-	drivetrain = new Drivetrain();
-    climber = new Climber();
-
-    ConfigureButtonBindings();
-
-    drivetrain->SetDefaultCommand(frc2::RunCommand(
+    drivetrain.SetDefaultCommand(frc2::RunCommand(
         [this] {
-            drivetrain->ArcadeDrive(
-                driveStick->GetY(),
-                driveStick->GetX()
+            drivetrain.ArcadeDrive(
+                driveStick.GetY(),
+                driveStick.GetX()
             );
         },
-        { drivetrain }
+        { &drivetrain }
     ));
 }
 
@@ -36,14 +25,14 @@ void RobotContainer::ConfigureButtonBindings() {
     frc2::JoystickButton *temp;
 
     temp = new frc2::JoystickButton(
-        driveStick,
+        &driveStick,
         CONSTANTS::CONTROLLERS::BUTTONS::DRIVE_STICK::REVERSE_DRIVETRAIN
     );
     temp->WhenPressed(
         [this] {
-            drivetrain->SetInverted(!drivetrain->IsInverted());
+            drivetrain.SetInverted(!drivetrain.IsInverted());
         },
-		{ drivetrain }
+		{ &drivetrain }
     );
 }
 
@@ -51,17 +40,17 @@ frc2::Command* RobotContainer::GetAutonomousCommand() {
     return new frc2::SequentialCommandGroup(
         frc2::RunCommand{
             [this] {
-                drivetrain->ArcadeDrive(0.5, 0.0);
+                drivetrain.ArcadeDrive(0.5, 0.0);
             },
-            { drivetrain }
+            { &drivetrain }
         }.WithTimeout(
             1_s
         ),
         frc2::InstantCommand{
             [this] {
-                drivetrain->ArcadeDrive(0.0, 0.0);
+                drivetrain.ArcadeDrive(0.0, 0.0);
             },
-            { drivetrain }
+            { &drivetrain }
         }
     );
 }

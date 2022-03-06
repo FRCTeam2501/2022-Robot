@@ -12,9 +12,9 @@
 
 RobotContainer::RobotContainer() {
     driveStick = new frc::Joystick(
-        CONSTANTS::CONTROLLERS::USB::DRIVE_STICK);
+            CONSTANTS::CONTROLLERS::USB::DRIVE_STICK);
     controlStick = new frc::Joystick(
-        CONSTANTS::CONTROLLERS::USB::CONTROL_STICK);
+            CONSTANTS::CONTROLLERS::USB::CONTROL_STICK);
 
 	drivetrain = new Drivetrain();
     climber = new Climber();
@@ -30,10 +30,6 @@ RobotContainer::RobotContainer() {
         },
         { drivetrain }
     ));
-}
-
-void RobotContainer::Init() {
-    climber->ExtendPin();
 }
 
 void RobotContainer::ConfigureButtonBindings() {

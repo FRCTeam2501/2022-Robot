@@ -16,7 +16,5 @@ private:
 public:
     RobotContainer();
 
-    void Init();
-
     frc2::Command* GetAutonomousCommand();
 };

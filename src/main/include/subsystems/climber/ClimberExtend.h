@@ -9,12 +9,12 @@
 
 namespace CONSTANTS::CLIMBER::EXTEND {
     constexpr units::current::ampere_t
-            HARD_CURRENT_LIMIT = 100_A,
-            SOFT_CURRENT_LIMIT = 60_A;
+            HARD_CURRENT_LIMIT = 60_A,
+            SOFT_CURRENT_LIMIT = 70_A;
     constexpr units::scalar_t
             GEARBOX_RATIO = 1 / 100.0; // 100:1 planetary gearbox
     constexpr units::meter_t
-            PULLEY_DIAMETER = 1.4275_in,
+            PULLEY_DIAMETER = 1.7887_in,
             PULLEY_CIRCUMFERENCE = PULLEY_DIAMETER * units::constants::pi;
     namespace PID {
         constexpr double 
@@ -29,10 +29,10 @@ namespace CONSTANTS::CLIMBER::EXTEND {
 }
 
 class ClimberExtend {
-  private:
+private:
     // Individual speed controller
     rev::CANSparkMax winch{CONSTANTS::MOTORS::CAN::CLIMBER_EXTEND_ID,
-                rev::CANSparkMax::MotorType::kBrushless};
+            rev::CANSparkMax::MotorType::kBrushless};
     // Speed controller objects
     rev::SparkMaxPIDController pid = winch.GetPIDController();
     rev::SparkMaxRelativeEncoder encoder = winch.GetEncoder();
@@ -42,7 +42,7 @@ class ClimberExtend {
     units::turn_t GetTurns(units::meter_t distance);
     units::meter_t GetDistance(units::turn_t turns);
 
-  public:
+public:
     ClimberExtend();
 
     units::meter_t Get();

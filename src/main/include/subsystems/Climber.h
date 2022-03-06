@@ -2,7 +2,6 @@
 #include "frc2/command/SubsystemBase.h"
 #include "subsystems/climber/ClimberExtend.h"
 #include "subsystems/climber/ClimberRotate.h"
-#include "subsystems/climber/ClimberPin.h"
 
 
 namespace CONSTANTS::CLIMBER {
@@ -66,14 +65,13 @@ namespace CONSTANTS::CLIMBER {
 }
 
 class Climber : public frc2::SubsystemBase {
-  private:
+private:
     ClimberExtend *extend;
     ClimberRotate *rotate;
-    ClimberPin *pin;
     bool hasNextStep = false;
     units::meter_t nextStepExtension = 0_m;
 
-  public:
+public:
     Climber();
     ~Climber();
 
@@ -86,7 +84,4 @@ class Climber : public frc2::SubsystemBase {
     bool SetAngle(units::degree_t angle);
 
     bool Set(units::meter_t extension, units::degree_t angle);
-
-    void ExtendPin();
-    void RetractPin();
 };

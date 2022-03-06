@@ -7,13 +7,11 @@
 Climber::Climber() {
     extend = new ClimberExtend();
     rotate = new ClimberRotate();
-    pin = new ClimberPin();
 }
 
 Climber::~Climber() {
     delete extend;
     delete rotate;
-    delete pin;
 }
 
 units::meter_t Climber::GetExtension() {
@@ -33,11 +31,6 @@ bool Climber::SetAngle(units::degree_t angle) {
 }
 
 bool Climber::Set(units::meter_t extension, units::degree_t angle) {
-    if(!pin->Get()) {
-        std::cout << "Climber: halted (pin)\n";
-        return true;
-    }
-
     bool result = false;
 
     // Hard extension limits
@@ -175,14 +168,6 @@ bool Climber::Set(units::meter_t extension, units::degree_t angle) {
     extend->Set(extension);
     rotate->Set(angle);
     return result;
-}
-
-void Climber::ExtendPin() {
-    pin->Close();
-}
-
-void Climber::RetractPin() {
-    pin->Open();
 }
 
 void Climber::Periodic() {

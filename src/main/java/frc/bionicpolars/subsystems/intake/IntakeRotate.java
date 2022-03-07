@@ -26,7 +26,7 @@ public class IntakeRotate {
         pid.setP(P);
         pid.setI(I);
         pid.setD(D);
-        pid.setOutputRange(-1.0, 1.0);
+        pid.setOutputRange(-0.1, 1.0);
     }
 
     public double Get() {

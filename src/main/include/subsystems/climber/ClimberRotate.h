@@ -45,4 +45,6 @@ public:
     void Set(units::degree_t angle);
 
     units::degree_t GetActual();
+
+    void Zero();
 };

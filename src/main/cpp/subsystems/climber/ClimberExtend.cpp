@@ -50,3 +50,7 @@ units::meter_t ClimberExtend::GetDistance(units::turn_t turns) {
     //  not the changing circumference of the pulley system
     return turns * CONSTANTS::CLIMBER::EXTEND::PULLEY_CIRCUMFERENCE / 1_tr;
 }
+
+void ClimberExtend::Zero() {
+    encoder.SetPosition(0);
+}

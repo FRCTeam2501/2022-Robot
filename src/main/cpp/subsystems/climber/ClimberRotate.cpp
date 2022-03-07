@@ -37,3 +37,7 @@ void ClimberRotate::Set(units::degree_t angle) {
 units::degree_t ClimberRotate::GetActual() {
     return (units::degree_t) encoder.GetPosition();
 }
+
+void ClimberRotate::Zero() {
+    encoder.SetPosition(0.0);
+}

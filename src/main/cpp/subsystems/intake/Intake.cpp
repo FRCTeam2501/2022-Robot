@@ -25,3 +25,7 @@ double Intake::GetMotor() {
 void Intake::SetMotor(double power) {
     motor.Set(power);
 }
+
+void Intake::ZeroEncoder() {
+    rotation.Zero();
+}

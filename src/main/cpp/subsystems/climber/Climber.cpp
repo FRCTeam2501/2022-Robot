@@ -179,3 +179,8 @@ void Climber::Periodic() {
         }
     }
 }
+
+void Climber::ZeroEncoders() {
+    extend.Zero();
+    rotate.Zero();
+}

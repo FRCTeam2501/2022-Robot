@@ -35,8 +35,6 @@ RobotContainer::RobotContainer() {
 }
 
 void RobotContainer::ConfigureButtonBindings() {
-    frc2::JoystickButton *temp;
-
     frc2::JoystickButton(&driveStick,
             CONSTANTS::CONTROLLERS::BUTTONS::DRIVE::REVERSE_DRIVETRAIN
     ).WhenPressed([this] {
@@ -48,24 +46,42 @@ void RobotContainer::ConfigureButtonBindings() {
     ).WhenPressed(frc2::SequentialCommandGroup{
         frc2::RunCommand([this] {
             climber.Set(-0.5_in, 0_deg);
-        }, { &climber }).WithTimeout(
+        }, { &climber } ).WithTimeout(
             0.5_s
         ),
         frc2::InstantCommand([this] {
             climber.Set(0_in, 0_deg);
-        }, { &climber })
+        }, { &climber } )
     });
 }
 
 frc2::Command* RobotContainer::GetAutonomousCommand() {
     return new frc2::SequentialCommandGroup(
-        frc2::RunCommand{[this] {
-            drivetrain.ArcadeDrive(0.5, 0.0);
-        }, { &drivetrain } }.WithTimeout(
-            1_s
+        // Zero encoders
+        frc2::InstantCommand{[this] {
+            intake.ZeroEncoder();
+            climber.ZeroEncoders();
+        }, { &intake, &climber } },
+        // Run the intake for 2 seconds
+        frc2::RunCommand([this] {
+            intake.SetMotor(-0.8);
+        }, { &intake } ).WithTimeout(
+            2_s
         ),
+        // Stop the intake
+        frc2::InstantCommand([this] {
+            intake.SetMotor(0.0);
+        }, { &intake } ),
+        // Drive backwards for 1.2 seconds
+        frc2::RunCommand{[this] {
+            drivetrain.ArcadeDrive(-0.6, 0.0);
+        }, { &drivetrain } }.WithTimeout(
+            1.2_s
+        ),
+        // Stop the drivetrain
         frc2::InstantCommand{[this] {
             drivetrain.ArcadeDrive(0.0, 0.0);
         }, { &drivetrain } }
+        // Do nothing for the remaining 8.8 seconds
     );
 }

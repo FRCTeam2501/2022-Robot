@@ -81,4 +81,6 @@ public:
     bool SetAngle(units::degree_t angle);
 
     bool Set(units::meter_t extension, units::degree_t angle);
+
+    void ZeroEncoders();
 };

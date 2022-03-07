@@ -49,5 +49,6 @@ public:
     void Set(units::meter_t distance);
 
     units::meter_t GetActual();
-};
 
+    void Zero();
+};

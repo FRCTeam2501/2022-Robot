@@ -169,7 +169,5 @@ gradle/
 gradlew
 gradlew.bat
 settings.gradle
-vendordeps/WPILibNewCommands.json
 .idea
-vendordeps/REVLib.json
 .run

@@ -20,10 +20,20 @@ namespace CONSTANTS {
     }
     namespace CONTROLLERS::BUTTONS::DRIVE {
         constexpr int
-                REVERSE_DRIVETRAIN = 1;
+                RUN_INTAKE = 1,
+                REVERSE_INTAKE = 2,
+                TOGGLE_INTAKE = 3,
+                INTAKE_MIDDLE = 4,
+                ZERO_INTAKE_ENCODER = 8,
+                REVERSE_DRIVETRAIN = 10,
+                VISION_SWITCH_FEED = 12;
     }
     namespace CONTROLLERS::BUTTONS::CONTROL {
         constexpr int
+                CLIMBER_EXTEND = 1,
+                CLIMBER_RETRACT = 2,
+                CLIMBER_IN = 5,
+                CLIMBER_OUT = 6,
                 CLIMBER_DISLODGE_WRENCH = 8;
     }
 }

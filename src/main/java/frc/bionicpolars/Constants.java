@@ -20,7 +20,8 @@ public final class Constants {
             REVERSE_INTAKE = 2,
             TOGGLE_INTAKE = 3,
             INTAKE_MIDDLE = 4,
-            ZERO_INTAKE_ENCODER = 8,
+            ZERO_INTAKE_ENCODER_MIN = 7,
+            ZERO_INTAKE_ENCODER_MAX = 8,
             REVERSE_DRIVETRAIN = 10,
             VISION_SWITCH_FEED = 12;
     // Controller Joystick buttons

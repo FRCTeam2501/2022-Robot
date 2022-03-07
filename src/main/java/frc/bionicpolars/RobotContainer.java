@@ -84,11 +84,19 @@ public class RobotContainer {
             intake
         );
 
-        // Zero the intake encoder
+        // Zero the intake encoder at min
         new JoystickButton(driveStick,
-                Constants.ZERO_INTAKE_ENCODER
+                Constants.ZERO_INTAKE_ENCODER_MIN
         ).whenPressed(
-            () -> intake.zeroEncoder(),
+            () -> intake.zeroEncoder(-90.0),
+            intake
+        );
+
+        // Zero the intake encoder at max
+        new JoystickButton(driveStick,
+                Constants.ZERO_INTAKE_ENCODER_MAX
+        ).whenPressed(
+            () -> intake.zeroEncoder(0.0),
             intake
         );
 

@@ -26,7 +26,7 @@ public class Intake extends SubsystemBase {
         motor.set(speed);
     }
 
-    public void zeroEncoder() {
-        rotation.Zero();
+    public void zeroEncoder(double angle) {
+        rotation.Zero(angle);
     }
 }

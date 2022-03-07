@@ -42,7 +42,7 @@ public class IntakeRotate {
         return encoder.getPosition();
     }
 
-    public void Zero() {
-        encoder.setPosition(0);
+    public void Zero(double angle) {
+        encoder.setPosition(angle);
     }
 }

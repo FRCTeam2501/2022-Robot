@@ -23,7 +23,7 @@ namespace CONSTANTS::INTAKE::ROTATION {
                 FF = 0.0,
                 I_ZONE = 0.0,
                 MAX = 1.0,
-                MIN = -1.0;
+                MIN = -0.1;
     }
 }
 

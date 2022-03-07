@@ -4,9 +4,11 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.bionicpolars.subsystems.Drivetrain;
+import frc.bionicpolars.subsystems.Vision;
 
 public class RobotContainer {
     private final Drivetrain drivetrain = new Drivetrain();
+    private final Vision vision = new Vision();
     private final Joystick driveStick = new Joystick(Constants.DRIVE_STICK_ID);
 
     public RobotContainer() {
@@ -36,6 +38,14 @@ public class RobotContainer {
         ).whenPressed(
             () -> drivetrain.setInverted(!drivetrain.isInverted()),
             drivetrain
+        );
+
+        // Switch camera feed
+        new JoystickButton(driveStick,
+                Constants.VISION_SWITCH_FEED
+        ).whenPressed(
+            () -> vision.switchFeed(),
+            vision
         );
     }
 }

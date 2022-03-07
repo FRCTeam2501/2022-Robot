@@ -1,14 +1,14 @@
-package frc.robot;
+package frc.bionicpolars;
 
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 
-public class Robot extends TimedRobot {
-    private RobotContainer robotContainer;
+public class TylerBot extends TimedRobot {
+    private RobotContainer robotContainer = new RobotContainer();
 
     @Override
     public void robotInit() {
-        robotContainer = new RobotContainer();
+
     }
 
     @Override

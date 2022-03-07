@@ -1,4 +1,4 @@
-package frc.robot;
+package frc.bionicpolars;
 
 public final class Constants {
     // CAN IDs

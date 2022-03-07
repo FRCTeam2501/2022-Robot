@@ -24,5 +24,5 @@ public:
     double GetMotor();
     void SetMotor(double voltage);
 
-    void ZeroEncoder();
+    void ZeroEncoder(units::degree_t angle);
 };

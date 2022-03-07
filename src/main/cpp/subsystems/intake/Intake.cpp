@@ -26,6 +26,6 @@ void Intake::SetMotor(double power) {
     motor.Set(power);
 }
 
-void Intake::ZeroEncoder() {
-    rotation.Zero();
+void Intake::ZeroEncoder(units::degree_t angle) {
+    rotation.Zero(angle);
 }

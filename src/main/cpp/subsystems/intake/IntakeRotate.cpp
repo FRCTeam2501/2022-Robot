@@ -38,6 +38,6 @@ units::degree_t IntakeRotate::GetActual() {
     return (units::degree_t) encoder.GetPosition();
 }
 
-void IntakeRotate::Zero() {
-    encoder.SetPosition(0.0);
+void IntakeRotate::Zero(units::degree_t angle) {
+    encoder.SetPosition(angle.to<double>());
 }

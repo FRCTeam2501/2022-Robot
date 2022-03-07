@@ -87,11 +87,18 @@ void RobotContainer::ConfigureButtonBindings() {
         intake.SetAngle(-30.0_deg);
     }, { &intake } );
 
-    // Zero the intake encoder
+    // Zero the intake encoder at min
     frc2::JoystickButton(&driveStick,
-            CONSTANTS::CONTROLLERS::BUTTONS::DRIVE::ZERO_INTAKE_ENCODER
+            CONSTANTS::CONTROLLERS::BUTTONS::DRIVE::ZERO_INTAKE_ENCODER_MIN
     ).WhenPressed([this] {
-        intake.ZeroEncoder();
+        intake.ZeroEncoder(-1 * 90.0_deg);
+    }, { &intake } );
+
+    // Zero the intake encoder at max
+    frc2::JoystickButton(&driveStick,
+            CONSTANTS::CONTROLLERS::BUTTONS::DRIVE::ZERO_INTAKE_ENCODER_MAX
+    ).WhenPressed([this] {
+        intake.ZeroEncoder(0.0_deg);
     }, { &intake } );
 
 
@@ -188,7 +195,7 @@ frc2::Command* RobotContainer::GetAutonomousCommand() {
     return new frc2::SequentialCommandGroup(
         // Zero encoders
         frc2::InstantCommand{[this] {
-            intake.ZeroEncoder();
+            intake.ZeroEncoder(0.0_deg);
             climber.ZeroEncoders();
         }, { &intake, &climber } },
         // Run the intake for 2 seconds

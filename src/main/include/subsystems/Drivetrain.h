@@ -40,11 +40,6 @@ private:
                 rev::CANSparkMax::MotorType::kBrushless},
         rightRear{CONSTANTS::MOTORS::CAN::RIGHT_REAR_ID,
                 rev::CANSparkMax::MotorType::kBrushless};
-    rev::SparkMaxRelativeEncoder
-            leftFrontEncoder = leftFront.GetEncoder(),
-            rightFrontEncoder = rightFront.GetEncoder(),
-            leftRearEncoder = leftRear.GetEncoder(),
-            rightRearEncoder = rightRear.GetEncoder();
     // Groups of speed controllers
     frc::MotorControllerGroup
             left{leftFront, leftRear},

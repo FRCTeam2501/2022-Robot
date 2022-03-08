@@ -3,6 +3,7 @@ package frc.bionicpolars;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.StartEndCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.bionicpolars.subsystems.Drivetrain;
@@ -120,7 +121,7 @@ public class RobotContainer {
 
         // Run the climber upwards
         new JoystickButton(driveStick,
-                Constants.CLIMBER_OUT
+                Constants.CLIMBER_EXTEND
         ).whileHeld(new RunCommand(
             () -> {
                 if(controlStick.getThrottle() >= 0.0)
@@ -135,6 +136,65 @@ public class RobotContainer {
                 );
             },
             climber
+        ));
+
+        // Run the climber downwards
+        new JoystickButton(driveStick,
+                Constants.CLIMBER_RETRACT
+        ).whileHeld(new RunCommand(
+            () -> {
+                if(controlStick.getThrottle() >= 0.0)
+                    climber.set(
+                        climber.getExtension() - 2.5,
+                        climber.getAngle()
+                    );
+                else
+                    climber.set(
+                        climber.getExtension() - 0.5,
+                        climber.getAngle()
+                );
+            },
+            climber
+        ));
+
+        // Bring the climber in over the course of five seconds
+        new JoystickButton(controlStick,
+                Constants.CLIMBER_IN
+        ).whenPressed(new SequentialCommandGroup(
+            new RunCommand(
+                () -> climber.set(20.0, 70.0),
+                climber
+            ).withTimeout(2.0),
+            new RunCommand(
+                () -> climber.set(9.0, 0.0),
+                climber
+            ).withTimeout(2.0),
+            new RunCommand(
+                () -> climber.set(0.0, 0.0),
+                climber
+            ).withTimeout(1.0)
+        ));
+
+        // Set the climber to the out position
+        new JoystickButton(controlStick,
+                Constants.CLIMBER_OUT
+        ).whenPressed(
+            () -> climber.set(27.0, 80.0),
+            climber
+        );
+
+        // Run the climber down and back up to dislodge the wrench
+        new JoystickButton(controlStick,
+                Constants.CLIMBER_DISLODGE_WRENCH
+        ).whenPressed(new SequentialCommandGroup(
+            new RunCommand(
+                () -> climber.set(-0.5, 0.0),
+                climber
+            ).withTimeout(0.5),
+            new RunCommand(
+                () -> climber.set(0.0, 0.0),
+                climber
+            ).withTimeout(0.5)
         ));
 
 

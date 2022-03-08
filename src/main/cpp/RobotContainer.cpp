@@ -157,7 +157,7 @@ void RobotContainer::ConfigureButtonBindings() {
         frc2::RunCommand{[this] {
             climber.Set(0_in, 0_deg); // Retract fully once vertical
         }, { &climber } }.WithTimeout(
-            2_s
+            1_s
         )
     });
 

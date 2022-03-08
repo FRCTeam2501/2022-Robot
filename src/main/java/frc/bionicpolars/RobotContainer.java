@@ -7,13 +7,17 @@ import edu.wpi.first.wpilibj2.command.StartEndCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.bionicpolars.subsystems.Drivetrain;
 import frc.bionicpolars.subsystems.Vision;
+import frc.bionicpolars.subsystems.climber.Climber;
 import frc.bionicpolars.subsystems.intake.Intake;
 
 public class RobotContainer {
+    private final Climber climber = new Climber();
     private final Drivetrain drivetrain = new Drivetrain();
     private final Intake intake = new Intake();
     private final Vision vision = new Vision();
-    private final Joystick driveStick = new Joystick(Constants.DRIVE_STICK_ID);
+    private final Joystick driveStick = new Joystick(Constants.DRIVE_STICK_ID),
+            controlStick = new Joystick(Constants.CONTROL_STICK_ID);
+
 
     public RobotContainer() {
         drivetrain.setDefaultCommand(new RunCommand(
@@ -30,6 +34,19 @@ public class RobotContainer {
                     );
             },
             drivetrain
+        ));
+
+        climber.setDefaultCommand(new RunCommand(
+            () -> {
+                if(Math.abs(controlStick.getY()) > 0.1) {
+                    climber.set(
+                        climber.getExtension(),
+                        (1.0 * controlStick.getY())
+                            + climber.getAngle()
+                    );
+                }
+            },
+            climber
         ));
 
         configureButtonBindings();
@@ -99,6 +116,26 @@ public class RobotContainer {
             () -> intake.zeroEncoder(0.0),
             intake
         );
+
+
+        // Run the climber upwards
+        new JoystickButton(driveStick,
+                Constants.CLIMBER_OUT
+        ).whileHeld(new RunCommand(
+            () -> {
+                if(controlStick.getThrottle() >= 0.0)
+                    climber.set(
+                        climber.getExtension() + 2.5,
+                        climber.getAngle()
+                    );
+                else
+                    climber.set(
+                        climber.getExtension() + 0.5,
+                        climber.getAngle()
+                );
+            },
+            climber
+        ));
 
 
         // Switch camera feed

@@ -13,6 +13,7 @@
 
 namespace ClimbConstants
 {
+//Here are all the constants for the climber subsystem
 
   constexpr double rotationBigOffset = 7.0;
   // rotationBigOffset is the horisontal distance bretween the top left of the hook and the actual rotation point
@@ -59,6 +60,7 @@ namespace ClimbConstants
 
 class Climber : public frc2::SubsystemBase
 {
+  //it is public in the class so that the whole code can see these and use them
 public:
   Climber();
   
@@ -85,9 +87,6 @@ public:
   double LengthToTurns(double inchesToTurns);
 
   void Periodic();
-
-  // It's desirable that everything possible under private except
-  // for methods that implement subsystem capabilities
 
 
 

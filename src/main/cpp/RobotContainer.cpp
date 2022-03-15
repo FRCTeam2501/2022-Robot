@@ -1,6 +1,17 @@
-// Copyright (c) FIRST and other WPILib contributors.
-// Open Source Software; you can modify and/or share it under the terms of
-// the WPILib BSD license file in the root directory of this project.
+
+
+/****************************************** CREDITS: **********************************************************************************************************************
+
+		This code was written by Jacob Hagberg with a lot of help from Tyler Seiford. 
+		Other members of the programming team who helped a lot were Austin and Eddie. 
+		This year was a success as far as programming is consirned, as well as the building and electronic aspect. 
+		I enjoyed this year a lot working with these guys to built a great robot. We had a great season and I hope for many more to come. 
+
+
+		I decided to heavily comment this code in the hopes that it will be a good programming resource for the next robotics season, and maybe even beyond that.
+		I hope that this is helpful and good luck on programming to whoever is reading this. 
+**************************************************************************************************************************************************************************
+*/
 
 #include "RobotContainer.h"
 #include "iostream"
@@ -27,11 +38,11 @@ RobotContainer::RobotContainer()
 	controlStick = new Joystick(1); // usb port of 1
 	climber = new Climber();
 
-	//The WPILIB has a lot of usful things such as commands. Here we are setting the default command to take the 
-	//value from the driverstick joystick and putting them into the arcade drive function in the drivetrainDrive subsyste.
-	//The values that are passed to that function are multplied by certian values to make the robot drive the right way. 
-	//We then multpily the value of drive reverse to make shure that the drive control will be reversed if we need it to be
-	//I never teste the reverse code though I hope it works. 
+	//The WPILIB has a lot of useful things such as commands. Here we are setting the default command to take the 
+	//value from the driverstick joystick and putting them into the arcade drive function in the drivetrainDrive subsystem.
+	//The values that are passed to that function are multiplied by certian values to make the robot drive the right way. 
+	//We then multiply the value of drive reverse to make sure that the drive control will be reversed if we need it to be
+	//I never tested the reverse code though I hope it works. 
 	drive->SetDefaultCommand(frc2::RunCommand(
 		[this]
 		{
@@ -173,7 +184,7 @@ RobotContainer::RobotContainer()
 	rollerIn->WhileHeld(new frc2::StartEndCommand(
 		[this]
 		{
-		//This is a start end command, this will start the roller motor and stop it when you releace the trigger
+		//This is a start end command, this will start the roller motor and stop it when you release the trigger
 			intake->RollerControl(0.8);
 		},
 		[this]
@@ -238,7 +249,7 @@ RobotContainer::~RobotContainer()
 }
 
 
-//Here is the autonmous command, it needs some code in the robot.cpp so check that out if you want to do it
+//Here is the autonomous command, it needs some code in the robot.cpp so check that out if you want to do it
 //This is simple, it just ejects the ball into the low goal and then backs off the tarmach. 
 
 frc2::Command *RobotContainer::Autonmous()
@@ -248,7 +259,7 @@ frc2::Command *RobotContainer::Autonmous()
 		frc2::InstantCommand{
 			[this]
 			{
-				//This zeros all the encoders to make shure that their current position is right to start the match so we can move it as we want
+				//This zeros all the encoders to make sure that their current position is right to start the match so we can move it as we want
 				intake->SetLiftEncoder(0.0);
 				intake->LiftControl(2.9);
 				climber->ClimbPivotSetEncoder(0.0);
@@ -257,7 +268,7 @@ frc2::Command *RobotContainer::Autonmous()
 			{intake, climber}},
 		frc2::WaitCommand{
 			400_ms},
-			//this part will wait for 400 mili secconds
+			//this part will wait for 400 mili seconds
 		frc2::InstantCommand{
 			[this]
 			{
@@ -269,7 +280,7 @@ frc2::Command *RobotContainer::Autonmous()
 
 		frc2::RunCommand{
 			[this]{
-			//This one is a run command so that the drive default command doesnt set the drivetrain to zero 2 ms after the drivetrain is set to go backwards
+			//This one is a run command so that the drive default command doesn't set the drivetrain to zero 2 ms after the drivetrain is set to go backwards
 				drive->ArcadeDrive(-0.6,0.0);
 				intake->RollerControl(0.0);
 			},
@@ -293,14 +304,11 @@ void RobotContainer::Periodic()
 }
 
 /*
-
-OK, so here is the deal. Right now I am on the coatch buss driving home from duluth after we did not get picked in the 2022 year. 
+OK, so here is the deal. Right now I am on the coach buss driving home from duluth after we did not get picked in the 2022 year. 
 I am planning on writing comments to help whoever is the next programming captian. Right now it is looking like Austin but who knows.
 It was a bummer that we did not go on but I think we did overall well and we got a high climb with a solid ball intake. 
-The reason that I am commenting so heavaely is to give the next programming captian as many recources as I can. I also dont want to look
+The reason that I am commenting so heavenly is to give the next programming captian as many recources as I can. I also dont want to look
 like a one foot out the door kinda guy. I hope this really helps because I probably wont be able to help much next year. 
 But as long as we still have Tyler we should be fine.  
-
-
 */
 

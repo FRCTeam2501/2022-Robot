@@ -207,6 +207,9 @@ int Climber::ClimbControl(double angleAdjust, double lengthAdjust)
 double Climber::LengthToTurns(double inchesToTurns)
 {
 
+    //This function was a lot of work and a lot of the heavy lifting was done by Tyler. This problem that this solves is that the arm length is controlled by a winch that wimds up a strap. As the winch winds up, 
+    //The diameter of the effective winch will increace by a stepper function as the strap winds up on itsealf. So the math needs to account for that. 
+
     constexpr double pi = 3.141592653589793;
 
     constexpr double d = 0.05;
@@ -236,7 +239,7 @@ double Climber::LengthToTurns(double inchesToTurns)
 
     double maxLength = 28;
     double turns;
-
+//This is where the position in turns that is given to the winch is converted baised on what the length is 
     if (inchesToTurns <= l5)
     {
         turns = ((1.0 / c5) * inchesToTurns);
@@ -266,34 +269,42 @@ double Climber::LengthToTurns(double inchesToTurns)
     {
         turns = ((1.0 / c0) * (inchesToTurns - l1) + f2);
     }
-
+//returns the position desired in turns to be given to the winch PID
     return turns;
 }
 
 double Climber::GetAngle()
 {
+    //Returns the angel that the climber is currently targeting if we need it
     return angle;
 }
 
 double Climber::GetLength()
 {
+    //Returns the length that the climber is currently targeting if we need it
     return length;
 }
 
 void Climber::ClimbPivotSetEncoder(double pivotSetEncoder)
 {
+    //This allows us to set the encoder position that is on the pivot motor, we used this to zero it at the start of the autnmous period
+    //If you need to do something like this climber again I would reccomend using encoders on the acutal thing that moves and not just reily on the encoders that are in the motors
     pivotEncoder.SetPosition(pivotSetEncoder);
 }
 void Climber::ClimbWinchSetEncoder(double winchSetEncoder)
 {
+    //This is for zeroing the winch encoder
     winchEncoder.SetPosition(winchSetEncoder);
 }
 
 void Climber::Periodic()
 {
+    //Here is where the function for the seccondary moves for the battery box avoidance happens. It is in the perodic function that gets called every 20 ms that the code runs on the rio. 
+    
+    //tgtOverActual is a thing that I used to see how accurate the pivot PID was
     double tgtOverActual = (angle / pivotEncoder.GetPosition());
 
-
+    //Every 20 ms these numbers would be updated and sent to smart Dashboard
     frc::SmartDashboard::PutNumber("Pivact vs pivtgt: ", tgtOverActual);
     frc::SmartDashboard::PutNumber("Climb Target Length", length);
     frc::SmartDashboard::PutNumber("Climb Fibbed Target Length", Climber::LengthToTurns(length));
@@ -301,13 +312,15 @@ void Climber::Periodic()
     frc::SmartDashboard::PutNumber("Seccond Move: ", seccondaryMove);
     frc::SmartDashboard::PutNumber("Winch Encoder: ", winchEncoder.GetPosition());
     frc::SmartDashboard::PutNumber("Pivot Encoder: ", pivotEncoder.GetPosition());
-    // This checks if we have a scedjuled seccond move once we have reached the angle we were going for
+    // This checks if we have a scedjuled seccond move once we have gotten to 0.25 inch of the length we are going for it will set the angle to be the final angle that we want to go for
+    //It will then activate the third move to go to the final length
     if (seccondaryMove == true && thirdMove == false && (abs(winchEncoder.GetPosition() - Climber::LengthToTurns(ClimbConstants::batteryMinLength)) < 0.25))
     {
         angle = targetAngle;
         pivotPID.SetReference(angle, rev::CANSparkMaxLowLevel::ControlType::kPosition);
         thirdMove = true;
     }
+    //Once the third move is acitvated and the motor is within one degree of the target angle then it will set the final llength that we wanted to go to as our length. We then set both tracker bools to false
     if (seccondaryMove == true && thirdMove == true && (abs(pivotEncoder.GetPosition() - targetAngle) < 1))
     {
         length = targetLength;
@@ -316,13 +329,17 @@ void Climber::Periodic()
         seccondaryMove = false;
         thirdMove = false;
     }
+
+    //This if statenent will check to see if we are currently disclodging the wrench and will set the winch target to what it was origonaly at before we disclodged it once we are within 0.25 in of our target
     if(dislodgingWrench == true && abs(winchEncoder.GetPosition() - dislodgeTarget)<0.25 ){
-        //length = (dislodgeTarget + 0.5);
+        
+        //we then set the bool dislodgingWrench to false but wrenchDislodged is still true and allows us to move the climber with the function ClimbControl
         winchPID.SetReference((dislodgeTarget + 0.5), rev::CANSparkMaxLowLevel::ControlType::kPosition);
         dislodgingWrench = false;
     }
 }
 
+//I dont think I need this, not sure why this is here
 void InitDefaultCommand()
 {
 }

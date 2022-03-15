@@ -22,7 +22,7 @@ namespace IntakeConstants
 class Intake : public frc2::SubsystemBase
 {
 public:
-//we do not need a deconstructor because we do not use pointers for this subsyste becasue REV robotics libraries
+//we do not need a deconstructor because we do not use pointers for this subsystem because REV robotics libraries
   Intake();
 
   void RollerControl(double rollerSpeed);
@@ -46,7 +46,7 @@ private:
 
 
 /*
-ok so this subsystem needs a bit of explenation, we used PID control in order to control the angle of the intake accuratly
+ok so this subsystem needs a bit of explanation, we used PID control in order to control the angle of the intake accurately
 But because rev robotics changed their programming libraries from 2020, the way that we did it back then did not work this year for what ever reason
 So we have to do it the old way, without pointers. This was kinda how they did it back in Tyler's day
 

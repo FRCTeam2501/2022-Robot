@@ -27,7 +27,7 @@ private:
     //we make the pointers
     cs::UsbCamera *climbCamera, *intakeCamera;
     cs::MjpegServer *streamVideo;
-   // cs::HttpCamera::ConnectionStrategy::
+   
 
     int currentFeed;
 };

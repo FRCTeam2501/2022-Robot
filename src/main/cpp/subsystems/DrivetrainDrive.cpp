@@ -10,14 +10,15 @@ void DrivetrainDrive::Periodic() {}
 DrivetrainDrive::DrivetrainDrive()
 {
   //This is where we create the objects to the motor controllers that control the tank drive drivetrain
-  //The first part in the perencicies is the can ID, this can be set by connecting to the motor controllers with the 
+  //The first part in the prentices is the can ID, this can be set by connecting to the motor controllers with the 
   //Rev motor controller ap and burning the flash to the new can ID
+  //This is followed by the type of motor
   frontLeft = new rev::CANSparkMax(Drivetrain::frontLeft, rev::CANSparkMax::MotorType::kBrushless);
   frontRight = new rev::CANSparkMax(Drivetrain::frontRight, rev::CANSparkMax::MotorType::kBrushless);
   rearLeft = new rev::CANSparkMax(Drivetrain::rearLeft, rev::CANSparkMax::MotorType::kBrushless);
   rearRight = new rev::CANSparkMax(Drivetrain::rearRight, rev::CANSparkMax::MotorType::kBrushless);
 
-//We set current limets to not overexert the motors and not depleat the battery. 
+//We set current limits to not overexert the motors and not deplete the battery. 
   frontLeft->SetSmartCurrentLimit(Drivetrain::driveSmartCurrentLimet);
   frontLeft->SetSecondaryCurrentLimit(Drivetrain::driveSeccondaryCurrentLimet);
   frontLeft->SetIdleMode(rev::CANSparkMax::IdleMode::kCoast);
@@ -31,7 +32,7 @@ DrivetrainDrive::DrivetrainDrive()
   rearRight->SetSecondaryCurrentLimit(Drivetrain::driveSeccondaryCurrentLimet);
   rearRight->SetIdleMode(rev::CANSparkMax::IdleMode::kCoast);
 
-  //This is where we invert the motors to make the motors move in unison corectly
+  //This is where we invert the motors to make the motors move in unison correctly
   frontLeft->SetInverted(false);
   frontRight->SetInverted(true);
 
@@ -57,8 +58,9 @@ DrivetrainDrive::~DrivetrainDrive()
 
 void DrivetrainDrive::DriveControl(double l, double r)
 {
-  //this function was never used, opps
+  //this function was never used, oops
   //all part of the process
+  //At least thats what I tell myself
   LeftSide->Set(l);
   RightSide->Set(r);
 }

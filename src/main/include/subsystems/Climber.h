@@ -13,7 +13,7 @@
 
 namespace ClimbConstants
 {
-//Here are all the constants for the climber subsystem
+  // Here are all the constants for the climber subsystem
 
   constexpr double rotationBigOffset = 7.0;
   // rotationBigOffset is the horisontal distance bretween the top left of the hook and the actual rotation point
@@ -41,7 +41,7 @@ namespace ClimbConstants
   constexpr int climbPivot = 11;
 
   constexpr double pivotConversionFactorOne = 100.0;
-  constexpr double pivotConversionFactorTwo = 2;//(122.0 / 65.0);
+  constexpr double pivotConversionFactorTwo = 2; //(122.0 / 65.0);
 
   constexpr double winchSmartCurrentLimet = 60.0;
   constexpr double winchSeccondaryCurrentLimet = 70.0;
@@ -60,10 +60,10 @@ namespace ClimbConstants
 
 class Climber : public frc2::SubsystemBase
 {
-  //it is public in the class so that the whole code can see these and use them
+  // it is public in the class so that the whole code can see these and use them
 public:
   Climber();
-  
+
   // void AngleControl(double angle);
   double GetAngle();
   double GetLength();
@@ -88,9 +88,8 @@ public:
 
   void Periodic();
 
-
-
 private:
+  // These are the values that we use to keep track of things in the climber subsystem
   double angle = 0.0;
   double angleAdjust;
   double targetAngle;
@@ -111,6 +110,7 @@ private:
   bool seccondaryMove = false;
   bool thirdMove = false;
 
+  // This is the old way of making motor controller objects because REV robotics made it that way and I am annoid
   rev::CANSparkMax winch{ClimbConstants::winch, rev::CANSparkMax::MotorType::kBrushless};
   rev::CANSparkMax pivotClimb{ClimbConstants::climbPivot, rev::CANSparkMax::MotorType::kBrushless};
 

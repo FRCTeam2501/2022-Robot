@@ -9,46 +9,63 @@ Climber::Climber()
     pivotClimb.SetSmartCurrentLimit(ClimbConstants::pivotClimbSmartCurrentLimet);
     pivotClimb.SetSecondaryCurrentLimit(ClimbConstants::pivotClimbSeccondaryCurrentLimet);
     //  pivotClimb.GetReverseLimitSwitch(rev::SparkMaxLimitSwitch::Type::kNormallyOpen).EnableLimitSwitch(true);
-
+    //I added the code for the winch pin but it never got put on the bot so I just comented the code out in case build changed their minds. 
+    //The reason that we needed the pin was because the climber had to stay down for the whole match until we got to the climbing area.
+    //our solution was to have a wrenh that would go on the winch to hold it down until we pressed a button to relece it. 
+    //That is what we did instead of the pin
     //  winchPin = new frc::Solenoid(frc::PneumaticsModuleType::CTREPCM,5);
 
+    //This sets the winch and the pivot motors to be inverted
     winch.SetInverted(true);
     pivotClimb.SetInverted(true);
 
+    //This sets the P I and D values for the pivot motor. The SetOutputRange is how much force it can appily in eather direction
     pivotPID.SetP(ClimbConstants::pivotClimbSetP);
     pivotPID.SetI(ClimbConstants::pivotClimbSetI);
     pivotPID.SetD(ClimbConstants::pivotClimbSetD);
     pivotPID.SetOutputRange(-1.0, 1.0);
     pivotEncoder.SetPositionConversionFactor(
         ((360.0 / (ClimbConstants::pivotConversionFactorOne * ClimbConstants::pivotConversionFactorTwo))));
-    // Makes it so that one unit into the motor makes one degree of rotation of the climb arm
+    // This is the conversion factor for the pivot motor. The Equation to use when you need to figure out something like this is (Turns = Setpoint * Conversionfactor)
+    //This number bassicaly makes it so that we can give it a position in degrees and it will go to that position in degrees
 
+    //Same thing except for the winch motor
     winchPID.SetP(ClimbConstants::winchSetP);
     winchPID.SetI(ClimbConstants::winchSetI);
     winchPID.GetD(ClimbConstants::winchSetD);
     winchPID.SetOutputRange(-1.0, 1.0);
 
+    //Current limit for the winches 
     winch.SetSmartCurrentLimit(ClimbConstants::winchSmartCurrentLimet);
     winch.SetSecondaryCurrentLimit(ClimbConstants::winchSeccondaryCurrentLimet);
     winchEncoder.SetPositionConversionFactor(1.0 / 100.0); // I think this is right
 }
 
 void Climber::DislodgeWrench(){
-    //length = (winchEncoder.GetPosition() - 0.5);
+    //This is the function that we used to dislodge the wrench when we want to climb. The climber cannot be moved by the driver until they press the button that runs this
+    //Function and gets the wrench disclodged and wrenchDislodged = true
+    
+    //This bassicaly just gets the current position of the winch and puts it 0.5 units down.
     dislodgeTarget = (winchEncoder.GetPosition() - 0.5);
     winchPID.SetReference(dislodgeTarget, rev::CANSparkMaxLowLevel::ControlType::kPosition);
     dislodgingWrench = true;
+    // dislodgingWrench is so that the if statment in the periodic knows to check if the winch is near the target of -0.5 so it can go back up
     wrenchDislodged = true;
 }
 
+//This is the main function that we use to control the robot's climber, You need to pass it two double values, the length that you want to move to and the angel that you want to move to
+//It will take steps to adjust the length to a legal length baised on the angle. and to move around the battery box of the robot
 int Climber::ClimbControl(double angleAdjust, double lengthAdjust)
 {
+    //Here is what we use to stop the climber from moving if the wrench is not disclodged
     if(wrenchDislodged == true){
+    //Set all of our bool trackers to false to make sure we are starting the functino fresh
     horizontalActivated = false;
     seccondaryMove = false;
     lengthChanged = false;
     swingActivated = false;
     thirdMove = false;
+    //This was what we had to debug the system
     cout << "ClimbControl start" << endl;
     cout<<"angleAdjust 1: "<<angleAdjust<<endl;
     cout<<"LengthAdjust 1: "<<lengthAdjust<<endl;
@@ -92,13 +109,20 @@ int Climber::ClimbControl(double angleAdjust, double lengthAdjust)
     {
         angleAdjust = ClimbConstants::minAngle;
     }
+    //These coments below this one are remnents of debugging
    // cout << "angleAdjust 2: " << angleAdjust << endl;
    // cout << "LengthAdjust 2: " << lengthAdjust << endl;
     if (angleAdjust > 1)
     {
+        //We check that angle adjust is greater that one becasue if it was zero the equation below this coment would be undefined and I don't know what would happen so we are just going to avoid that possability
         // checks new climber position to make shure that it is legal.
+
+        //This equation was derived by useing bassic trig to determine if we were voilating our wall extention limit for the climber We could not extend more than 5', 6'' above the base fo the frame. and no more than 16 inches away from our frame. 
+        //Mysealf (Jacob Hagberg), and Tyler Seiford worked this math out on the white board together. It works by calculating the minimum distance that the climber can be extended for every angle that we move to.
+        //We do this by also accounting for the offset created by how the climber was built
         if (lengthAdjust < (ClimbConstants::defaultClimbLength - (((ClimbConstants::pivotToFrameDist + ClimbConstants::maxDistFromFrame) - ClimbConstants::rotationOffset * std::cos((angleAdjust * ClimbConstants::pi / (180)))) / (std::sin((angleAdjust * ClimbConstants::pi / (180)))))))
         {
+            //If our length is below the legal min then it sets the length to the legal min
             // if the length is not legal, set it to the legal length.
             lengthAdjust = (ClimbConstants::defaultClimbLength - (((ClimbConstants::pivotToFrameDist + ClimbConstants::maxDistFromFrame) - ClimbConstants::rotationOffset * std::cos((angleAdjust * ClimbConstants::pi / (180)))) / (std::sin((angleAdjust * ClimbConstants::pi / (180))))));
             lengthChanged = true;
@@ -107,66 +131,73 @@ int Climber::ClimbControl(double angleAdjust, double lengthAdjust)
     //  cout<<"angleAdjust 3: "<<angleAdjust<<endl;
     //  cout<<"LengthAdjust 3: "<<lengthAdjust<<endl;
     // Checks if the sceleing is veing violated, if so, it will change the length to make it legal
+    //Ok, so this if statment needs sum explenation. You see, we were having some issues getting our climbing hooks onto the bar because this limitation was getting in the way and shortning the arms. This made it tricky to get onto the bar. 
+    //So I decided to take matters into my own hands and limet the angle that this checks for to not include the angle that we would need to get onto the next bar. I didn't tell anyone about this until after the duluth reigonal. It is also worth noting that it was very hard for the 
+    //Refs to judge this and so we got away with it. The lesson here is, sometimes it is better to ask for forgivness, and not for permission, but also that sometimes you gotta do what you gotta do to make something work. And that was what I did here
     if(angleAdjust<55){ //This if statment is intentional cheeting, please ignore
+    //This is like the one above this but it isfor the cealing constraint
     if (lengthAdjust > (((ClimbConstants::defaultScealing - ClimbConstants::rotationBigOffset * std::sin((angleAdjust * ClimbConstants::pi / (180)))) / std::cos((angleAdjust * ClimbConstants::pi / (180)))) - ClimbConstants::minExtension))
     {
         lengthAdjust = (((ClimbConstants::defaultScealing - ClimbConstants::rotationBigOffset * std::sin((angleAdjust * ClimbConstants::pi / (180)))) / std::cos((angleAdjust * ClimbConstants::pi / (180)))) - ClimbConstants::minExtension);
         lengthChanged = true;
     }
     }
-  //  cout << "angleAdjust 4: " << angleAdjust << endl;
-   // cout << "LengthAdjust 4: " << lengthAdjust << endl;
 
+
+    //This if statment is to avoid the battery box. if we did not have this the arm could bump into the robot frame. 
+    //If we are pivoting within the battery exclusion area, or we are pivoting through it, we run the lodgic to avoid the battery area 
     if ((angleAdjust <= ClimbConstants::batteryMaxAngle && angleAdjust >= ClimbConstants::batteryMinAngle)
             || (angleAdjust > ClimbConstants::batteryMaxAngle && angle <= ClimbConstants::batteryMaxAngle)
             || (angleAdjust < ClimbConstants::batteryMinAngle && angle >= ClimbConstants::batteryMinAngle))
     {
-        cout<<"Battery Acitvated: ";
+
+        //this part says that if we are targeting an angle within the battery exclusion zone and if the length that is being targeted is less that the min length, then set the target length to be the min battery exclustion length
         if (angleAdjust <= ClimbConstants::batteryMaxAngle && angleAdjust >= ClimbConstants::batteryMinAngle)
         {
-            cout<<"a";
+            
             if (lengthAdjust < ClimbConstants::batteryMinLength)
             {
                 lengthAdjust = ClimbConstants::batteryMinLength;
-                cout<<"b";
+                lengthChanged = true;
             }
         }
         else
         {
-            cout<<"c";
+            //if we are moving through the battery box and our adjustment length will hit the frame, or our current length will hit the frame, then set the length to be the min battery length then activate the seccondary move in the climber periodic function at the end of this file
             if (lengthAdjust < ClimbConstants::batteryMinLength ||  length < ClimbConstants::batteryMinLength)
             {
-                cout<<"d";
+                
+                //This is so that we can get to the final, and legal length eventualy
                 targetLength = lengthAdjust;
                 targetAngle = angleAdjust;
+
                 lengthAdjust = ClimbConstants::batteryMinLength;
+                //seccondaryMove will allow the climber to move to the final desired angel once the climber has reached the length to go around the battery
                 lengthChanged = true;
                 seccondaryMove = true;
 
                 length = lengthAdjust;
+
+                //Sets the length of the climber to the units of turns using the lengthToTurns function
                 winchPID.SetReference(Climber::LengthToTurns(length), rev::CANSparkMaxLowLevel::ControlType::kPosition);
                 pivotPID.SetReference(angle, rev::CANSparkMaxLowLevel::ControlType::kPosition);
             }
         }
-        cout<<endl;
+        
     }
 
     frc::SmartDashboard::PutNumber("Climb Seccondary move", seccondaryMove);
-  //  cout << "seccondaryMove: " << seccondaryMove << endl;
+  
+  //If we do not have a move lined up for avoiding the frame around the battery
     if (seccondaryMove == false)
     {
-       // cout << "Actual set angleAdjust: " << angleAdjust << endl;
-       // cout << "Actual set LengthAdjust: " << lengthAdjust << endl;
+      //Sets the length and angle to the angle and length that we want so that we can use the angle and length as the angle and length that is being targeted by the climber at all times. 
         length = lengthAdjust;
         angle = angleAdjust;
 
-       // cout << "angle: " << angle << endl;
-        //cout << "Length: " << length << endl;
-        storeAngle = angle;
-       // cout << "StoreAngle: " << storeAngle << endl;
+      
         winchPID.SetReference(Climber::LengthToTurns(length), rev::CANSparkMaxLowLevel::ControlType::kPosition);
         pivotPID.SetReference(angle, rev::CANSparkMaxLowLevel::ControlType::kPosition);
-       // cout << "fibbed length: " << Climber::LengthToTurns(length) << endl;
         
     }
     }

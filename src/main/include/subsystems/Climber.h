@@ -95,7 +95,6 @@ private:
   double angle = 0.0;
   double angleAdjust;
   double targetAngle;
-  double storeAngle;
 
   bool horizontalActivated;
   bool swingActivated;
